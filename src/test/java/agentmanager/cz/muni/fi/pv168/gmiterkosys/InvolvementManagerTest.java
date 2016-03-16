@@ -66,8 +66,8 @@ public class InvolvementManagerTest {
         System.out.println("findInvolvementByMission");
         long missionId = 0L;
         InvolvementManager instance = new InvolvementManagerImpl();
-        Involvement expResult = null;
-        Involvement result = instance.findInvolvementByMission(missionId);
+        List<Involvement> expResult = null;
+        List<Involvement> result = instance.findInvolvementByMission(missionId);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
