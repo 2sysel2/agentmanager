@@ -21,12 +21,12 @@ public class InvolvementManagerImpl implements InvolvementManager {
     }
 
     @Override
-    public Involvement findInvolvementByAgent(long agentId) {
+    public List<Involvement> findInvolvementByAgent(long agentId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Involvement findInvolvementByMission(long missionId) {
+    public List<Involvement> findInvolvementByMission(long missionId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

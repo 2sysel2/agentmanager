@@ -45,7 +45,7 @@ public  interface InvolvementManager
 	 * @ordered
 	 */
 	
-	public Involvement findInvolvementByAgent(long agentId) ;
+	public List<Involvement> findInvolvementByAgent(long agentId) ;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public  interface InvolvementManager
 	 * @ordered
 	 */
 	
-	public Involvement findInvolvementByMission(long missionId) ;
+	public List<Involvement> findInvolvementByMission(long missionId) ;
 
 	/**
 	 * <!-- begin-user-doc -->

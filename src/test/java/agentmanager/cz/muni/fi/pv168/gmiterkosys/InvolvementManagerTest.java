@@ -1,6 +1,10 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,58 +38,24 @@ public class InvolvementManagerTest {
     }
 
     /**
-     * Test of createInvolvement method, of class InvolvementManager.
-     */
-    @Test
-    public void testCreateInvolvement() {
-        System.out.println("createInvolvement");
-        Involvement involvement = null;
-        InvolvementManager instance = new InvolvementManagerImpl();
-        instance.createInvolvement(involvement);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deleteInvolvement method, of class InvolvementManager.
-     */
-    @Test
-    public void testDeleteInvolvement() {
-        System.out.println("deleteInvolvement");
-        Involvement involvement = null;
-        InvolvementManager instance = new InvolvementManagerImpl();
-        instance.deleteInvolvement(involvement);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of findAllInvolvements method, of class InvolvementManager.
-     */
-    @Test
-    public void testFindAllInvolvements() {
-        System.out.println("findAllInvolvements");
-        InvolvementManager instance = new InvolvementManagerImpl();
-        List<Involvement> expResult = null;
-        List<Involvement> result = instance.findAllInvolvements();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of findInvolvementByAgent method, of class InvolvementManager.
      */
     @Test
     public void testFindInvolvementByAgent() {
         System.out.println("findInvolvementByAgent");
-        long agentId = 0L;
+        
+        Agent agent = newAgent(1,"Bames Jond",007,LocalDate.MIN,LocalDate.MAX);
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
+        Involvement involvement = newInvolvement(0, LocalDate.MAX, LocalDate.MIN, mission, agent);
+        
         InvolvementManager instance = new InvolvementManagerImpl();
-        Involvement expResult = null;
-        Involvement result = instance.findInvolvementByAgent(agentId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        instance.createInvolvement(involvement);
+        
+        List<Involvement> expResult = new ArrayList<>();
+        expResult.add(involvement);
+        List<Involvement> result = instance.findInvolvementByAgent(agent.getId());
+        assertThat("returned involvements don't match insirted involvevement",result, is(expResult));
     }
 
     /**
@@ -130,4 +100,42 @@ public class InvolvementManagerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }    
+    
+    public Involvement newInvolvement(long id,LocalDate start,LocalDate end,Mission mission,Agent agent){
+        Involvement temp = new Involvement();
+        
+        temp.setAgent(agent);
+        temp.setStart(start);
+        temp.setEnd(end);
+        temp.setId(id);
+        temp.setMission(mission);
+        
+        return temp;
+    }
+    
+    public Agent newAgent(long id,String name,int level,LocalDate born,LocalDate died){
+        Agent temp = new Agent();
+        
+        temp.setId(id);
+        temp.setName(name);
+        temp.setBorn(born);
+        temp.setDied(died);
+        temp.setLevel(level);
+        
+        return temp;
+    }
+    
+    private Mission newMission(long id,String code,String location,LocalDateTime start,LocalDateTime end,String objective,Outcome outcome){
+        Mission temp = new Mission();
+        
+        temp.setId(id);
+        temp.setCode(code);
+        temp.setStart(start);
+        temp.setEnd(end);
+        temp.setLocation(location);
+        temp.setOutcome(outcome);
+        temp.setObjective(objective);
+        
+        return temp;
+    }
 }
