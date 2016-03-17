@@ -1,6 +1,7 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 public class Agent
 {	
-    private long id;
+    private Long id;
     private String name;
     private LocalDate born;
     private LocalDate died;
@@ -63,8 +64,12 @@ public class Agent
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.born);
+        hash = 67 * hash + Objects.hashCode(this.died);
+        hash = 67 * hash + this.level;
         return hash;
     }
 
@@ -80,7 +85,19 @@ public class Agent
             return false;
         }
         final Agent other = (Agent) obj;
-        if (this.id != other.id) {
+        if (this.level != other.level) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.born, other.born)) {
+            return false;
+        }
+        if (!Objects.equals(this.died, other.died)) {
             return false;
         }
         return true;
@@ -91,4 +108,6 @@ public class Agent
         return "Agent{" + "id=" + id + ", name=" + name + ", born=" + born + ", died=" + died + ", level=" + level + '}';
     }
 }
+    
+    
 
