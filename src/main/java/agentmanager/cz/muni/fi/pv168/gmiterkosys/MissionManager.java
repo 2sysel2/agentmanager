@@ -12,40 +12,28 @@ import java.util.List;
 public  interface MissionManager 
 {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+         * @param mission Mission to be added to the database
 	 */
 	
-	public void createMission(Mission mission) ;
+	public void createMission(Mission mission);
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+         * @param mission Mission to be removed from the database
 	 */
 	
-	public void deleteMission(Mission mission) ;
+	public void deleteMission(Mission mission);
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+         * @return return List containing all mission retrivied from database
 	 */
 	
-	public List<Mission> findAllMissions() ;
+	public List<Mission> findAllMissions();
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+     * @param code         
 	 */
 	
-	public Mission getMissionByCode(String code) ;
+	public Mission getMissionByCode(String code);
 
 	/**
 	 * <!-- begin-user-doc -->
