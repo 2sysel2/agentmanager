@@ -1,13 +1,33 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.DataSource;
 
 
 public class MissionManagerImpl implements MissionManager {
 
+    private final DataSource dataSource;
+    
+    public MissionManagerImpl(){
+        dataSource = null;
+    }
+    
+    public MissionManagerImpl(DataSource src) {
+        dataSource = src;
+    }
+    
     @Override
     public void createMission(Mission mission) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try(Connection connection = dataSource.getConnection()){
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MissionManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
     }
 
     @Override

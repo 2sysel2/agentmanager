@@ -149,6 +149,12 @@ public class MissionManagerTest {
         fail("The test case is a prototype.");
     }
     
+    @Test (expected = IllegalArgumentException.class)
+    public void testStartAndEndDate(){
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
+        fail("mission cannot end sooner then it started");
+    }
+    
     private Mission newMission(long id,String code,String location,LocalDateTime start,LocalDateTime end,String objective,Outcome outcome){
         Mission temp = new Mission();
         
