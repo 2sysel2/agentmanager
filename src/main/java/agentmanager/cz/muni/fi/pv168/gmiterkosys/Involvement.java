@@ -1,6 +1,6 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 /**
@@ -14,8 +14,8 @@ public class Involvement
 	private long id;
 	private Agent agent;
 	private Mission mission;
-	private LocalDate start;
-	private LocalDate end;
+	private LocalDateTime start;
+	private LocalDateTime end;
 
 	public Involvement(){
 		super();
@@ -45,19 +45,19 @@ public class Involvement
         this.mission = mission;
     }
 
-    public LocalDate getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public LocalDate getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 

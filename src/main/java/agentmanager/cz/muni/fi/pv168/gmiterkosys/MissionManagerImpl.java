@@ -22,13 +22,20 @@ public class MissionManagerImpl implements MissionManager {
     
     @Override
     public void createMission(Mission mission) {
-        try(Connection connection = dataSource.getConnection()){
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement st = connection.prepareStatement(
+                        "INSERT INTO GRAVE (col,row,capacity,note) VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            )
+        {
             
+                    
         } catch (SQLException ex) {
             Logger.getLogger(MissionManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
+        
     }
+            
 
     @Override
     public void deleteMission(Mission mission) {

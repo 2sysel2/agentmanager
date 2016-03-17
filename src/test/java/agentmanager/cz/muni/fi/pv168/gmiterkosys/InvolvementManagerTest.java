@@ -46,7 +46,7 @@ public class InvolvementManagerTest {
         
         Agent agent = newAgent(1,"Bames Jond",007,LocalDate.MIN,LocalDate.MAX);
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        Involvement involvement = newInvolvement(0, LocalDate.MAX, LocalDate.MIN, mission, agent);
+        Involvement involvement = newInvolvement(0, LocalDateTime.MAX, LocalDateTime.MIN, mission, agent);
         
         InvolvementManager instance = new InvolvementManagerImpl();
         
@@ -101,7 +101,7 @@ public class InvolvementManagerTest {
         fail("The test case is a prototype.");
     }    
     
-    public Involvement newInvolvement(long id,LocalDate start,LocalDate end,Mission mission,Agent agent){
+    public Involvement newInvolvement(long id,LocalDateTime start,LocalDateTime end,Mission mission,Agent agent){
         Involvement temp = new Involvement();
         
         temp.setAgent(agent);
