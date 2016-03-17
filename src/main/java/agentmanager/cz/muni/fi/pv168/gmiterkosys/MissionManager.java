@@ -15,25 +15,25 @@ public  interface MissionManager
          * @param mission Mission to be added to the database
 	 */
 	
-	public void createMission(Mission mission);
+	public void createMission(Mission mission)throws ServiceFailureException;
 
 	/**
          * @param mission Mission to be removed from the database
 	 */
 	
-	public void deleteMission(Mission mission);
+	public void deleteMission(Mission mission)throws ServiceFailureException;
 
 	/**
          * @return return List containing all mission retrivied from database
 	 */
 	
-	public List<Mission> findAllMissions();
+	public List<Mission> findAllMissions()throws ServiceFailureException;
 
 	/**
      * @param code         
 	 */
 	
-	public Mission getMissionByCode(String code);
+	public Mission getMissionByCode(String code)throws ServiceFailureException;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -42,7 +42,7 @@ public  interface MissionManager
 	 * @ordered
 	 */
 	
-	public Mission getMissionById(long id) ;
+	public Mission getMissionById(long id) throws ServiceFailureException;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public  interface MissionManager
 	 * @ordered
 	 */
 	
-	public void updateMission(Mission mission) ;
+	public void updateMission(Mission mission)throws ServiceFailureException ;
 
 
 }

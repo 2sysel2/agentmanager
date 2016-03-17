@@ -21,17 +21,32 @@ public class MissionManagerImpl implements MissionManager {
     }
     
     @Override
-    public void createMission(Mission mission) {
+    public void createMission(Mission mission) throws ServiceFailureException{
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "INSERT INTO GRAVE (col,row,capacity,note) VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                        "INSERT INTO MISSION (CODE,LOCATION,START,END,OBJECTIVE,OUTCOME) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             )
         {
+            st.setString(1, mission.getCode());
+            st.setString(2, mission.getLocation());
+            st.setTimestamp(3, Timestamp.valueOf(mission.getStart()));
+            st.setTimestamp(4, Timestamp.valueOf(mission.getEnd()));
+            st.setString(5, mission.getObjective());
+            st.setString(6, mission.getOutcome().toString());
             
+            int addedRows = st.executeUpdate();
+            if (addedRows != 1) {
+                throw new ServiceFailureException("Internal Error: More rows ("
+                        + addedRows + ") inserted when trying to insert mission " + mission);
+            }
+
+            ResultSet keyRS = st.getGeneratedKeys();
+            //set generated id to object
+            System.out.println("");
                     
         } catch (SQLException ex) {
-            Logger.getLogger(MissionManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServiceFailureException("",ex);
         }
         
     }
