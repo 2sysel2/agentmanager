@@ -3,8 +3,6 @@ package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 
@@ -191,11 +189,27 @@ public class MissionManagerImpl implements MissionManager {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "INSERT INTO MISSION (CODE,LOCATION,START,END,OBJECTIVE,OUTCOME) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                        "UPDATE Mission SET code=?, location=?, start=?, end=?, objective=?, outcome =? WHERE id=?");
             ){
              
+            validate(mission);
+            st.setString(1, mission.getCode());
+            st.setString(2, mission.getLocation());
+            st.setTimestamp(3, Timestamp.valueOf(mission.getStart()));
+            st.setTimestamp(4, Timestamp.valueOf(mission.getEnd()));
+            st.setString(5, mission.getObjective());
+            st.setString(6, mission.getOutcome().toString());
+            
+            int rows = st.executeUpdate();
+            if(rows == 0){
+                throw new ServiceFailureException("mission not found in the db");
+            }
+            if(rows != 1){
+                throw new ServiceFailureException("update should change only 1 row");
+            }
+            
          } catch (SQLException ex) {
-            throw new ServiceFailureException("failed to delete mission",ex);
+            throw new ServiceFailureException("failed to update mission",ex);
         }
     }
     
