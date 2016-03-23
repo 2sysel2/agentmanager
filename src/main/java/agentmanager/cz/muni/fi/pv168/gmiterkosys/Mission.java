@@ -1,6 +1,7 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 /**
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 public class Mission
 {
 
-    private long id;
+    private Long id;
     private String code;	
     private String location;	
     private LocalDateTime start;
@@ -39,17 +40,14 @@ public class Mission
             return false;
         }
         final Mission other = (Mission) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
         
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
