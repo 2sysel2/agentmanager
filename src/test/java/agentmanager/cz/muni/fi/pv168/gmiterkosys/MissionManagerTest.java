@@ -3,6 +3,8 @@ package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,8 +46,13 @@ public class MissionManagerTest {
         System.out.println("createMission");
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         MissionManager instance = new MissionManagerImpl();
-        instance.createMission(mission);
-        assertThat("mission was not added",instance.getMissionById(mission.getId()), is(mission));
+        try {
+            instance.createMission(mission);
+            assertThat("mission was not added",instance.getMissionById(mission.getId()), is(mission));
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     @Test(expected = NullPointerException.class)
@@ -53,7 +60,11 @@ public class MissionManagerTest {
         System.out.println("createMission");
         Mission mission = null;
         MissionManager instance = new MissionManagerImpl();
-        instance.createMission(mission);
+        try {
+            instance.createMission(mission);
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -64,15 +75,23 @@ public class MissionManagerTest {
         System.out.println("deleteMission");
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         MissionManager instance = new MissionManagerImpl();
-        instance.createMission(mission);
-        instance.deleteMission(mission);
-        assertThat("returned value is not null after mission deletion",instance.getMissionById(mission.getId()), nullValue());
+        try {
+            instance.createMission(mission);
+            instance.deleteMission(mission);
+            assertThat("returned value is not null after mission deletion",instance.getMissionById(mission.getId()), nullValue());
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }
     
     @Test(expected = NullPointerException.class)
     public void testDeleteMissionNull(){
         MissionManager instance = new MissionManagerImpl();
-        instance.deleteMission(null);
+        try {
+            instance.deleteMission(null);
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -89,12 +108,14 @@ public class MissionManagerTest {
         expResult.add(mission1);
         expResult.add(mission2);
         
-        instance.createMission(mission1);
-        instance.createMission(mission2);
-        
-        List<Mission> result = instance.findAllMissions();
-        
-        assertThat("returned list doesn't match list of all missions",result, is(expResult));
+        try {
+            instance.createMission(mission1);
+            instance.createMission(mission2);
+            List<Mission> result = instance.findAllMissions();
+            assertThat("returned list doesn't match list of all missions",result, is(expResult));
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -106,9 +127,14 @@ public class MissionManagerTest {
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         MissionManager instance = new MissionManagerImpl();
         
-        instance.createMission(mission);
+        try {
+            instance.createMission(mission);
+            assertThat("mission returned by getMissionByCode doesn't match mission created", instance.getMissionByCode(mission.getCode()), is(mission));
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        assertThat("mission returned by getMissionByCode doesn't match mission created", instance.getMissionByCode(mission.getCode()), is(mission));
+        
     }
 
     /**
@@ -120,9 +146,14 @@ public class MissionManagerTest {
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         MissionManager instance = new MissionManagerImpl();
         
-        instance.createMission(mission);
+        try {
+            instance.createMission(mission);
+            assertThat("mission returned by getMissionById doesn't match mission created", instance.getMissionById(mission.getId()), is(mission));
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        assertThat("mission returned by getMissionById doesn't match mission created", instance.getMissionById(mission.getId()), is(mission));
+        
     }
 
     /**
@@ -134,19 +165,24 @@ public class MissionManagerTest {
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         MissionManager instance = new MissionManagerImpl();
         
-        instance.createMission(mission);
+        try {
+            instance.createMission(mission);
+            Mission tempMission = instance.getMissionById(mission.getId());
+            tempMission.setOutcome(Outcome.SUCCESSFUL);
+
+            instance.updateMission(tempMission);
+
+            assertThat("updated mission doesn't equal mission parameter",instance.getMissionById(tempMission.getId()),is(tempMission));
+
+
+            instance.updateMission(mission);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (ServiceFailureException ex) {
+            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        Mission tempMission = instance.getMissionById(mission.getId());
-        tempMission.setOutcome(Outcome.SUCCESSFUL);
         
-        instance.updateMission(tempMission);
-        
-        assertThat("updated mission doesn't equal mission parameter",instance.getMissionById(tempMission.getId()),is(tempMission));
-        
-        
-        instance.updateMission(mission);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
     @Test (expected = IllegalArgumentException.class)
