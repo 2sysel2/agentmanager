@@ -18,7 +18,7 @@ class ServiceFailureException extends Exception {
     }
 
     ServiceFailureException(String string, SQLException ex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(string,ex);
     }
     
 }

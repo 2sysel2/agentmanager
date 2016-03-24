@@ -19,7 +19,7 @@ public class MissionManagerImpl implements MissionManager {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "INSERT INTO MISSION (CODE,LOCATION,START,END,OBJECTIVE,OUTCOME) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                        "INSERT INTO MISSION (code,location,\"start\",\"end\",objective,outcome) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             )
         {
             validate(mission);
