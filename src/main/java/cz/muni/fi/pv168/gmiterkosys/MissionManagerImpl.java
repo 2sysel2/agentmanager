@@ -127,10 +127,12 @@ public class MissionManagerImpl implements MissionManager {
         temp.setEnd(rs.getTimestamp("end").toLocalDateTime());
         temp.setStart(rs.getTimestamp("start").toLocalDateTime());
         temp.setObjective(rs.getString("objective"));
-        switch(rs.getString("outcome")){
-            case "FAILED":temp.setOutcome(Outcome.FAILED);
-            case "IN_PROGRES":temp.setOutcome(Outcome.IN_PROGRES);
-            case "SUCCESSFUL":temp.setOutcome(Outcome.SUCCESSFUL);
+        temp.setLocation(rs.getString("location"));
+        System.out.println("outcome     : "+rs.getString("outcome"));
+        switch(rs.getString("outcome").toUpperCase()){
+            case "FAILED":temp.setOutcome(Outcome.FAILED);break;
+            case "IN_PROGRES":temp.setOutcome(Outcome.IN_PROGRES);break;
+            case "SUCCESSFUL":temp.setOutcome(Outcome.SUCCESSFUL);break;
         }
         return temp;
         

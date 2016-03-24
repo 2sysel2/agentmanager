@@ -87,12 +87,40 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
     @Override
     public Involvement getInvolvementById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement st = connection.prepareStatement(
+                        "SELECT * FROM involvement WHERE id=?");
+            ){
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+            
+            rs.next();
+            return parseInvolvement(rs);
+            
+        }
+           catch (SQLException ex) {
+            throw new ServiceFailureException("failed to insert new involvement",ex);
+        }
     }
 
     @Override
     public void updateInvolvement(Involvement involvement) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Involvement parseInvolvement(ResultSet rs) throws SQLException {
+        Involvement temp = new Involvement();
+        MissionManager mm = new MissionManagerImpl(dataSource);
+        AgentManager am = new AgentManagerImpl(dataSource);
+        
+        temp.setId(rs.getLong("id"));
+        temp.setStart(rs.getTimestamp("start").toLocalDateTime());
+        temp.setEnd(rs.getTimestamp("end").toLocalDateTime());
+        temp.setMission(mm.getMissionById(rs.getLong("mission")));
+        temp.setAgent(am.getAgentById(rs.getLong("agent")));
+        
+        return temp;
     }
     
 }

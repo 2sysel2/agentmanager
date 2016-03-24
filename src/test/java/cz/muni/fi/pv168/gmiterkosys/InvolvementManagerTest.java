@@ -20,6 +20,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -32,15 +33,22 @@ public class InvolvementManagerTest {
 	private MissionManager missionManager;
         private Agent agent;
         private Mission mission;
+        private Involvement involvement;
 	private InvolvementManager involvementManager;
 
 	@Before
 	public void setUp() throws SQLException {
 		ds = prepareDataSource();
                 agent = newAgent(0, "Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
+                agent.setId(null);
                 mission = newMission(0, "operation b*llsh*t", "testitstan", LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 0, 1), "don't f*ck up", Outcome.FAILED);
+                mission.setId(null);
+                involvement = new Involvement();
+                involvement.setAgent(agent);
+                involvement.setMission(mission);
+                involvement.setStart(mission.getStart());
+                involvement.setEnd(mission.getEnd());
                 
-
 		try (Connection connection = ds.getConnection()) {
 			connection.prepareStatement("CREATE TABLE agent ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
@@ -62,11 +70,12 @@ public class InvolvementManagerTest {
 			
 			connection.prepareStatement("CREATE TABLE involvement ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "agent BIGINT REFERENCES AGENT(\"id\"),"
-                    + "mission BIGINT REFERENCES MISSION(\"id\"),"
+                    + "agent BIGINT,"
+                    + "mission BIGINT,"
                     + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP"
-                    + ")").execute();
+                    + "\"end\" TIMESTAMP,"
+                    + "FOREIGN KEY(agent) REFERENCES agent,"
+                    + "FOREIGN KEY(mission) REFERENCES mission)").execute();
 		}
 
 		agentManager = new AgentManagerImpl(ds);
@@ -77,7 +86,7 @@ public class InvolvementManagerTest {
 	@After
 	public void tearDown() throws SQLException {
 		try (Connection connection = ds.getConnection()) {
-			connection.prepareStatement("DROP TABLE involvment").execute();
+			connection.prepareStatement("DROP TABLE involvement").execute();
 			connection.prepareStatement("DROP TABLE mission").execute();
 			connection.prepareStatement("DROP TABLE agent").execute();
 		}
@@ -93,7 +102,7 @@ public class InvolvementManagerTest {
 	/**
 	 * Test of findInvolvementByAgent method, of class InvolvementManager.
 	 */
-	@Test
+	@Ignore
 	public void testFindInvolvementByAgent() {
 		System.out.println("findInvolvementByAgent");
 
@@ -114,8 +123,13 @@ public class InvolvementManagerTest {
         /**
          * test of createInvolvement
          */
-        public void testCreateInvolvement(){
+        public void testCreateAndReadInvolvement(){
             System.out.println("creatteInvolvemnt");
+            agentManager.createAgent(agent);
+            missionManager.createMission(mission);
+            involvementManager.createInvolvement(involvement);
+            
+            assertThat("involvement was not created",involvementManager.getInvolvementById(involvement.getId()), is(involvement)); 
             
             
         }
@@ -123,7 +137,7 @@ public class InvolvementManagerTest {
 	/**
 	 * Test of findInvolvementByMission method, of class InvolvementManager.
 	 */
-	@Test
+	@Ignore
 	public void testFindInvolvementByMission() {
 		System.out.println("findInvolvementByMission");
 		long missionId = 0L;
@@ -136,24 +150,9 @@ public class InvolvementManagerTest {
 	}
 
 	/**
-	 * Test of getInvolvementById method, of class InvolvementManager.
-	 */
-	@Test
-	public void testGetInvolvementById() {
-		System.out.println("getInvolvementById");
-		long id = 0L;
-		Involvement expResult = null;
-		Involvement result = involvementManager.getInvolvementById(id);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to
-		// fail.
-		fail("The test case is a prototype.");
-	}
-
-	/**
 	 * Test of updateInvolvement method, of class InvolvementManager.
 	 */
-	@Test
+	@Ignore
 	public void testUpdateInvolvement() {
 		System.out.println("updateInvolvement");
 		Involvement involvement = null;
