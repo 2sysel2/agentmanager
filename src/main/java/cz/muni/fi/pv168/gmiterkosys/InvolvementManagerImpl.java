@@ -67,7 +67,30 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
     @Override
     public void deleteInvolvement(Involvement involvement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement st = connection.prepareStatement(
+                        "DELETE FROM involvement WHERE id = ?");
+            ){
+             
+             if(involvement == null){
+                 throw new IllegalArgumentException("involvement is null");
+             }
+             if(involvement.getId()== null){
+                 throw new IllegalArgumentException("involvement id is null");
+             }
+             st.setLong(1, involvement.getId());
+             int count = st.executeUpdate();
+             if(count == 0){
+                 throw new ServiceFailureException("no involvement with specified id found");
+             }
+             if(count != 1){
+                 throw new ServiceFailureException("delete involvement should delete only 1 mission ");
+             }
+             
+         } catch (SQLException ex) {
+            throw new ServiceFailureException("failed to delete involvement with id : "+involvement.getId(),ex);
+        }
     }
 
     @Override
@@ -95,18 +118,43 @@ public class InvolvementManagerImpl implements InvolvementManager {
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             
-            rs.next();
-            return parseInvolvement(rs);
+            while(rs.next()){
+                return parseInvolvement(rs);
+            }
+            return null;
             
         }
            catch (SQLException ex) {
-            throw new ServiceFailureException("failed to insert new involvement",ex);
+            throw new ServiceFailureException("failed to get involvement with id: "+id,ex);
         }
     }
 
     @Override
     public void updateInvolvement(Involvement involvement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement st = connection.prepareStatement(
+                        "UPDATE involvement SET agent=?, mission=?, \"start\"=?, \"end\"=? WHERE id=?");
+            ){
+             
+            validate(involvement);
+            st.setLong(1, involvement.getAgent().getId());
+            st.setLong(2, involvement.getMission().getId());
+            st.setTimestamp(3, Timestamp.valueOf(involvement.getStart()));
+            st.setTimestamp(4, Timestamp.valueOf(involvement.getEnd()));
+            st.setLong(5, involvement.getId());
+            
+            int rows = st.executeUpdate();
+            if(rows == 0){
+                throw new ServiceFailureException("involvement not found in the db");
+            }
+            if(rows != 1){
+                throw new ServiceFailureException("update should change only 1 row");
+            }
+            
+         } catch (SQLException ex) {
+            throw new ServiceFailureException("failed to update involvement",ex);
+        }
     }
 
     private Involvement parseInvolvement(ResultSet rs) throws SQLException {

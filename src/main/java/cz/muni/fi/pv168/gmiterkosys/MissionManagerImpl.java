@@ -148,9 +148,10 @@ public class MissionManagerImpl implements MissionManager {
             st.setString(1, code);
             ResultSet rs = st.executeQuery();
             
-            rs.next();
-            return parseMission(rs);
-             
+            while(rs.next()){
+                return parseMission(rs);
+            }
+            return null;
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to find missions",ex);
         }
@@ -166,8 +167,10 @@ public class MissionManagerImpl implements MissionManager {
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
             
-            rs.next();
-            return parseMission(rs);
+            while(rs.next()){
+                return parseMission(rs);
+            }
+            return null;
              
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to find missions",ex);

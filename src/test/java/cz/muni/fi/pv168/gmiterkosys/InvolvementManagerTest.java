@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -160,6 +162,13 @@ public class InvolvementManagerTest {
                 
                 assertThat("database involvement does not match updated involvement",involvementManager.getInvolvementById(involvement.getId()), is(involvement));
 	}
+        
+    @Test
+    public void testDeleteInvolvement() {
+        involvementManager.createInvolvement(involvement);
+        involvementManager.deleteInvolvement(involvement);
+        assertThat("null should be returned after deleteInvolvement",involvementManager.getInvolvementById(involvement.getId()), nullValue());
+    }
 
 	public Involvement newInvolvement(long id, LocalDateTime start, LocalDateTime end, Mission mission, Agent agent) {
 		Involvement temp = new Involvement();
