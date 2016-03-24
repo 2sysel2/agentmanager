@@ -5,17 +5,11 @@
 	<artifactId>agentmanager</artifactId>
 	<name>agentmanager</name>
 	<groupId>agentmanager</groupId>
-	<!--
-		* Start of user code for project
-	  -->
 	<packaging>jar</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.7</java-version>
 	</properties>
-	<!--
-		* End of user code for project
-	  -->
 	<build>
 		<plugins>
 			<plugin>
@@ -30,16 +24,9 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			</plugins>
-		  -->
+                </plugins>
 	</build>
 	<dependencies>
-		<!--
-			* Start of user code for dependencies
-		  -->
-		<!--
-			* End of user code for dependencies
-		  -->
 	 <dependency>
 	  <groupId>junit</groupId>
 	  <artifactId>junit</artifactId>

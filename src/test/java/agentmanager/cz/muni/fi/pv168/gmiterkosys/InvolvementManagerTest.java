@@ -1,10 +1,13 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 import static org.hamcrest.CoreMatchers.*;
+import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,6 +38,14 @@ public class InvolvementManagerTest {
     
     @After
     public void tearDown() {
+    }
+    
+    private static DataSource prepareDataSource() throws SQLException {
+        EmbeddedDataSource ds = new EmbeddedDataSource();
+        //we will use in memory database
+        ds.setDatabaseName("memory:gravemgr-test");
+        ds.setCreateDatabase("create");
+        return ds;
     }
 
     /**
