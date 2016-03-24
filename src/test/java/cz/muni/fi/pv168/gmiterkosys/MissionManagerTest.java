@@ -32,7 +32,7 @@ public class MissionManagerTest {
         ds = prepareDataSource();
         try (Connection connection = ds.getConnection()){
         	
-            connection.prepareStatement("CREATE TABLE MISSION ("
+            connection.prepareStatement("CREATE TABLE mission ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
                     + "code VARCHAR(255),"
                     + "location VARCHAR(255),"
@@ -48,7 +48,7 @@ public class MissionManagerTest {
     @After
     public void tearDown() throws SQLException {
         try (Connection connection = ds.getConnection()) {
-            connection.prepareStatement("DROP TABLE MISSION").executeUpdate();
+            connection.prepareStatement("DROP TABLE mission").executeUpdate();
         }
     }
     

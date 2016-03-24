@@ -19,7 +19,7 @@ public class MissionManagerImpl implements MissionManager {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "INSERT INTO MISSION (code,location,\"start\",\"end\",objective,outcome) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                        "INSERT INTO mission (code,location,\"start\",\"end\",objective,outcome) VALUES (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             )
         {
             validate(mission);
@@ -30,17 +30,17 @@ public class MissionManagerImpl implements MissionManager {
             st.setString(5, mission.getObjective());
             st.setString(6, mission.getOutcome().toString());
             
-            int addedRows = st.executeUpdate();
-            if (addedRows != 1) {
+            int count = st.executeUpdate();
+            if (count != 1) {
                 throw new ServiceFailureException("Internal Error: More rows ("
-                        + addedRows + ") inserted when trying to insert mission " + mission);
+                        + count + ") inserted when trying to insert mission " + mission);
             }
 
             ResultSet keyRS = st.getGeneratedKeys();
-            mission.setId(getKey(keyRS, mission));
+            mission.setId(KeyGrabber.getKey(keyRS));
                     
         } catch (SQLException ex) {
-            throw new ServiceFailureException("failed to create nex mission",ex);
+            throw new ServiceFailureException("failed to insert new mission",ex);
         }
     }
     
@@ -67,27 +67,6 @@ public class MissionManagerImpl implements MissionManager {
             throw new IllegalArgumentException("mission objective is null");
         }
         
-    }
-         
-    private Long getKey(ResultSet keyRS, Mission m) throws ServiceFailureException, SQLException {
-        if (keyRS.next()) {
-            if (keyRS.getMetaData().getColumnCount() != 1) {
-                throw new ServiceFailureException("Internal Error: Generated key"
-                        + "retriving failed when trying to insert mission " + m
-                        + " - wrong key fields count: " + keyRS.getMetaData().getColumnCount());
-            }
-            Long result = keyRS.getLong(1);
-            if (keyRS.next()) {
-                throw new ServiceFailureException("Internal Error: Generated key"
-                        + "retriving failed when trying to insert mission " + m
-                        + " - more keys found");
-            }
-            return result;
-        } else {
-            throw new ServiceFailureException("Internal Error: Generated key"
-                    + "retriving failed when trying to insert mission " + m
-                    + " - no key found");
-        }
     }
 
     @Override
@@ -198,7 +177,7 @@ public class MissionManagerImpl implements MissionManager {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "UPDATE Mission SET code=?, location=?, start=?, end=?, objective=?, outcome =? WHERE id=?");
+                        "UPDATE mission SET code=?, location=?, start=?, end=?, objective=?, outcome =? WHERE id=?");
             ){
              
             validate(mission);

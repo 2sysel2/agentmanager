@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,16 @@ public class InvolvementManagerTest {
 	private DataSource ds;
 	private AgentManager agentManager;
 	private MissionManager missionManager;
+        private Agent agent;
+        private Mission mission;
 	private InvolvementManager involvementManager;
 
 	@Before
 	public void setUp() throws SQLException {
 		ds = prepareDataSource();
+                agent = newAgent(0, "Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
+                mission = newMission(0, "operation b*llsh*t", "testitstan", LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 0, 1), "don't f*ck up", Outcome.FAILED);
+                
 
 		try (Connection connection = ds.getConnection()) {
 			connection.prepareStatement("CREATE TABLE agent ("
@@ -103,6 +109,16 @@ public class InvolvementManagerTest {
 		List<Involvement> result = involvementManager.findInvolvementByAgent(agent.getId());
 		assertThat("returned involvements don't match insirted involvevement", result, is(expResult));
 	}
+        
+        @Test
+        /**
+         * test of createInvolvement
+         */
+        public void testCreateInvolvement(){
+            System.out.println("creatteInvolvemnt");
+            
+            
+        }
 
 	/**
 	 * Test of findInvolvementByMission method, of class InvolvementManager.
