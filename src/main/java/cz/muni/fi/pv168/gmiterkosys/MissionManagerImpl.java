@@ -1,4 +1,4 @@
-package agentmanager.cz.muni.fi.pv168.gmiterkosys;
+package cz.muni.fi.pv168.gmiterkosys;
 
 import java.sql.*;
 import java.util.ArrayList;

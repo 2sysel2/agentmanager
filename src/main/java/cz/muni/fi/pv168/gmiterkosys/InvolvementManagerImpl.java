@@ -1,11 +1,17 @@
-package agentmanager.cz.muni.fi.pv168.gmiterkosys;
+package cz.muni.fi.pv168.gmiterkosys;
 
 import java.util.List;
+
+import javax.sql.DataSource;
 
 
 public class InvolvementManagerImpl implements InvolvementManager {
 
-    @Override
+    public InvolvementManagerImpl(DataSource ds) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public void createInvolvement(Involvement involvement) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

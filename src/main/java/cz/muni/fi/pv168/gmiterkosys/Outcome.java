@@ -1,4 +1,4 @@
-package agentmanager.cz.muni.fi.pv168.gmiterkosys;
+package cz.muni.fi.pv168.gmiterkosys;
 
 /**
  * <!-- begin-user-doc -->
