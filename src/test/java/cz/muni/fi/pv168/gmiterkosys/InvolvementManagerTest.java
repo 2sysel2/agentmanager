@@ -36,15 +36,15 @@ public class InvolvementManagerTest {
 		ds = prepareDataSource();
 
 		try (Connection connection = ds.getConnection()) {
-			connection.prepareStatement("CREATE TABLE mission ("
+			connection.prepareStatement("CREATE TABLE agent ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
                     + "\"name\" VARCHAR(255) NOT NULL,"
                     + "born DATE,"
                     + "died DATE,"
                     + "\"level\" SMALLINT"
-                    + ")").executeUpdate();
+                    + ")").execute();
 			
-			connection.prepareStatement("CREATE TABLE agent ("
+			connection.prepareStatement("CREATE TABLE mission ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
                     + "code VARCHAR(255),"
                     + "location VARCHAR(255),"
@@ -52,7 +52,7 @@ public class InvolvementManagerTest {
                     + "\"end\" TIMESTAMP,"
                     + "objective VARCHAR(255),"
                     + "outcome VARCHAR(255)"
-                    + ")").executeUpdate();
+                    + ")").execute();
 			
 			connection.prepareStatement("CREATE TABLE involvement ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
@@ -60,7 +60,7 @@ public class InvolvementManagerTest {
                     + "mission BIGINT REFERENCES MISSION(\"id\"),"
                     + "\"start\" TIMESTAMP,"
                     + "\"end\" TIMESTAMP"
-                    + ")").executeUpdate();
+                    + ")").execute();
 		}
 
 		agentManager = new AgentManagerImpl(ds);
@@ -71,9 +71,9 @@ public class InvolvementManagerTest {
 	@After
 	public void tearDown() throws SQLException {
 		try (Connection connection = ds.getConnection()) {
-			connection.prepareStatement("DROP TABLE involvment").executeUpdate();
-			connection.prepareStatement("DROP TABLE mission").executeUpdate();
-			connection.prepareStatement("DROP TABLE agent").executeUpdate();
+			connection.prepareStatement("DROP TABLE involvment").execute();
+			connection.prepareStatement("DROP TABLE mission").execute();
+			connection.prepareStatement("DROP TABLE agent").execute();
 		}
 	}
 

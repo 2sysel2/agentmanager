@@ -34,13 +34,11 @@ public class AgentManagerTest {
 		try (Connection connection = ds.getConnection()) {
 			connection.prepareStatement("CREATE TABLE agent ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "code VARCHAR(255),"
-                    + "location VARCHAR(255),"
-                    + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP,"
-                    + "objective VARCHAR(255),"
-                    + "outcome VARCHAR(255)"
-                    + ")").executeUpdate();
+                    + "\"name\" VARCHAR(255) NOT NULL,"
+                    + "born DATE,"
+                    + "died DATE,"
+                    + "\"level\" SMALLINT"
+                    + ")").execute();
 			}
 
 		agentManager = new AgentManagerImpl(ds);
@@ -49,7 +47,7 @@ public class AgentManagerTest {
 	@After
 	public void tearDown() throws SQLException {
 		try (Connection connection = ds.getConnection()) {
-			connection.prepareStatement("DROP TABLE agent").executeUpdate();
+			connection.prepareStatement("DROP TABLE agent").execute();
 		}
 	}
 
@@ -108,7 +106,7 @@ public class AgentManagerTest {
             // OK
         }
 
-        agent = newAgent(null, bornDate, 0);
+        agent = newAgent("Linda Fox", bornDate, 0);
         try {
             agentManager.createAgent(agent);
             fail("Agent's level isn't validated correctly.");
@@ -116,13 +114,13 @@ public class AgentManagerTest {
             // OK
         }
 
-        agent = newAgent(null, bornDate, 1);
+        agent = newAgent("Linda Fox", bornDate, 1);
         agentManager.createAgent(agent);
 
-        agent = newAgent(null, bornDate, 10);
+        agent = newAgent("Linda Fox", bornDate, 10);
         agentManager.createAgent(agent);
 
-        agent = newAgent(null, bornDate, 11);
+        agent = newAgent("Linda Fox", bornDate, 11);
         try {
             agentManager.createAgent(agent);
             fail("Agent's level isn't validated correctly.");
@@ -171,7 +169,7 @@ public class AgentManagerTest {
     }
 
     @Test
-    public void testupdateAgent() throws Exception {
+    public void testUpdateAgent() throws Exception {
 
         LocalDate bornDate = LocalDate.of(2000, 1, 1);
         Agent agent1 = newAgent("Linda Fox", bornDate, 6);
