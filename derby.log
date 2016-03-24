@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Thu Mar 24 08:46:24 CET 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0153-a796-b1e8-000006b5f840 
-on database directory memory:C:\Users\jarda\Documents\NetBeansProjects\agentmanager\mission with class loader sun.misc.Launcher$AppClassLoader@75b84c92 
-Loaded from file:/C:/Users/jarda/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+Thu Mar 24 11:00:26 CET 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0153-a811-689f-00000dc752d0 
+on database directory memory:/home/xsys/NetBeansProjects/agentmanager/mission with class loader sun.misc.Launcher$AppClassLoader@75b84c92 
+Loaded from file:/home/xsys/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_66-b18
-user.dir=C:\Users\jarda\Documents\NetBeansProjects\agentmanager
-os.name=Windows 10
+java.runtime.version=1.8.0_66-b17
+user.dir=/home/xsys/NetBeansProjects/agentmanager
+os.name=Linux
 os.arch=amd64
-os.version=10.0
+os.version=3.13.0-83-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

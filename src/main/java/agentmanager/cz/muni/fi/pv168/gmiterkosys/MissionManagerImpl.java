@@ -48,6 +48,12 @@ public class MissionManagerImpl implements MissionManager {
         if(m == null){
             throw new IllegalArgumentException("mission is null");
         }
+        if(m.getStart()== null){
+            throw new IllegalArgumentException("mission start is null");
+        }
+        if(m.getEnd()== null){
+            throw new IllegalArgumentException("mission end is null");
+        }
         if(m.getStart().isAfter(m.getEnd())){
             throw new IllegalArgumentException("mission cannot end before it started");
         }
@@ -60,6 +66,7 @@ public class MissionManagerImpl implements MissionManager {
         if(m.getObjective() == null){
             throw new IllegalArgumentException("mission objective is null");
         }
+        
     }
          
     private Long getKey(ResultSet keyRS, Mission m) throws ServiceFailureException, SQLException {
