@@ -80,6 +80,10 @@ public class InvolvementManagerTest {
 
 		agentManager = new AgentManagerImpl(ds);
 		missionManager = new MissionManagerImpl(ds);
+                
+                agentManager.createAgent(agent);
+                missionManager.createMission(mission);
+                
 		involvementManager = new InvolvementManagerImpl(ds);
 	}
 
@@ -102,14 +106,9 @@ public class InvolvementManagerTest {
 	/**
 	 * Test of findInvolvementByAgent method, of class InvolvementManager.
 	 */
-	@Ignore
+	@Test
 	public void testFindInvolvementByAgent() {
 		System.out.println("findInvolvementByAgent");
-
-		Agent agent = newAgent(1, "Bames Jond", 007, LocalDate.MIN, LocalDate.MAX);
-		Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN,
-				"failMission", Outcome.FAILED);
-		Involvement involvement = newInvolvement(0, LocalDateTime.MAX, LocalDateTime.MIN, mission, agent);
 
 		involvementManager.createInvolvement(involvement);
 
@@ -125,8 +124,7 @@ public class InvolvementManagerTest {
          */
         public void testCreateAndReadInvolvement(){
             System.out.println("creatteInvolvemnt");
-            agentManager.createAgent(agent);
-            missionManager.createMission(mission);
+            
             involvementManager.createInvolvement(involvement);
             
             assertThat("involvement was not created",involvementManager.getInvolvementById(involvement.getId()), is(involvement)); 
@@ -137,29 +135,30 @@ public class InvolvementManagerTest {
 	/**
 	 * Test of findInvolvementByMission method, of class InvolvementManager.
 	 */
-	@Ignore
+	@Test
 	public void testFindInvolvementByMission() {
 		System.out.println("findInvolvementByMission");
-		long missionId = 0L;
-		List<Involvement> expResult = null;
-		List<Involvement> result = involvementManager.findInvolvementByMission(missionId);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to
-		// fail.
-		fail("The test case is a prototype.");
+
+		involvementManager.createInvolvement(involvement);
+
+		List<Involvement> expResult = new ArrayList<>();
+		expResult.add(involvement);
+		List<Involvement> result = involvementManager.findInvolvementByMission(mission.getId());
+		assertThat("returned involvements don't match insirted involvevement", result, is(expResult));
 	}
 
 	/**
 	 * Test of updateInvolvement method, of class InvolvementManager.
 	 */
-	@Ignore
+	@Test
 	public void testUpdateInvolvement() {
 		System.out.println("updateInvolvement");
-		Involvement involvement = null;
+		
+                involvementManager.createInvolvement(involvement);
+                involvement.setEnd(LocalDateTime.of(2000, 1, 1, 0, 2));
 		involvementManager.updateInvolvement(involvement);
-		// TODO review the generated test code and remove the default call to
-		// fail.
-		fail("The test case is a prototype.");
+                
+                assertThat("database involvement does not match updated involvement",involvementManager.getInvolvementById(involvement.getId()), is(involvement));
 	}
 
 	public Involvement newInvolvement(long id, LocalDateTime start, LocalDateTime end, Mission mission, Agent agent) {
