@@ -10,10 +10,6 @@ public class MissionManagerImpl implements MissionManager {
 
     private final DataSource dataSource;
     
-    public MissionManagerImpl(){
-        dataSource = null;
-    }
-    
     public MissionManagerImpl(DataSource src) {
         dataSource = src;
     }

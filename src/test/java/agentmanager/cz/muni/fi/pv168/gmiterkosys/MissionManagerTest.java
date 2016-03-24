@@ -1,10 +1,14 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sql.DataSource;
+import org.apache.derby.jdbc.EmbeddedDataSource;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,6 +22,8 @@ import static org.junit.Assert.*;
  * @author Jaromir Sys
  */
 public class MissionManagerTest {
+    private MissionManager instance;
+    private DataSource ds;
     
     public MissionManagerTest() {
     }
@@ -31,7 +37,29 @@ public class MissionManagerTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
+        ds = prepareDataSource();
+        try (Connection connection = ds.getConnection()){
+            connection.prepareStatement("CREATE TABLE MISSION ("
+                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                    + "code VARCHAR(255),"
+                    + "location VARCHAR(255),"
+                    + "start TIMESTAMP,"
+                    + "end TIMESTAMP,"
+                    + "objective VARCHAR(255),"
+                    + "outcome VARCHAR(255)"
+                    + "));").executeUpdate();
+        }
+        instance = new MissionManagerImpl(ds);
+    }
+    
+    private static DataSource prepareDataSource() throws SQLException {
+        EmbeddedDataSource ds = new EmbeddedDataSource();
+        ds.setDatabaseName("memory:mission");
+        ds.setUser("sa");
+        ds.setPassword("sa");
+        ds.setCreateDatabase("create");
+        return ds;
     }
     
     @After
@@ -45,7 +73,6 @@ public class MissionManagerTest {
     public void testCreateMission() {
         System.out.println("createMission");
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        MissionManager instance = new MissionManagerImpl();
         try {
             instance.createMission(mission);
             assertThat("mission was not added",instance.getMissionById(mission.getId()), is(mission));
@@ -59,7 +86,6 @@ public class MissionManagerTest {
     public void testCreateMissionNull() {
         System.out.println("createMission");
         Mission mission = null;
-        MissionManager instance = new MissionManagerImpl();
         try {
             instance.createMission(mission);
         } catch (ServiceFailureException ex) {
@@ -74,7 +100,6 @@ public class MissionManagerTest {
     public void testDeleteMission() {
         System.out.println("deleteMission");
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        MissionManager instance = new MissionManagerImpl();
         try {
             instance.createMission(mission);
             instance.deleteMission(mission);
@@ -86,7 +111,6 @@ public class MissionManagerTest {
     
     @Test(expected = NullPointerException.class)
     public void testDeleteMissionNull(){
-        MissionManager instance = new MissionManagerImpl();
         try {
             instance.deleteMission(null);
         } catch (ServiceFailureException ex) {
@@ -99,9 +123,7 @@ public class MissionManagerTest {
      */
     @Test
     public void testFindAllMissions() {
-        System.out.println("findAllMissions");
-        MissionManager instance = new MissionManagerImpl();
-        
+        System.out.println("findAllMissions");        
         List<Mission> expResult = new ArrayList<>();
         Mission mission1 = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         Mission mission2 = newMission(1, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "succesMission", Outcome.SUCCESSFUL);
@@ -124,9 +146,7 @@ public class MissionManagerTest {
     @Test
     public void testGetMissionByCode() {
         System.out.println("getMissionByCode");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        MissionManager instance = new MissionManagerImpl();
-        
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);        
         try {
             instance.createMission(mission);
             assertThat("mission returned by getMissionByCode doesn't match mission created", instance.getMissionByCode(mission.getCode()), is(mission));
@@ -144,8 +164,6 @@ public class MissionManagerTest {
     public void testGetMissionById() {
         System.out.println("getMissionById");
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        MissionManager instance = new MissionManagerImpl();
-        
         try {
             instance.createMission(mission);
             assertThat("mission returned by getMissionById doesn't match mission created", instance.getMissionById(mission.getId()), is(mission));
@@ -162,9 +180,7 @@ public class MissionManagerTest {
     @Test
     public void testUpdateMission() {
         System.out.println("updateMission");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
-        MissionManager instance = new MissionManagerImpl();
-        
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);        
         try {
             instance.createMission(mission);
             Mission tempMission = instance.getMissionById(mission.getId());

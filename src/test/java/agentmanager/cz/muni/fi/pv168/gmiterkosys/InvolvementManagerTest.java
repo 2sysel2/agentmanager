@@ -1,13 +1,10 @@
 package agentmanager.cz.muni.fi.pv168.gmiterkosys;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.sql.DataSource;
 import static org.hamcrest.CoreMatchers.*;
-import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,6 +18,8 @@ import static org.junit.Assert.*;
  */
 public class InvolvementManagerTest {
     
+    private InvolvementManagerImpl instance;
+    
     public InvolvementManagerTest() {
     }
     
@@ -33,21 +32,15 @@ public class InvolvementManagerTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp(){
+        
+        instance = new InvolvementManagerImpl();
     }
     
     @After
     public void tearDown() {
-    }
+    }    
     
-    private static DataSource prepareDataSource() throws SQLException {
-        EmbeddedDataSource ds = new EmbeddedDataSource();
-        //we will use in memory database
-        ds.setDatabaseName("memory:gravemgr-test");
-        ds.setCreateDatabase("create");
-        return ds;
-    }
-
     /**
      * Test of findInvolvementByAgent method, of class InvolvementManager.
      */
@@ -59,7 +52,7 @@ public class InvolvementManagerTest {
         Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MAX, LocalDateTime.MIN, "failMission", Outcome.FAILED);
         Involvement involvement = newInvolvement(0, LocalDateTime.MAX, LocalDateTime.MIN, mission, agent);
         
-        InvolvementManager instance = new InvolvementManagerImpl();
+        instance = new InvolvementManagerImpl();
         
         instance.createInvolvement(involvement);
         
@@ -76,7 +69,7 @@ public class InvolvementManagerTest {
     public void testFindInvolvementByMission() {
         System.out.println("findInvolvementByMission");
         long missionId = 0L;
-        InvolvementManager instance = new InvolvementManagerImpl();
+        instance = new InvolvementManagerImpl();
         List<Involvement> expResult = null;
         List<Involvement> result = instance.findInvolvementByMission(missionId);
         assertEquals(expResult, result);
@@ -91,7 +84,7 @@ public class InvolvementManagerTest {
     public void testGetInvolvementById() {
         System.out.println("getInvolvementById");
         long id = 0L;
-        InvolvementManager instance = new InvolvementManagerImpl();
+        instance = new InvolvementManagerImpl();
         Involvement expResult = null;
         Involvement result = instance.getInvolvementById(id);
         assertEquals(expResult, result);
@@ -106,7 +99,7 @@ public class InvolvementManagerTest {
     public void testUpdateInvolvement() {
         System.out.println("updateInvolvement");
         Involvement involvement = null;
-        InvolvementManager instance = new InvolvementManagerImpl();
+        instance = new InvolvementManagerImpl();
         instance.updateInvolvement(involvement);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
