@@ -83,7 +83,7 @@ public class MissionManagerImpl implements MissionManager {
              if(mission.getId()== null){
                  throw new IllegalArgumentException("misison id is null");
              }
-             
+             st.setLong(1, mission.getId());
              int count = st.executeUpdate();
              if(count == 0){
                  throw new ServiceFailureException("no mission with specified id found");
@@ -179,7 +179,7 @@ public class MissionManagerImpl implements MissionManager {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
-                        "UPDATE mission SET code=?, location=?, start=?, end=?, objective=?, outcome =? WHERE id=?");
+                        "UPDATE mission SET code=?, location=?, \"start\"=?, \"end\"=?, objective=?, outcome =? WHERE id=?");
             ){
              
             validate(mission);
@@ -189,6 +189,7 @@ public class MissionManagerImpl implements MissionManager {
             st.setTimestamp(4, Timestamp.valueOf(mission.getEnd()));
             st.setString(5, mission.getObjective());
             st.setString(6, mission.getOutcome().toString());
+            st.setLong(7, mission.getId());
             
             int rows = st.executeUpdate();
             if(rows == 0){
