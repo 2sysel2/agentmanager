@@ -66,7 +66,7 @@ public class MissionManagerTest {
     @Test
     public void testCreateMission() {
         System.out.println("createMission");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);
         try {
             missionManager.createMission(mission);
             assertThat("mission was not added",missionManager.getMissionById(mission.getId()), is(mission));
@@ -91,7 +91,7 @@ public class MissionManagerTest {
     @Test
     public void testDeleteMission() {
         System.out.println("deleteMission");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);
         try {
             missionManager.createMission(mission);
             missionManager.deleteMission(mission);
@@ -115,8 +115,8 @@ public class MissionManagerTest {
     public void testFindAllMissions() {
         System.out.println("findAllMissions");        
         List<Mission> expResult = new ArrayList<>();
-        Mission mission1 = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);
-        Mission mission2 = newMission(1, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "succesMission", Outcome.SUCCESSFUL);
+        Mission mission1 = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);
+        Mission mission2 = newMission(1, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "succesMission", Outcome.SUCCESSFUL);
         expResult.add(mission1);
         expResult.add(mission2);
         
@@ -136,7 +136,7 @@ public class MissionManagerTest {
     @Test
     public void testGetMissionByCode() {
         System.out.println("getMissionByCode");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);        
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);        
         try {
             missionManager.createMission(mission);
             assertThat("mission returned by getMissionByCode doesn't match mission created", missionManager.getMissionByCode(mission.getCode()), is(mission));
@@ -153,7 +153,7 @@ public class MissionManagerTest {
     @Test
     public void testGetMissionById() {
         System.out.println("getMissionById");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);
         try {
             missionManager.createMission(mission);
             assertThat("mission returned by getMissionById doesn't match mission created", missionManager.getMissionById(mission.getId()), is(mission));
@@ -170,23 +170,15 @@ public class MissionManagerTest {
     @Test
     public void testUpdateMission() {
         System.out.println("updateMission");
-        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.MIN, LocalDateTime.MAX, "failMission", Outcome.FAILED);        
-        try {
-            missionManager.createMission(mission);
-            Mission tempMission = missionManager.getMissionById(mission.getId());
-            tempMission.setOutcome(Outcome.SUCCESSFUL);
+        Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0), LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);        
+        missionManager.createMission(mission);
+        Mission tempMission = missionManager.getMissionById(mission.getId());
+        tempMission.setOutcome(Outcome.SUCCESSFUL);
 
-            missionManager.updateMission(tempMission);
+        missionManager.updateMission(tempMission);
 
-            assertThat("updated mission doesn't equal mission parameter",missionManager.getMissionById(tempMission.getId()),is(tempMission));
+        assertThat("updated mission doesn't equal mission parameter",missionManager.getMissionById(tempMission.getId()),is(tempMission));
 
-
-            missionManager.updateMission(mission);
-            // TODO review the generated test code and remove the default call to fail.
-            fail("The test case is a prototype.");
-        } catch (ServiceFailureException ex) {
-            Logger.getLogger(MissionManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         
     }
