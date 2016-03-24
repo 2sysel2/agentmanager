@@ -98,7 +98,13 @@ public class MissionManagerImpl implements MissionManager {
                  throw new IllegalArgumentException("misison id is null");
              }
              
-             st.setLong(1, mission.getId());
+             int count = st.executeUpdate();
+             if(count == 0){
+                 throw new ServiceFailureException("no mission with specified id found");
+             }
+             if(count != 1){
+                 throw new ServiceFailureException("delete mission should delete only 1 mission ");
+             }
              
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to delete mission",ex);
