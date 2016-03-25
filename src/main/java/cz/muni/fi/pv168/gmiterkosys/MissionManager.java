@@ -2,57 +2,18 @@ package cz.muni.fi.pv168.gmiterkosys;
 
 import java.util.List;
 
+public interface MissionManager {
 
+	void createMission(Mission mission);
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
-public  interface MissionManager 
-{
-	/**
-         * @param mission Mission to be added to the database
-	 */
-	
-	public void createMission(Mission mission)throws ServiceFailureException;
+	void deleteMission(Mission mission);
 
-	/**
-         * @param mission Mission to be removed from the database
-	 */
-	
-	public void deleteMission(Mission mission)throws ServiceFailureException;
+	List<Mission> findAllMissions();
 
-	/**
-         * @return return List containing all mission retrivied from database
-	 */
-	
-	public List<Mission> findAllMissions()throws ServiceFailureException;
+	Mission getMissionByCode(String code);
 
-	/**
-     * @param code         
-	 */
-	
-	public Mission getMissionByCode(String code)throws ServiceFailureException;
+	Mission getMissionById(long id);
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Mission getMissionById(long id) throws ServiceFailureException;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void updateMission(Mission mission)throws ServiceFailureException ;
-
+	void updateMission(Mission mission);
 
 }
-

@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * @author Jaromir Sys
  */
 public class KeyGrabber {
-    public static Long getKey(ResultSet keyRS) throws ServiceFailureException, SQLException {
+    public static Long getKey(ResultSet keyRS) throws SQLException {
         if (keyRS.next()) {
             if (keyRS.getMetaData().getColumnCount() != 1) {
                 throw new ServiceFailureException("Internal Error: wrong key fields count: " + keyRS.getMetaData().getColumnCount());

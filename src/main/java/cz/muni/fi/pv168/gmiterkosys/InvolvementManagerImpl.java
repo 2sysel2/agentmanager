@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.sql.DataSource;
 
 
@@ -17,8 +15,13 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
     private DataSource dataSource;
     
-    public InvolvementManagerImpl(DataSource ds) {
+    private AgentManager agentManager;
+    private MissionManager missionManager;
+    
+    public InvolvementManagerImpl(DataSource ds, AgentManager agentManager, MissionManager missionManager) {
         dataSource = ds;
+        this.agentManager = agentManager;
+        this.missionManager = missionManager;
     }
 
     @Override
@@ -95,17 +98,71 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
     @Override
     public List<Involvement> findAllInvolvements() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	try (Connection connection = dataSource.getConnection();
+				PreparedStatement st = connection
+						.prepareStatement("SELECT * FROM involvement")) {
+
+			ResultSet rs = st.executeQuery();
+
+			List<Involvement> result = new ArrayList<>();
+			while (rs.next()) {
+				result.add(parseInvolvement(rs));
+			}
+			return result;
+
+		} catch (SQLException e) {
+			throw new ServiceFailureException("Error when retrieving all agents", e);
+		}
     }
 
     @Override
     public List<Involvement> findInvolvementByAgent(long agentId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	Agent agent = agentManager.getAgentById(agentId);
+    	if(agent != null) {
+    		try (Connection connection = dataSource.getConnection();
+    				PreparedStatement st = connection
+    						.prepareStatement("SELECT * FROM involvement")) {
+
+    			ResultSet rs = st.executeQuery();
+
+    			List<Involvement> result = new ArrayList<>();
+    			while (rs.next()) {
+    				result.add(parseInvolvement(rs, agent));
+    			}
+    			return result;
+
+    		} catch (SQLException e) {
+    			throw new ServiceFailureException("Error when retrieving all agents", e);
+    		}
+    	} else {
+    		throw new ServiceFailureException("Agent with this id doesnt exist.");
+    	}
     }
 
     @Override
     public List<Involvement> findInvolvementByMission(long missionId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    	Mission mission = missionManager.getMissionById(missionId);
+    	if(mission != null) {
+    		try (Connection connection = dataSource.getConnection();
+    				PreparedStatement st = connection
+    						.prepareStatement("SELECT * FROM involvement")) {
+
+    			ResultSet rs = st.executeQuery();
+
+    			List<Involvement> result = new ArrayList<>();
+    			while (rs.next()) {
+    				result.add(parseInvolvement(rs, mission));
+    			}
+    			return result;
+
+    		} catch (SQLException e) {
+    			throw new ServiceFailureException("Error when retrieving all agents", e);
+    		}
+    	} else {
+    		throw new ServiceFailureException("Mission with this id doesnt exist.");
+    	}
+    	
     }
 
     @Override
@@ -158,17 +215,37 @@ public class InvolvementManagerImpl implements InvolvementManager {
     }
 
     private Involvement parseInvolvement(ResultSet rs) throws SQLException {
-        Involvement temp = new Involvement();
-        MissionManager mm = new MissionManagerImpl(dataSource);
-        AgentManager am = new AgentManagerImpl(dataSource);
+    	return parseInvolvement(rs, null, null);
+    }
+    
+    private Involvement parseInvolvement(ResultSet rs, Mission mission) throws SQLException {
+    	return parseInvolvement(rs, mission, null);
+    }
+    
+    private Involvement parseInvolvement(ResultSet rs, Agent agent) throws SQLException {
+    	return parseInvolvement(rs, null, agent);
+    }
+    
+    private Involvement parseInvolvement(ResultSet rs, Mission mission, Agent agent) throws SQLException {
+        Involvement involvement = new Involvement();
         
-        temp.setId(rs.getLong("id"));
-        temp.setStart(rs.getTimestamp("start").toLocalDateTime());
-        temp.setEnd(rs.getTimestamp("end").toLocalDateTime());
-        temp.setMission(mm.getMissionById(rs.getLong("mission")));
-        temp.setAgent(am.getAgentById(rs.getLong("agent")));
+        involvement.setId(rs.getLong("id"));
+        involvement.setStart(rs.getTimestamp("start").toLocalDateTime());
+        involvement.setEnd(rs.getTimestamp("end").toLocalDateTime());
         
-        return temp;
+        if(mission != null && mission.getId() == rs.getLong("mission")) {
+        	involvement.setMission(mission);
+        } else {
+        involvement.setMission(missionManager.getMissionById(rs.getLong("mission")));
+        }
+        
+        if(agent != null && agent.getId() == rs.getLong("agent")) {
+        	involvement.setAgent(agent);
+        } else {
+        involvement.setAgent(agentManager.getAgentById(rs.getLong("agent")));
+        }
+        
+        return involvement;
     }
     
 }

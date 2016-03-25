@@ -10,6 +10,7 @@ public class Involvement {
 	private Long id;
 
 	private Agent agent;
+	
 	private Mission mission;
 
 	private LocalDateTime start;

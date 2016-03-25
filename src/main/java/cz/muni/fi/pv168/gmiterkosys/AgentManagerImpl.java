@@ -54,37 +54,23 @@ public class AgentManagerImpl implements AgentManager {
 			}
 
 			ResultSet keys = st.getGeneratedKeys();
-			agent.setId(getKey(keys, agent));
+			agent.setId(KeyGrabber.getKey(keys));
 
 		} catch (SQLException e) {
 			throw new ServiceFailureException("SQL Error when creating " + agent, e);
 		}
 	}
 
-	private Long getKey(ResultSet keyRS, Agent grave) throws ServiceFailureException, SQLException {
-		if (keyRS.next()) {
-
-			Long result = keyRS.getLong(1);
-
-			if (keyRS.next()) {
-				throw new ServiceFailureException("Create error: More generated keys found");
-			}
-			return result;
-		} else {
-			throw new ServiceFailureException("Create error: No generated key found");
-		}
-	}
-
 	public Agent getAgentById(Long id) {
 		try (Connection connection = dataSource.getConnection();
 				PreparedStatement st = connection
-						.prepareStatement("SELECT id, \"name\", born, died, \"level\" FROM agent WHERE id = ?")) {
+						.prepareStatement("SELECT * FROM agent WHERE id = ?")) {
 
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
 
 			if (rs.next()) {
-				Agent agent = resultAsAgent(rs);
+				Agent agent = parseAgent(rs);
 
 				if (rs.next()) {
 					throw new ServiceFailureException("More entities with the same id found!");
@@ -103,13 +89,13 @@ public class AgentManagerImpl implements AgentManager {
 	public List<Agent> findAllAgents() {
 		try (Connection connection = dataSource.getConnection();
 				PreparedStatement st = connection
-						.prepareStatement("SELECT id, \"name\", born, died, \"level\" FROM agent")) {
+						.prepareStatement("SELECT * FROM agent")) {
 
 			ResultSet rs = st.executeQuery();
 
 			List<Agent> result = new ArrayList<>();
 			while (rs.next()) {
-				result.add(resultAsAgent(rs));
+				result.add(parseAgent(rs));
 			}
 			return result;
 
@@ -118,7 +104,7 @@ public class AgentManagerImpl implements AgentManager {
 		}
 	}
 
-	private Agent resultAsAgent(ResultSet result) throws SQLException {
+	private Agent parseAgent(ResultSet result) throws SQLException {
 		Agent agent = new Agent();
 		agent.setId(result.getLong("id"));
 		agent.setName(result.getString("name"));

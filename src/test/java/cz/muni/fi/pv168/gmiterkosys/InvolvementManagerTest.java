@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -33,23 +31,23 @@ public class InvolvementManagerTest {
 	private DataSource ds;
 	private AgentManager agentManager;
 	private MissionManager missionManager;
-        private Agent agent;
-        private Mission mission;
-        private Involvement involvement;
+    private Agent agent;
+    private Mission mission;
+    private Involvement involvement;
 	private InvolvementManager involvementManager;
 
 	@Before
 	public void setUp() throws SQLException {
 		ds = prepareDataSource();
-                agent = newAgent(0, "Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
-                agent.setId(null);
-                mission = newMission(0, "operation b*llsh*t", "testitstan", LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 0, 1), "don't f*ck up", Outcome.FAILED);
-                mission.setId(null);
-                involvement = new Involvement();
-                involvement.setAgent(agent);
-                involvement.setMission(mission);
-                involvement.setStart(mission.getStart());
-                involvement.setEnd(mission.getEnd());
+        agent = newAgent(0, "Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
+        agent.setId(null);
+        mission = newMission(0, "operation b*llsh*t", "testitstan", LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 0, 1), "don't f*ck up", Outcome.FAILED);
+        mission.setId(null);
+        involvement = new Involvement();
+        involvement.setAgent(agent);
+        involvement.setMission(mission);
+        involvement.setStart(mission.getStart());
+        involvement.setEnd(mission.getEnd());
                 
 		try (Connection connection = ds.getConnection()) {
 			connection.prepareStatement("CREATE TABLE agent ("
@@ -82,11 +80,11 @@ public class InvolvementManagerTest {
 
 		agentManager = new AgentManagerImpl(ds);
 		missionManager = new MissionManagerImpl(ds);
-                
-                agentManager.createAgent(agent);
-                missionManager.createMission(mission);
-                
-		involvementManager = new InvolvementManagerImpl(ds);
+        
+        agentManager.createAgent(agent);
+        missionManager.createMission(mission);
+        
+		involvementManager = new InvolvementManagerImpl(ds, agentManager, missionManager);
 	}
 
 	@After
@@ -110,7 +108,6 @@ public class InvolvementManagerTest {
 	 */
 	@Test
 	public void testFindInvolvementByAgent() {
-		System.out.println("findInvolvementByAgent");
 
 		involvementManager.createInvolvement(involvement);
 
@@ -125,12 +122,10 @@ public class InvolvementManagerTest {
          * test of createInvolvement
          */
         public void testCreateAndReadInvolvement(){
-            System.out.println("creatteInvolvemnt");
             
             involvementManager.createInvolvement(involvement);
             
             assertThat("involvement was not created",involvementManager.getInvolvementById(involvement.getId()), is(involvement)); 
-            
             
         }
 
@@ -139,7 +134,6 @@ public class InvolvementManagerTest {
 	 */
 	@Test
 	public void testFindInvolvementByMission() {
-		System.out.println("findInvolvementByMission");
 
 		involvementManager.createInvolvement(involvement);
 
@@ -154,7 +148,6 @@ public class InvolvementManagerTest {
 	 */
 	@Test
 	public void testUpdateInvolvement() {
-		System.out.println("updateInvolvement");
 		
                 involvementManager.createInvolvement(involvement);
                 involvement.setEnd(LocalDateTime.of(2000, 1, 1, 0, 2));

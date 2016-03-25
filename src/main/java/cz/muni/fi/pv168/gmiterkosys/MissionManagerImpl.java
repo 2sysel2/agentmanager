@@ -15,7 +15,7 @@ public class MissionManagerImpl implements MissionManager {
     }
     
     @Override
-    public void createMission(Mission mission) throws ServiceFailureException{
+    public void createMission(Mission mission) {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
@@ -70,7 +70,7 @@ public class MissionManagerImpl implements MissionManager {
     }
 
     @Override
-    public void deleteMission(Mission mission)throws ServiceFailureException{
+    public void deleteMission(Mission mission) {
          try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
@@ -98,7 +98,7 @@ public class MissionManagerImpl implements MissionManager {
     }
 
     @Override
-    public List<Mission> findAllMissions() throws ServiceFailureException{
+    public List<Mission> findAllMissions() {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
@@ -128,18 +128,13 @@ public class MissionManagerImpl implements MissionManager {
         temp.setStart(rs.getTimestamp("start").toLocalDateTime());
         temp.setObjective(rs.getString("objective"));
         temp.setLocation(rs.getString("location"));
-        System.out.println("outcome     : "+rs.getString("outcome"));
-        switch(rs.getString("outcome").toUpperCase()){
-            case "FAILED":temp.setOutcome(Outcome.FAILED);break;
-            case "IN_PROGRES":temp.setOutcome(Outcome.IN_PROGRES);break;
-            case "SUCCESSFUL":temp.setOutcome(Outcome.SUCCESSFUL);break;
-        }
+        temp.setOutcome(Outcome.valueOf(rs.getString("outcome").toUpperCase()));
         return temp;
         
     }
 
     @Override
-    public Mission getMissionByCode(String code) throws ServiceFailureException{
+    public Mission getMissionByCode(String code) {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
@@ -158,7 +153,7 @@ public class MissionManagerImpl implements MissionManager {
     }
 
     @Override
-    public Mission getMissionById(long id) throws ServiceFailureException {
+    public Mission getMissionById(long id)  {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
@@ -178,7 +173,7 @@ public class MissionManagerImpl implements MissionManager {
     }
 
     @Override
-    public void updateMission(Mission mission) throws ServiceFailureException {
+    public void updateMission(Mission mission) {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
