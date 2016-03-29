@@ -1,26 +1,24 @@
 package cz.muni.fi.pv168.gmiterkosys;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import static org.hamcrest.CoreMatchers.*;
-
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -39,8 +37,7 @@ public class InvolvementManagerTest {
 	@Before
 	public void setUp() throws SQLException {
 		ds = prepareDataSource();
-        agent = newAgent(0, "Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
-        agent.setId(null);
+        agent = newAgent("Bames Jond", 007, LocalDate.of(1980, 1, 1), null);
         mission = newMission(0, "operation b*llsh*t", "testitstan", LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 0, 1), "don't f*ck up", Outcome.FAILED);
         mission.setId(null);
         involvement = new Involvement();
@@ -103,6 +100,75 @@ public class InvolvementManagerTest {
 		return ds;
 	}
 
+    @Test
+    public void testCreateInvolvement() throws Exception {
+
+        LocalDateTime start = LocalDateTime.of(2000, 1, 3, 12, 50);
+        LocalDateTime end = LocalDateTime.of(2000, 1, 9, 10, 20);
+
+        Involvement involvement = newInvolvement(start, end, mission, agent);
+
+        involvementManager.createInvolvement(involvement);
+
+        Involvement result = involvementManager.getInvolvementById(involvement.getId());
+
+        assertThat(result, is(equalTo(involvement)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvolvementInvalid() {
+        involvementManager.createInvolvement(null);
+    }
+
+    @Test
+    public void testCreateInvolvementInvalidArguments() {
+
+       
+        LocalDateTime start = LocalDateTime.of(2000, 1, 3, 12, 50);
+        LocalDateTime end = LocalDateTime.of(2000, 1, 9, 10, 20);
+
+        Involvement involvement = newInvolvement(start, end, mission, null);
+        try {
+            involvementManager.createInvolvement(involvement);
+            fail("Involvement agent cannot be null.");
+        } catch (IllegalArgumentException e) {
+            // OK
+        }
+
+        involvement = newInvolvement(start, end, null, agent);
+        try {
+            involvementManager.createInvolvement(involvement);
+            fail("Involvement mission cannot be null.");
+        } catch (IllegalArgumentException e) {
+            // OK
+        }
+
+        involvement = newInvolvement(start, end, mission, agent);
+        involvement.setId(1L);
+        try {
+            involvementManager.createInvolvement(involvement);
+            fail("Involvement id can't be set.");
+        } catch (IllegalArgumentException e) {
+            // OK
+        }
+
+    }
+
+    @Test
+    public void testCreateInvolvementInvalidDates() {
+
+        LocalDateTime start = LocalDateTime.of(2000, 1, 3, 12, 50);
+        LocalDateTime end = LocalDateTime.of(1996, 1, 9, 10, 20); // smaller
+
+        Involvement involvement = newInvolvement(start, end, mission, agent);
+        try {
+            involvementManager.createInvolvement(involvement);
+            fail("Involvement can't end before its end. Dates aren't validated.");
+        } catch (IllegalArgumentException e) {
+            // OK
+        }
+    }
+	
 	/**
 	 * Test of findInvolvementByAgent method, of class InvolvementManager.
 	 */
@@ -116,18 +182,6 @@ public class InvolvementManagerTest {
 		List<Involvement> result = involvementManager.findInvolvementByAgent(agent.getId());
 		assertThat("returned involvements don't match insirted involvevement", result, is(expResult));
 	}
-        
-        @Test
-        /**
-         * test of createInvolvement
-         */
-        public void testCreateAndReadInvolvement(){
-            
-            involvementManager.createInvolvement(involvement);
-            
-            assertThat("involvement was not created",involvementManager.getInvolvementById(involvement.getId()), is(involvement)); 
-            
-        }
 
 	/**
 	 * Test of findInvolvementByMission method, of class InvolvementManager.
@@ -163,22 +217,20 @@ public class InvolvementManagerTest {
         assertThat("null should be returned after deleteInvolvement",involvementManager.getInvolvementById(involvement.getId()), nullValue());
     }
 
-	public Involvement newInvolvement(long id, LocalDateTime start, LocalDateTime end, Mission mission, Agent agent) {
+	public Involvement newInvolvement(LocalDateTime start, LocalDateTime end, Mission mission, Agent agent) {
 		Involvement temp = new Involvement();
 
 		temp.setAgent(agent);
 		temp.setStart(start);
 		temp.setEnd(end);
-		temp.setId(id);
 		temp.setMission(mission);
 
 		return temp;
 	}
 
-	public Agent newAgent(long id, String name, int level, LocalDate born, LocalDate died) {
+	public Agent newAgent(String name, int level, LocalDate born, LocalDate died) {
 		Agent temp = new Agent();
 
-		temp.setId(id);
 		temp.setName(name);
 		temp.setBorn(born);
 		temp.setDied(died);

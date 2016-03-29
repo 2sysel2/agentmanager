@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 
@@ -26,12 +27,19 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
     @Override
     public void createInvolvement(Involvement involvement) {
+    	
+    	validate(involvement);
+    	
+    	if (involvement.getId() != null) {
+			throw new IllegalArgumentException("Involvement id is already set!");
+		}
+    	
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
                         "INSERT INTO involvement (agent,mission,\"start\",\"end\") VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             ){
-            validate(involvement);
+            
             st.setLong(1, involvement.getAgent().getId());
             st.setLong(2, involvement.getMission().getId());
             st.setTimestamp(3, Timestamp.valueOf(involvement.getStart()));
