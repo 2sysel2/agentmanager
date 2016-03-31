@@ -15,31 +15,28 @@ public class HomeWork implements Runnable{
     
     public static void main(String[] args) {
         
-        HomeWork hw1= new HomeWork();
-        HomeWork hw2 = new HomeWork();
-        HomeWork hw3 = new HomeWork();
+        HomeWork hw = new HomeWork();
         
-        hw1.setName("1");
-        hw2.setName("2");
-        hw3.setName("3");
-        hw1.run();       
-        hw2.run();       
-        hw3.run();
-        
+        new Thread(hw,"1").start();
+        new Thread(hw,"2").start();
+        new Thread(hw,"3").start();
+        new Thread(hw,"4").start();
+        new Thread(hw,"5").start();
+
         
     }
 
     @Override
     public void run() {
-        synchronized(this){
-            while(count<=50){
+        
+        while(true){
+            synchronized(this){
+                if(count<=50)
                 System.out.println("thread "+Thread.currentThread().getName()+" :"+ count++);
             }
+            for(long l = 0;l<100000;l++);
         }
         
-    }
-    
-    public void setName(String name){
-        Thread.currentThread().setName(name);
+        
     }
 }
