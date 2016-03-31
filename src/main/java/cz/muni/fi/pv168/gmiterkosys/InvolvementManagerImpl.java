@@ -52,7 +52,7 @@ public class InvolvementManagerImpl implements InvolvementManager {
             }
 
             ResultSet keyRS = st.getGeneratedKeys();
-            involvement.setId(KeyGrabber.getKey(keyRS));
+            involvement.setId(KeyGrabber.getKey(keyRS, involvement));
         }
            catch (SQLException ex) {
             throw new ServiceFailureException("failed to insert new involvement",ex);

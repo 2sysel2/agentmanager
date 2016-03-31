@@ -54,7 +54,7 @@ public class AgentManagerImpl implements AgentManager {
 			}
 
 			ResultSet keys = st.getGeneratedKeys();
-			agent.setId(KeyGrabber.getKey(keys));
+			agent.setId(KeyGrabber.getKey(keys, agent));
 
 		} catch (SQLException e) {
 			throw new ServiceFailureException("SQL Error when creating " + agent, e);

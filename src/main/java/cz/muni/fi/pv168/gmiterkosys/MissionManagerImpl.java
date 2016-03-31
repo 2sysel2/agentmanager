@@ -37,7 +37,7 @@ public class MissionManagerImpl implements MissionManager {
             }
 
             ResultSet keyRS = st.getGeneratedKeys();
-            mission.setId(KeyGrabber.getKey(keyRS));
+            mission.setId(KeyGrabber.getKey(keyRS, mission));
                     
         } catch (SQLException ex) {
             throw new ServiceFailureException("failed to insert new mission",ex);
