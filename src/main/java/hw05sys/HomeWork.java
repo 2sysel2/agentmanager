@@ -20,8 +20,8 @@ public class HomeWork implements Runnable{
         new Thread(hw,"1").start();
         new Thread(hw,"2").start();
         new Thread(hw,"3").start();
-        new Thread(hw,"4").start();
-        new Thread(hw,"5").start();
+        //new Thread(hw,"4").start();
+        //new Thread(hw,"5").start();
 
         
     }
@@ -33,6 +33,7 @@ public class HomeWork implements Runnable{
             synchronized(this){
                 if(count<=50)
                 System.out.println("thread "+Thread.currentThread().getName()+" :"+ count++);
+                else break;
             }
             for(long l = 0;l<100000;l++);
         }
