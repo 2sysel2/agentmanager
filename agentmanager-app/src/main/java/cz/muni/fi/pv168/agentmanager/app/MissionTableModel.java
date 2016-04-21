@@ -2,7 +2,10 @@ package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
@@ -14,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MissionTableModel extends AbstractTableModel{
 
-    List<Mission> missions;
+    List<Mission> missions = new ArrayList<>();
     
     @Override
     public int getRowCount() {
@@ -64,7 +67,7 @@ public class MissionTableModel extends AbstractTableModel{
             case 2:
             case 3:
             case 4:
-            case 5:
+            case 5: return false;
             case 6:
             case 7: return false;
             default: throw new IllegalArgumentException("invalid index");
@@ -81,8 +84,13 @@ public class MissionTableModel extends AbstractTableModel{
             case 3: return mission.getEnd();
             case 4: return mission.getObjective();
             case 5: return mission.getOutcome();
-            case 6: return new JButton();
-            case 7: return new JButton();
+            case 6: 
+                JButton button = new JButton("Edit");
+                button.addActionListener((ActionEvent e) -> {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        });
+                return button;
+            case 7: return new JButton("Delete");
             default: throw new IllegalArgumentException("invalid index");
         }
     }    

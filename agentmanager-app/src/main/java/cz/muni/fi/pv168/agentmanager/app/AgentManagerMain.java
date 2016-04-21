@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Mission;
+import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -14,8 +16,23 @@ public class AgentManagerMain extends javax.swing.JFrame {
     public AgentManagerMain() {
         initComponents();
         MissionTableModel missionTableModel = new MissionTableModel();
-        //missionTableModel.addMission(new Mission());
+        Mission temp = new Mission();
+        ButtonRenderer br = new ButtonRenderer();
+        temp.setCode("operation gtfo");
+        temp.setLocation("gtfostan");
+        temp.setStart(LocalDateTime.MAX);
+        temp.setEnd(LocalDateTime.MIN);
+        temp.setObjective("go fuck yourself");
+        temp.setOutcome(Outcome.FAILED);
+        
+        missionTableModel.addMission(temp);
+        missionTableModel.addMission(temp);
+        missionTableModel.addMission(temp);
+        
+        
         missionTable.setModel(missionTableModel);
+        missionTable.getColumn("Edit").setCellRenderer(br);
+        missionTable.getColumn("Delete").setCellRenderer(br);
     }
 
     /**
