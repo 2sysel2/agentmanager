@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Mission;
+
 /**
  *
  * @author Jaromir Sys
@@ -11,6 +13,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
      */
     public AgentManagerMain() {
         initComponents();
+        MissionTableModel missionTableModel = new MissionTableModel();
+        //missionTableModel.addMission(new Mission());
+        missionTable.setModel(missionTableModel);
     }
 
     /**
@@ -39,6 +44,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         Agents.setLayout(new java.awt.BorderLayout());
@@ -144,10 +150,8 @@ public class AgentManagerMain extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AgentManagerMain().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AgentManagerMain().setVisible(true);
         });
     }
 

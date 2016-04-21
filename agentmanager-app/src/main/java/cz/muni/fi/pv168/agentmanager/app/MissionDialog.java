@@ -49,6 +49,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        missionPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         missionPanel.setLayout(new javax.swing.BoxLayout(missionPanel, javax.swing.BoxLayout.Y_AXIS));
 
         codePanel.setLayout(new java.awt.GridLayout());
