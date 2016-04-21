@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Jaromir Sys
@@ -177,7 +180,9 @@ public class MissionDialog extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
+                dialog.outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
                 dialog.setVisible(true);
+                
             }
         });
     }
