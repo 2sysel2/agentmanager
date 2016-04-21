@@ -193,7 +193,7 @@ public class AgentManagerImpl implements AgentManager {
 		}
 		// level
 		if (agent.getLevel() < 1 || agent.getLevel() > 10) {
-			throw new IllegalArgumentException("Agent level is out of range (0-10).");
+			throw new IllegalArgumentException("Agent level is out of range (1-10).");
 		}
 	}
 }
