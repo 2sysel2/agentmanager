@@ -29,7 +29,13 @@ public class AgentManagerMain extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         agentTable = new javax.swing.JTable();
         Involvements = new javax.swing.JPanel();
+        createInvolvementButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        involvementTable = new javax.swing.JTable();
         Missions = new javax.swing.JPanel();
+        createMissionButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        missionTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,29 +63,47 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agents", Agents);
 
-        javax.swing.GroupLayout InvolvementsLayout = new javax.swing.GroupLayout(Involvements);
-        Involvements.setLayout(InvolvementsLayout);
-        InvolvementsLayout.setHorizontalGroup(
-            InvolvementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
-        );
-        InvolvementsLayout.setVerticalGroup(
-            InvolvementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
-        );
+        Involvements.setLayout(new java.awt.BorderLayout());
+
+        createInvolvementButton.setText("Create Involvement");
+        Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
+
+        involvementTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(involvementTable);
+
+        Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("Involvements", Involvements);
 
-        javax.swing.GroupLayout MissionsLayout = new javax.swing.GroupLayout(Missions);
-        Missions.setLayout(MissionsLayout);
-        MissionsLayout.setHorizontalGroup(
-            MissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
-        );
-        MissionsLayout.setVerticalGroup(
-            MissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
-        );
+        Missions.setLayout(new java.awt.BorderLayout());
+
+        createMissionButton.setText("Create Mission");
+        Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
+
+        missionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(missionTable);
+
+        Missions.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("Missions", Missions);
 
@@ -133,8 +157,14 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JPanel Missions;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
+    private javax.swing.JButton createInvolvementButton;
+    private javax.swing.JButton createMissionButton;
+    private javax.swing.JTable involvementTable;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable missionTable;
     // End of variables declaration//GEN-END:variables
 }
