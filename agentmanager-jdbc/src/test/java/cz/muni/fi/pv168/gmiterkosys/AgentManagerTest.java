@@ -106,7 +106,7 @@ public class AgentManagerTest {
             // OK
         }
 
-        agent = newAgent("Linda Fox", bornDate, 0);
+        agent = newAgent("Linda Fox", bornDate, Agent.MIN_LEVEL-1);
         try {
             agentManager.createAgent(agent);
             fail("Agent's level isn't validated correctly.");
@@ -114,13 +114,13 @@ public class AgentManagerTest {
             // OK
         }
 
-        agent = newAgent("Linda Fox", bornDate, 1);
+        agent = newAgent("Linda Fox", bornDate, Agent.MIN_LEVEL);
         agentManager.createAgent(agent);
 
-        agent = newAgent("Linda Fox", bornDate, 10);
+        agent = newAgent("Linda Fox", bornDate, agent.MAX_LEVEL);
         agentManager.createAgent(agent);
 
-        agent = newAgent("Linda Fox", bornDate, 11);
+        agent = newAgent("Linda Fox", bornDate, Agent.MAX_LEVEL+1);
         try {
             agentManager.createAgent(agent);
             fail("Agent's level isn't validated correctly.");

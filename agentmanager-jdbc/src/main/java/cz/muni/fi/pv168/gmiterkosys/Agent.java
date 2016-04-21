@@ -7,6 +7,9 @@ import java.time.LocalDate;
  */
 public class Agent {
 
+    public static final int MIN_LEVEL = 1;
+    public static final int MAX_LEVEL = 10;
+    
 	private Long id;
 	private String name;
 	private LocalDate born;
