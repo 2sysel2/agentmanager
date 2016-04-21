@@ -129,8 +129,10 @@ public class InvolvementManagerImpl implements InvolvementManager {
     	if(agent != null) {
     		try (Connection connection = dataSource.getConnection();
     				PreparedStatement st = connection
-    						.prepareStatement("SELECT * FROM involvement")) {
+    						.prepareStatement("SELECT * FROM involvement WHERE agent=?")) {
 
+                st.setLong(1, agentId);
+                
     			ResultSet rs = st.executeQuery();
 
     			List<Involvement> result = new ArrayList<>();
@@ -154,8 +156,10 @@ public class InvolvementManagerImpl implements InvolvementManager {
     	if(mission != null) {
     		try (Connection connection = dataSource.getConnection();
     				PreparedStatement st = connection
-    						.prepareStatement("SELECT * FROM involvement")) {
+    						.prepareStatement("SELECT * FROM involvement WHERE mission=?")) {
 
+                st.setLong(1, missionId);
+                
     			ResultSet rs = st.executeQuery();
 
     			List<Involvement> result = new ArrayList<>();
