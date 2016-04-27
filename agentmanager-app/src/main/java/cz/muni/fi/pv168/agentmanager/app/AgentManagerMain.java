@@ -13,57 +13,28 @@ import java.time.LocalDateTime;
  */
 public class AgentManagerMain extends javax.swing.JFrame {
 
+    private ButtonRenderer buttonRenderer;
+    
     /**
      * Creates new form AgentManagerMain
      */
     public AgentManagerMain() {
+        buttonRenderer = new ButtonRenderer();
         initComponents();
         
-        initMissionTable();
-        initAgentTable();
-        initInvolvementTable();
+        MissionTableModel missionTableModel = (MissionTableModel) missionTable.getModel();
+        Mission tempMission = getTestMission();
+        missionTableModel.addMission(tempMission);
+        missionTableModel.addMission(tempMission);
+        missionTableModel.addMission(tempMission);
         
-    }
-    
-    private void initMissionTable() {
-        MissionTableModel missionTableModel = new MissionTableModel();
-        missionTable.setModel(missionTableModel);
-        ButtonRenderer br = new ButtonRenderer();
-        missionTable.getColumn("Edit").setCellRenderer(br);
-        missionTable.getColumn("Delete").setCellRenderer(br);
+        AgentTableModel agentTableModel = (AgentTableModel) agentTable.getModel();
+        Agent tempAgent = getTestAgent();
+        agentTableModel.addAgent(tempAgent);
+        agentTableModel.addAgent(tempAgent);
+        agentTableModel.addAgent(tempAgent);
         
-        // Test data
-        Mission temp = getTestMission();
-        missionTableModel.addMission(temp);
-        missionTableModel.addMission(temp);
-        missionTableModel.addMission(temp);
-    }
-    
-    private void initAgentTable() {
-        AgentTableModel agentTableModel = new AgentTableModel();
-        agentTable.setModel(agentTableModel);
-        ButtonRenderer br = new ButtonRenderer();
-        agentTable.getColumn("Edit").setCellRenderer(br);
-        agentTable.getColumn("Delete").setCellRenderer(br);
-        
-        // Test data
-        Agent temp = getTestAgent();
-        agentTableModel.addAgent(temp);
-        agentTableModel.addAgent(temp);
-        agentTableModel.addAgent(temp);
-    }
-        
-    private void initInvolvementTable() {
-        InvolvementTableModel involvementTableModel = new InvolvementTableModel();
-        involvementTable.setModel(involvementTableModel);
-        
-        ButtonRenderer br = new ButtonRenderer();
-        involvementTable.getColumn("Mission").setCellRenderer(br);
-        involvementTable.getColumn("Agent").setCellRenderer(br);
-        involvementTable.getColumn("Edit").setCellRenderer(br);
-        involvementTable.getColumn("Delete").setCellRenderer(br);
-        
-        // Test data
+        InvolvementTableModel involvementTableModel = (InvolvementTableModel) involvementTable.getModel();
         Involvement temp = getTestInvolvement();
         involvementTableModel.addInvolvement(temp);
         involvementTableModel.addInvolvement(temp);
@@ -104,17 +75,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createAgentButton.setText("Create Agent");
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
-        agentTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        AgentTableModel agentTableModel = new AgentTableModel();
+        agentTable.setModel(agentTableModel);
+        agentTable.getColumn("Edit").setCellRenderer(buttonRenderer);
+        agentTable.getColumn("Delete").setCellRenderer(buttonRenderer);
         jScrollPane1.setViewportView(agentTable);
 
         Agents.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -126,17 +90,12 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createInvolvementButton.setText("Create Involvement");
         Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
 
-        involvementTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        InvolvementTableModel involvementTableModel = new InvolvementTableModel();
+        involvementTable.setModel(involvementTableModel);
+        involvementTable.getColumn("Mission").setCellRenderer(buttonRenderer);
+        involvementTable.getColumn("Agent").setCellRenderer(buttonRenderer);
+        involvementTable.getColumn("Edit").setCellRenderer(buttonRenderer);
+        involvementTable.getColumn("Delete").setCellRenderer(buttonRenderer);
         jScrollPane2.setViewportView(involvementTable);
 
         Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -148,17 +107,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createMissionButton.setText("Create Mission");
         Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
 
-        missionTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        MissionTableModel missionTableModel = new MissionTableModel();
+        missionTable.setModel(missionTableModel);
+        missionTable.getColumn("Edit").setCellRenderer(buttonRenderer);
+        missionTable.getColumn("Delete").setCellRenderer(buttonRenderer);
         jScrollPane3.setViewportView(missionTable);
 
         Missions.add(jScrollPane3, java.awt.BorderLayout.CENTER);
