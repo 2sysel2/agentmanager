@@ -15,6 +15,7 @@ public class MissionDialog extends javax.swing.JDialog {
     public MissionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));      
     }
 
     /**
@@ -45,7 +46,7 @@ public class MissionDialog extends javax.swing.JDialog {
         objectiveTextArea = new javax.swing.JTextArea();
         outcomePanel = new javax.swing.JPanel();
         outcomeLabel = new javax.swing.JLabel();
-        outcomeComboBox = new javax.swing.JComboBox<>();
+        outcomeComboBox = new javax.swing.JComboBox<String>();
         actionPanel = new javax.swing.JPanel();
         createMissionButton = new javax.swing.JButton();
         cancelMissionButton = new javax.swing.JButton();
@@ -55,7 +56,7 @@ public class MissionDialog extends javax.swing.JDialog {
         missionPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         missionPanel.setLayout(new javax.swing.BoxLayout(missionPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        codePanel.setLayout(new java.awt.GridLayout());
+        codePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         codeLabel.setText("Code");
         codePanel.add(codeLabel);
@@ -65,7 +66,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.add(codePanel);
 
-        locationPanel.setLayout(new java.awt.GridLayout());
+        locationPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         locationLabel.setText("Location");
         locationPanel.add(locationLabel);
@@ -75,7 +76,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.add(locationPanel);
 
-        startPanel.setLayout(new java.awt.GridLayout());
+        startPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         startLabel.setText("Start");
         startPanel.add(startLabel);
@@ -86,7 +87,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.add(startPanel);
 
-        endPanel.setLayout(new java.awt.GridLayout());
+        endPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         endLabel.setText("End");
         endPanel.add(endLabel);
@@ -96,7 +97,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.add(endPanel);
 
-        objectivePanel.setLayout(new java.awt.GridLayout());
+        objectivePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         objectiveLabel.setText("Objective");
         objectivePanel.add(objectiveLabel);
@@ -109,17 +110,15 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.add(objectivePanel);
 
-        outcomePanel.setLayout(new java.awt.GridLayout());
+        outcomePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         outcomeLabel.setText("Outcome");
         outcomePanel.add(outcomeLabel);
-
-        outcomeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         outcomePanel.add(outcomeComboBox);
 
         missionPanel.add(outcomePanel);
 
-        actionPanel.setLayout(new java.awt.GridLayout());
+        actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         createMissionButton.setText("Create");
         actionPanel.add(createMissionButton);
@@ -180,7 +179,6 @@ public class MissionDialog extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
-                dialog.outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
                 dialog.setVisible(true);
                 
             }

@@ -26,10 +26,10 @@ public class InvolvementDialog extends javax.swing.JDialog {
         involvementPanel = new javax.swing.JPanel();
         agentPanel = new javax.swing.JPanel();
         agentLabel = new javax.swing.JLabel();
-        agentComboBox = new javax.swing.JComboBox<>();
+        agentComboBox = new javax.swing.JComboBox<String>();
         missionPanel = new javax.swing.JPanel();
         missionLabel = new javax.swing.JLabel();
-        missionComboBox = new javax.swing.JComboBox<>();
+        missionComboBox = new javax.swing.JComboBox<String>();
         startPanel = new javax.swing.JPanel();
         startLabel = new javax.swing.JLabel();
         startSpinner = new javax.swing.JSpinner();
@@ -45,29 +45,29 @@ public class InvolvementDialog extends javax.swing.JDialog {
         involvementPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         involvementPanel.setLayout(new javax.swing.BoxLayout(involvementPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        agentPanel.setLayout(new java.awt.GridLayout());
+        agentPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         agentLabel.setText("Agent");
         agentPanel.add(agentLabel);
 
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         agentPanel.add(agentComboBox);
 
         involvementPanel.add(agentPanel);
 
-        missionPanel.setLayout(new java.awt.GridLayout());
+        missionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         missionLabel.setText("Mission");
         missionPanel.add(missionLabel);
 
-        missionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        missionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         missionPanel.add(missionComboBox);
 
         involvementPanel.add(missionPanel);
 
-        startPanel.setLayout(new java.awt.GridLayout());
+        startPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        startLabel.setText("jLabel1");
+        startLabel.setText("Start");
         startPanel.add(startLabel);
 
         startSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -75,9 +75,9 @@ public class InvolvementDialog extends javax.swing.JDialog {
 
         involvementPanel.add(startPanel);
 
-        endPanel.setLayout(new java.awt.GridLayout());
+        endPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        endLabel.setText("jLabel2");
+        endLabel.setText("End");
         endPanel.add(endLabel);
 
         endSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -85,7 +85,7 @@ public class InvolvementDialog extends javax.swing.JDialog {
 
         involvementPanel.add(endPanel);
 
-        actionPanel.setLayout(new java.awt.GridLayout());
+        actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         createInvolvementButton.setText("Create");
         createInvolvementButton.addActionListener(new java.awt.event.ActionListener() {

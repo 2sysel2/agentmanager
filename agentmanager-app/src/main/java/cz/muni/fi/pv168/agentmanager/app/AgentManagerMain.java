@@ -1,7 +1,10 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -15,26 +18,58 @@ public class AgentManagerMain extends javax.swing.JFrame {
      */
     public AgentManagerMain() {
         initComponents();
+        
+        initMissionTable();
+        initAgentTable();
+        initInvolvementTable();
+        
+    }
+    
+    private void initMissionTable() {
         MissionTableModel missionTableModel = new MissionTableModel();
-        Mission temp = new Mission();
-        ButtonRenderer br = new ButtonRenderer();
-        temp.setCode("operation gtfo");
-        temp.setLocation("gtfostan");
-        temp.setStart(LocalDateTime.MAX);
-        temp.setEnd(LocalDateTime.MIN);
-        temp.setObjective("go fuck yourself");
-        temp.setOutcome(Outcome.FAILED);
-        
-        missionTableModel.addMission(temp);
-        missionTableModel.addMission(temp);
-        missionTableModel.addMission(temp);
-        
-        
         missionTable.setModel(missionTableModel);
+        ButtonRenderer br = new ButtonRenderer();
         missionTable.getColumn("Edit").setCellRenderer(br);
         missionTable.getColumn("Delete").setCellRenderer(br);
+        
+        // Test data
+        Mission temp = getTestMission();
+        missionTableModel.addMission(temp);
+        missionTableModel.addMission(temp);
+        missionTableModel.addMission(temp);
     }
-
+    
+    private void initAgentTable() {
+        AgentTableModel agentTableModel = new AgentTableModel();
+        agentTable.setModel(agentTableModel);
+        ButtonRenderer br = new ButtonRenderer();
+        agentTable.getColumn("Edit").setCellRenderer(br);
+        agentTable.getColumn("Delete").setCellRenderer(br);
+        
+        // Test data
+        Agent temp = getTestAgent();
+        agentTableModel.addAgent(temp);
+        agentTableModel.addAgent(temp);
+        agentTableModel.addAgent(temp);
+    }
+        
+    private void initInvolvementTable() {
+        InvolvementTableModel involvementTableModel = new InvolvementTableModel();
+        involvementTable.setModel(involvementTableModel);
+        
+        ButtonRenderer br = new ButtonRenderer();
+        involvementTable.getColumn("Mission").setCellRenderer(br);
+        involvementTable.getColumn("Agent").setCellRenderer(br);
+        involvementTable.getColumn("Edit").setCellRenderer(br);
+        involvementTable.getColumn("Delete").setCellRenderer(br);
+        
+        // Test data
+        Involvement temp = getTestInvolvement();
+        involvementTableModel.addInvolvement(temp);
+        involvementTableModel.addInvolvement(temp);
+        involvementTableModel.addInvolvement(temp);
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -188,4 +223,39 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable missionTable;
     // End of variables declaration//GEN-END:variables
+
+    private Mission getTestMission() {
+        Mission temp = new Mission();
+        
+        temp.setCode("CODE");
+        temp.setLocation("Location");
+        temp.setStart(LocalDateTime.MAX);
+        temp.setEnd(LocalDateTime.MIN);
+        temp.setObjective("Objective");
+        temp.setOutcome(Outcome.FAILED);
+        
+        return temp;
+    }
+    
+    private Agent getTestAgent() {
+        Agent temp = new Agent();
+        
+        temp.setName("Linda Fox");
+        temp.setBorn(LocalDate.MIN);
+        temp.setDied(LocalDate.MAX);
+        temp.setLevel(6);
+        
+        return temp;
+    }
+    
+    private Involvement getTestInvolvement() {
+        Involvement temp = new Involvement();
+        
+        temp.setMission(getTestMission());
+        temp.setAgent(getTestAgent());
+        temp.setStart(LocalDateTime.MIN);
+        temp.setEnd(LocalDateTime.MAX);
+        
+        return temp;
+    }
 }
