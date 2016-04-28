@@ -49,13 +49,14 @@ public class MissionPanel extends javax.swing.JPanel {
         objectiveTextArea = new javax.swing.JTextArea();
         outcomePanel = new javax.swing.JPanel();
         outcomeLabel = new javax.swing.JLabel();
-        outcomeComboBox = new javax.swing.JComboBox<String>();
+        outcomeComboBox = new javax.swing.JComboBox<>();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        codePanel.setLayout(new java.awt.GridLayout());
+        codePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        codeLabel.setText("Code");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        codeLabel.setText(bundle.getString("mission.code")); // NOI18N
         codePanel.add(codeLabel);
 
         codeTextField.setText("jTextField1");
@@ -63,9 +64,9 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(codePanel);
 
-        locationPanel.setLayout(new java.awt.GridLayout());
+        locationPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        locationLabel.setText("Location");
+        locationLabel.setText(bundle.getString("mission.location")); // NOI18N
         locationPanel.add(locationLabel);
 
         locationTextField.setText("jTextField2");
@@ -73,9 +74,9 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(locationPanel);
 
-        startPanel.setLayout(new java.awt.GridLayout());
+        startPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        startLabel.setText("Start");
+        startLabel.setText(bundle.getString("mission.start")); // NOI18N
         startPanel.add(startLabel);
 
         startSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -84,9 +85,9 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(startPanel);
 
-        endPanel.setLayout(new java.awt.GridLayout());
+        endPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        endLabel.setText("End");
+        endLabel.setText(bundle.getString("mission.end")); // NOI18N
         endPanel.add(endLabel);
 
         endSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -94,9 +95,9 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(endPanel);
 
-        objectivePanel.setLayout(new java.awt.GridLayout());
+        objectivePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        objectiveLabel.setText("Objective");
+        objectiveLabel.setText(bundle.getString("mission.objective")); // NOI18N
         objectivePanel.add(objectiveLabel);
 
         objectiveTextArea.setColumns(20);
@@ -107,9 +108,9 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(objectivePanel);
 
-        outcomePanel.setLayout(new java.awt.GridLayout());
+        outcomePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        outcomeLabel.setText("Outcome");
+        outcomeLabel.setText(bundle.getString("mission.outcome")); // NOI18N
         outcomePanel.add(outcomeLabel);
         outcomePanel.add(outcomeComboBox);
 

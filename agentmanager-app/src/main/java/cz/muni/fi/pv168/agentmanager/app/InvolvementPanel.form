@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -27,7 +27,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="agentLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Agent"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="involvement.agent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="agentComboBox">
@@ -56,7 +58,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="missionLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mission"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="involvement.mission" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="missionComboBox">
@@ -85,7 +89,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="startLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Start"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="involvement.start" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="startSpinner">
@@ -106,7 +112,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="endLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="End"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="involvement.end" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="endSpinner">

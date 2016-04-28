@@ -27,7 +27,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="codeLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Code"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.code" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="codeTextField">
@@ -46,7 +48,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="locationLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Location"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.location" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="locationTextField">
@@ -65,7 +69,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="startLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Start"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.start" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="startSpinner">
@@ -87,7 +93,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="endLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="End"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.end" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="endSpinner">
@@ -108,7 +116,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="objectiveLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Objective"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.objective" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -137,7 +147,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="outcomeLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Outcome"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="cz/muni/fi/pv168/agentmanager/app/Texts.properties" key="mission.outcome" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="outcomeComboBox">
