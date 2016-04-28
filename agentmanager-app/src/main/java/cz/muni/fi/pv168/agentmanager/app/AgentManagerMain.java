@@ -260,9 +260,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
         InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
-//        involvementCreateDialog.setAgentManager(agentManager);
-//        involvementCreateDialog.setMissionManager(missionManager);
-//        involvementCreateDialog.setInvolvementManager(involvementManager);
+        involvementCreateDialog.setAgentManager(agentManager);
+        involvementCreateDialog.setMissionManager(missionManager);
+        involvementCreateDialog.setInvolvementManager(involvementManager);
         java.awt.EventQueue.invokeLater(() -> {
                 involvementCreateDialog.setVisible(true);
         });

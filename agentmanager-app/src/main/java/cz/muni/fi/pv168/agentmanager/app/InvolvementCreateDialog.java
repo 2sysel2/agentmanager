@@ -1,8 +1,10 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
+import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
 
 /**
@@ -17,6 +19,11 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     
     /**
      * Creates new form InvolvementDialog
+     * @param parent
+     * @param modal
+     * @param agentManager
+     * @param missionManager
+     * @param involvementManager
      */
     public InvolvementCreateDialog(java.awt.Frame parent, boolean modal,AgentManager agentManager,MissionManager missionManager,InvolvementManager involvementManager) {
         super(parent, modal);
@@ -30,8 +37,6 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     public InvolvementCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agentManager.findAllAgents());
-        involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
     }
 
     public void setAgentManager(AgentManager agentManager) {
@@ -98,7 +103,9 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         involvement.setMission(involvementPanel1.getInvolvementMission());
         involvement.setStart(involvementPanel1.getInvolvementStart());
         involvement.setEnd(involvementPanel1.getInvolvementEnd());
+        System.out.println(involvementManager);
         involvementManager.createInvolvement(involvement);
+        
         this.setVisible(false);
     }//GEN-LAST:event_createInvolvementButtonActionPerformed
 
