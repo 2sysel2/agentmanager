@@ -1,14 +1,23 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
+import cz.muni.fi.pv168.gmiterkosys.AgentManager;
+import cz.muni.fi.pv168.gmiterkosys.AgentManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
+import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
+import cz.muni.fi.pv168.gmiterkosys.MissionManager;
+import cz.muni.fi.pv168.gmiterkosys.MissionManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import javax.sql.DataSource;
 import javax.swing.JOptionPane;
+import org.apache.derby.jdbc.EmbeddedDataSource;
 
 /**
  *
@@ -18,6 +27,33 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private ButtonRenderer buttonRenderer;
     private ResourceBundle texts = ResourceBundle.getBundle("cz.muni.fi.pv168.agentmanager.app.Texts");
+    private DataSource dataSource;
+    private MissionManager missionManager;
+    private AgentManager agentManager;
+    private InvolvementManager involvementManager;
+    
+    private static DataSource prepareDataSource() throws SQLException {
+            EmbeddedDataSource ds = new EmbeddedDataSource();
+            ds.setDatabaseName("./database");
+            ds.setCreateDatabase("create");
+            return ds;
+    }
+    
+    public void setUp() throws SQLException {
+		dataSource = prepareDataSource();
+
+		try (Connection connection = dataSource.getConnection()) {
+			connection.prepareStatement("CREATE TABLE agent ("
+                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                    + "\"name\" VARCHAR(255) NOT NULL,"
+                    + "born DATE,"
+                    + "died DATE,"
+                    + "\"level\" SMALLINT"
+                    + ")").execute();
+			}
+
+		agentManager = new AgentManagerImpl(dataSource);
+	}
     
     /**
      * Creates new form AgentManagerMain
