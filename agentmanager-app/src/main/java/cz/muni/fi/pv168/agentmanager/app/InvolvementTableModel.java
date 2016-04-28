@@ -44,8 +44,8 @@ public class InvolvementTableModel extends AbstractTableModel{
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch(columnIndex){
-            case 0: return JButton.class;
-            case 1: return JButton.class;
+            case 0: return String.class;
+            case 1: return String.class;
             case 2: return LocalDateTime.class;
             case 3: return LocalDateTime.class;
             case 4: return JButton.class;
@@ -71,8 +71,8 @@ public class InvolvementTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Involvement involvement = involvements.get(rowIndex);
         switch(columnIndex){
-            case 0: return new JButton(involvement.getMission().getCode());
-            case 1: return new JButton(involvement.getAgent().getName());
+            case 0: return involvement.getMission().getCode();
+            case 1: return involvement.getAgent().getName();
             case 2: return involvement.getStart();
             case 3: return involvement.getEnd();
             case 4: 

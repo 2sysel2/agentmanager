@@ -92,8 +92,6 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         InvolvementTableModel involvementTableModel = new InvolvementTableModel();
         involvementTable.setModel(involvementTableModel);
-        involvementTable.getColumn("Mission").setCellRenderer(buttonRenderer);
-        involvementTable.getColumn("Agent").setCellRenderer(buttonRenderer);
         involvementTable.getColumn("Edit").setCellRenderer(buttonRenderer);
         involvementTable.getColumn("Delete").setCellRenderer(buttonRenderer);
         jScrollPane2.setViewportView(involvementTable);

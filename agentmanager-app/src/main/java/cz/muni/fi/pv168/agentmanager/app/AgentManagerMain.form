@@ -140,7 +140,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="involvementTable.getColumn(&quot;Mission&quot;).setCellRenderer(buttonRenderer);&#xa;involvementTable.getColumn(&quot;Agent&quot;).setCellRenderer(buttonRenderer);&#xa;involvementTable.getColumn(&quot;Edit&quot;).setCellRenderer(buttonRenderer);&#xa;involvementTable.getColumn(&quot;Delete&quot;).setCellRenderer(buttonRenderer);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="involvementTable.getColumn(&quot;Edit&quot;).setCellRenderer(buttonRenderer);&#xa;involvementTable.getColumn(&quot;Delete&quot;).setCellRenderer(buttonRenderer);"/>
                         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="InvolvementTableModel involvementTableModel = new InvolvementTableModel();"/>
                       </AuxValues>
                     </Component>
