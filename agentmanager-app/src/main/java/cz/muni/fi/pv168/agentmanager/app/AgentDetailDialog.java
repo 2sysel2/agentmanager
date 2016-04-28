@@ -7,15 +7,12 @@ import java.util.ResourceBundle;
  * @author Dominik Gmiterko
  */
 public class AgentDetailDialog extends javax.swing.JDialog {
-
-    private final ResourceBundle texts;
     
     /**
      * Creates new form AgentDialog
      */
     public AgentDetailDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        texts = ResourceBundle.getBundle("cz.muni.fi.pv168.gmiterkosys.app.Texts");
         initComponents();
     }
 
@@ -62,7 +59,7 @@ public class AgentDetailDialog extends javax.swing.JDialog {
 
         agentPanel.add(actionPanel);
 
-        jTable1.setModel(new InvolvementTableModel(texts));
+        jTable1.setModel(new InvolvementTableModel(bundle));
         jScrollPane1.setViewportView(jTable1);
 
         agentPanel.add(jScrollPane1);

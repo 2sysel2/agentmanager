@@ -7,15 +7,12 @@ import java.util.ResourceBundle;
  * @author Jaromir Sys
  */
 public class MissionDetailDialog extends javax.swing.JDialog {
-
-    private final ResourceBundle texts;
     
     /**
      * Creates new form MissionDialog
      */
     public MissionDetailDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        texts = ResourceBundle.getBundle("cz.muni.fi.pv168.gmiterkosys.app.Texts");
         initComponents();
     }
 
@@ -44,10 +41,11 @@ public class MissionDetailDialog extends javax.swing.JDialog {
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createMissionButton.setText("Create");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        createMissionButton.setText(bundle.getString("action.create")); // NOI18N
         actionPanel.add(createMissionButton);
 
-        cancelMissionButton.setText("Cancel");
+        cancelMissionButton.setText(bundle.getString("action.cancel")); // NOI18N
         cancelMissionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelMissionButtonActionPerformed(evt);
@@ -57,7 +55,7 @@ public class MissionDetailDialog extends javax.swing.JDialog {
 
         missionPanel.add(actionPanel);
 
-        jTable1.setModel(new InvolvementTableModel(texts));
+        jTable1.setModel(new InvolvementTableModel(bundle));
         jScrollPane1.setViewportView(jTable1);
 
         missionPanel.add(jScrollPane1);

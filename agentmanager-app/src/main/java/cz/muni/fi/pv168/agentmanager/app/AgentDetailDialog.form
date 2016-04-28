@@ -86,7 +86,7 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new InvolvementTableModel(texts)" type="code"/>
+                  <Connection code="new InvolvementTableModel(bundle)" type="code"/>
                 </Property>
               </Properties>
             </Component>
