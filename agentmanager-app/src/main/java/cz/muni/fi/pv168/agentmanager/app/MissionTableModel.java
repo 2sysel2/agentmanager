@@ -30,20 +30,18 @@ public class MissionTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 8;
+        return 6;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
         switch(columnIndex){
             case 0: return texts.getString("mission.code");
-            case 1: return "Location";
-            case 2: return "Start";
-            case 3: return "End";
-            case 4: return "Objective";
-            case 5: return "Outcome";
-            case 6: return "Edit";
-            case 7: return "Delete";
+            case 1: return texts.getString("mission.location");
+            case 2: return texts.getString("mission.start");
+            case 3: return texts.getString("mission.end");
+            case 4: return texts.getString("mission.objective");
+            case 5: return texts.getString("mission.outcome");
             default: throw new IllegalArgumentException("invalid index");
         }
     }
@@ -57,8 +55,6 @@ public class MissionTableModel extends AbstractTableModel{
             case 3: return LocalDate.class;
             case 4: return String.class;
             case 5: return Outcome.class;
-            case 6: return JButton.class;
-            case 7: return JButton.class;
             default: throw new IllegalArgumentException("invalid index");
         }
     }
@@ -72,8 +68,6 @@ public class MissionTableModel extends AbstractTableModel{
             case 3:
             case 4:
             case 5: return false;
-            case 6:
-            case 7: return false;
             default: throw new IllegalArgumentException("invalid index");
         }
     }
@@ -88,18 +82,12 @@ public class MissionTableModel extends AbstractTableModel{
             case 3: return mission.getEnd();
             case 4: return mission.getObjective();
             case 5: return mission.getOutcome();
-            case 6: 
-                JButton button = new JButton("Edit");
-                button.addActionListener((ActionEvent e) -> {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                });
-                return button;
-            case 7: return new JButton("Delete");
             default: throw new IllegalArgumentException("invalid index");
         }
     }    
     
     public void addMission(Mission mission){
         missions.add(mission);
+        fireTableRowsInserted(missions.size() - 1, missions.size() - 1);
     }
 }

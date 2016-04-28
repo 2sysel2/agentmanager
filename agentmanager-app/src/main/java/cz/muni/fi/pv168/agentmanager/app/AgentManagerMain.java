@@ -165,7 +165,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        JOptionPane.showMessageDialog(this, "Made by Sys, Gmiterko (2016)");
+        JOptionPane.showMessageDialog(this, texts.getString("about.text"));
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
