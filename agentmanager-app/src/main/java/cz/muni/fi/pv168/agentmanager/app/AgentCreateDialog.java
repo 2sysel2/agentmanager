@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import javax.swing.DefaultComboBoxModel;
@@ -52,6 +53,11 @@ public class AgentCreateDialog extends javax.swing.JDialog {
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         createAgentButton.setText("Create");
+        createAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createAgentButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(createAgentButton);
 
         cancelAgentButton.setText("Cancel");
@@ -72,6 +78,16 @@ public class AgentCreateDialog extends javax.swing.JDialog {
     private void cancelAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAgentButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelAgentButtonActionPerformed
+
+    private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
+        Agent agent = new Agent();
+        agent.setName(agentPanel1.getAgentName());
+        agent.setBorn(agentPanel1.getAgentBorn().toLocalDate());
+        agent.setDied(agentPanel1.getAgentDied().toLocalDate());
+        agent.setLevel(agentPanel1.getAgentLevel());
+        agentManager.createAgent(agent);
+        this.setVisible(false);
+    }//GEN-LAST:event_createAgentButtonActionPerformed
 
     /**
      * @param args the command line arguments

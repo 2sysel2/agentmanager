@@ -28,29 +28,29 @@ public class MissionPanel extends javax.swing.JPanel {
         outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));      
     }
     
-    public String getCodeText(){
+    public String getMissionCode(){
         return codeTextField.getText();
     }
     
-    public String getLocationText(){
+    public String getMissionLocation(){
         return locationTextField.getText();
     }
     
-    public LocalDateTime getStartTime(){
+    public LocalDateTime getMissionStart(){
         Date date = (Date)startSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
     
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getMissionEnd(){
         Date date = (Date)endSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
     
-    public String getObjective(){
+    public String getMissionObjective(){
         return objectiveTextArea.getText();
     }
     
-    public Outcome getOutcome(){
+    public Outcome getMissionOutcome(){
         return (Outcome)outcomeComboBox.getSelectedItem();
     }
 

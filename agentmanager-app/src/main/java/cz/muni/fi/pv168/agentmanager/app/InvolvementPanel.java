@@ -5,6 +5,13 @@
  */
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
+import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.util.Date;
+
 /**
  *
  * @author Jaromir Sys
@@ -16,6 +23,24 @@ public class InvolvementPanel extends javax.swing.JPanel {
      */
     public InvolvementPanel() {
         initComponents();
+    }
+    
+    public Agent getInvolvementAgent(){
+        return (Agent)agentComboBox.getSelectedItem();
+    }
+    
+    public Mission getInvolvementMission(){
+        return (Mission)missionComboBox.getSelectedItem();
+    }
+    
+    public LocalDateTime getInvolvementStart(){
+        Date date = (Date)startSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public LocalDateTime getInvolvementEnd(){
+        Date date = (Date)endSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
     /**

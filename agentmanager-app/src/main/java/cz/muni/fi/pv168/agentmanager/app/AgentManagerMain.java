@@ -106,10 +106,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
 //        missionTableModel.addMission(tempMission);
         
         AgentTableModel agentTableModel = (AgentTableModel) agentTable.getModel();
-        Agent tempAgent = getTestAgent();
-        agentTableModel.addAgent(tempAgent);
-        agentTableModel.addAgent(tempAgent);
-        agentTableModel.addAgent(tempAgent);
+        agentManager.findAllAgents().stream().forEach((agent) -> {
+            agentTableModel.addAgent(agent);
+        });
         
         InvolvementTableModel involvementTableModel = (InvolvementTableModel) involvementTable.getModel();
         Involvement temp = getTestInvolvement();
@@ -158,6 +157,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
         createAgentButton.setText(bundle.getString("action.create.agent")); // NOI18N
+        createAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createAgentButtonActionPerformed(evt);
+            }
+        });
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
         agentTable.setModel(new AgentTableModel(texts));
@@ -245,6 +249,14 @@ public class AgentManagerMain extends javax.swing.JFrame {
         });
         
     }//GEN-LAST:event_createMissionButtonActionPerformed
+
+    private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
+        AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
+        agentCreateDialog.setAgentManager(agentManager);
+        java.awt.EventQueue.invokeLater(() -> {
+                agentCreateDialog.setVisible(true);
+        });
+    }//GEN-LAST:event_createAgentButtonActionPerformed
 
     /**
      * @param args the command line arguments

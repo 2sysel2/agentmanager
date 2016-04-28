@@ -5,6 +5,10 @@
  */
 package cz.muni.fi.pv168.agentmanager.app;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 /**
  *
  * @author Jaromir Sys
@@ -16,6 +20,24 @@ public class AgentPanel extends javax.swing.JPanel {
      */
     public AgentPanel() {
         initComponents();
+    }
+    
+    public String getAgentName(){
+        return nameTextField.getText();
+    }
+    
+    public LocalDateTime getAgentBorn(){
+        Date date = (Date)bornSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public LocalDateTime getAgentDied(){
+        Date date = (Date)diedSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public int getAgentLevel(){
+        return (int)levelSpinner.getValue();
     }
 
     /**

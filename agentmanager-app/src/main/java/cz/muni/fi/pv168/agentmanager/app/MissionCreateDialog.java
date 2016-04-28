@@ -82,12 +82,12 @@ public class MissionCreateDialog extends javax.swing.JDialog {
 
     private void createMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionButtonActionPerformed
         Mission mission = new Mission();
-        mission.setCode(missionPanel1.getCodeText());
-        mission.setLocation(missionPanel1.getLocationText());
-        mission.setStart(missionPanel1.getStartTime());
-        mission.setEnd(missionPanel1.getEndTime());
-        mission.setObjective(missionPanel1.getObjective());
-        mission.setOutcome(missionPanel1.getOutcome());
+        mission.setCode(missionPanel1.getMissionCode());
+        mission.setLocation(missionPanel1.getMissionLocation());
+        mission.setStart(missionPanel1.getMissionStart());
+        mission.setEnd(missionPanel1.getMissionEnd());
+        mission.setObjective(missionPanel1.getMissionObjective());
+        mission.setOutcome(missionPanel1.getMissionOutcome());
         
         missionManager.createMission(mission);
         this.setVisible(false);
