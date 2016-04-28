@@ -24,18 +24,7 @@ public class InvolvementDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         involvementPanel = new javax.swing.JPanel();
-        agentPanel = new javax.swing.JPanel();
-        agentLabel = new javax.swing.JLabel();
-        agentComboBox = new javax.swing.JComboBox<String>();
-        missionPanel = new javax.swing.JPanel();
-        missionLabel = new javax.swing.JLabel();
-        missionComboBox = new javax.swing.JComboBox<String>();
-        startPanel = new javax.swing.JPanel();
-        startLabel = new javax.swing.JLabel();
-        startSpinner = new javax.swing.JSpinner();
-        endPanel = new javax.swing.JPanel();
-        endLabel = new javax.swing.JLabel();
-        endSpinner = new javax.swing.JSpinner();
+        involvementPanel1 = new cz.muni.fi.pv168.agentmanager.app.InvolvementPanel();
         actionPanel = new javax.swing.JPanel();
         createInvolvementButton = new javax.swing.JButton();
         cancelInvolvementButton = new javax.swing.JButton();
@@ -44,46 +33,7 @@ public class InvolvementDialog extends javax.swing.JDialog {
 
         involvementPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         involvementPanel.setLayout(new javax.swing.BoxLayout(involvementPanel, javax.swing.BoxLayout.PAGE_AXIS));
-
-        agentPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        agentLabel.setText("Agent");
-        agentPanel.add(agentLabel);
-
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        agentPanel.add(agentComboBox);
-
-        involvementPanel.add(agentPanel);
-
-        missionPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        missionLabel.setText("Mission");
-        missionPanel.add(missionLabel);
-
-        missionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        missionPanel.add(missionComboBox);
-
-        involvementPanel.add(missionPanel);
-
-        startPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        startLabel.setText("Start");
-        startPanel.add(startLabel);
-
-        startSpinner.setModel(new javax.swing.SpinnerDateModel());
-        startPanel.add(startSpinner);
-
-        involvementPanel.add(startPanel);
-
-        endPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        endLabel.setText("End");
-        endPanel.add(endLabel);
-
-        endSpinner.setModel(new javax.swing.SpinnerDateModel());
-        endPanel.add(endSpinner);
-
-        involvementPanel.add(endPanel);
+        involvementPanel.add(involvementPanel1);
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -153,20 +103,9 @@ public class InvolvementDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
-    private javax.swing.JComboBox<String> agentComboBox;
-    private javax.swing.JLabel agentLabel;
-    private javax.swing.JPanel agentPanel;
     private javax.swing.JButton cancelInvolvementButton;
     private javax.swing.JButton createInvolvementButton;
-    private javax.swing.JLabel endLabel;
-    private javax.swing.JPanel endPanel;
-    private javax.swing.JSpinner endSpinner;
     private javax.swing.JPanel involvementPanel;
-    private javax.swing.JComboBox<String> missionComboBox;
-    private javax.swing.JLabel missionLabel;
-    private javax.swing.JPanel missionPanel;
-    private javax.swing.JLabel startLabel;
-    private javax.swing.JPanel startPanel;
-    private javax.swing.JSpinner startSpinner;
+    private cz.muni.fi.pv168.agentmanager.app.InvolvementPanel involvementPanel1;
     // End of variables declaration//GEN-END:variables
 }
