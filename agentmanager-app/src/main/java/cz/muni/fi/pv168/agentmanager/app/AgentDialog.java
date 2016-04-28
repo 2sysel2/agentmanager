@@ -27,18 +27,7 @@ public class AgentDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         agentPanel = new javax.swing.JPanel();
-        codePanel = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
-        nameTextField = new javax.swing.JTextField();
-        startPanel = new javax.swing.JPanel();
-        bornLabel = new javax.swing.JLabel();
-        bornSpinner = new javax.swing.JSpinner();
-        endPanel = new javax.swing.JPanel();
-        diedLabel = new javax.swing.JLabel();
-        diedSpinner = new javax.swing.JSpinner();
-        outcomePanel = new javax.swing.JPanel();
-        levelLabel = new javax.swing.JLabel();
-        levelSpinner = new javax.swing.JSpinner();
+        agentPanel1 = new cz.muni.fi.pv168.agentmanager.app.AgentPanel();
         actionPanel = new javax.swing.JPanel();
         createAgentButton = new javax.swing.JButton();
         cancelAgentButton = new javax.swing.JButton();
@@ -47,49 +36,9 @@ public class AgentDialog extends javax.swing.JDialog {
 
         agentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         agentPanel.setLayout(new javax.swing.BoxLayout(agentPanel, javax.swing.BoxLayout.Y_AXIS));
+        agentPanel.add(agentPanel1);
 
-        codePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        nameLabel.setText("Name");
-        codePanel.add(nameLabel);
-
-        nameTextField.setText("jTextField1");
-        codePanel.add(nameTextField);
-
-        agentPanel.add(codePanel);
-
-        startPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        bornLabel.setText("Born");
-        startPanel.add(bornLabel);
-
-        bornSpinner.setModel(new javax.swing.SpinnerDateModel());
-        bornSpinner.setToolTipText("");
-        startPanel.add(bornSpinner);
-
-        agentPanel.add(startPanel);
-
-        endPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        diedLabel.setText("Died");
-        endPanel.add(diedLabel);
-
-        diedSpinner.setModel(new javax.swing.SpinnerDateModel());
-        endPanel.add(diedSpinner);
-
-        agentPanel.add(endPanel);
-
-        outcomePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        levelLabel.setText("Level");
-        outcomePanel.add(levelLabel);
-
-        levelSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
-        outcomePanel.add(levelSpinner);
-
-        agentPanel.add(outcomePanel);
-
-        actionPanel.setLayout(new java.awt.GridLayout(1, 0));
+        actionPanel.setLayout(new java.awt.GridLayout());
 
         createAgentButton.setText("Create");
         actionPanel.add(createAgentButton);
@@ -160,19 +109,8 @@ public class AgentDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JPanel agentPanel;
-    private javax.swing.JLabel bornLabel;
-    private javax.swing.JSpinner bornSpinner;
+    private cz.muni.fi.pv168.agentmanager.app.AgentPanel agentPanel1;
     private javax.swing.JButton cancelAgentButton;
-    private javax.swing.JPanel codePanel;
     private javax.swing.JButton createAgentButton;
-    private javax.swing.JLabel diedLabel;
-    private javax.swing.JSpinner diedSpinner;
-    private javax.swing.JPanel endPanel;
-    private javax.swing.JLabel levelLabel;
-    private javax.swing.JSpinner levelSpinner;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JPanel outcomePanel;
-    private javax.swing.JPanel startPanel;
     // End of variables declaration//GEN-END:variables
 }
