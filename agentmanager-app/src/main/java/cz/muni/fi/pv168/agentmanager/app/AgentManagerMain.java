@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.AgentManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
+import cz.muni.fi.pv168.gmiterkosys.InvolvementManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
 import cz.muni.fi.pv168.gmiterkosys.MissionManagerImpl;
@@ -15,6 +16,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.spec.IvParameterSpec;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import org.apache.derby.jdbc.EmbeddedDataSource;
@@ -25,7 +29,6 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
  */
 public class AgentManagerMain extends javax.swing.JFrame {
 
-    private ButtonRenderer buttonRenderer;
     private ResourceBundle texts = ResourceBundle.getBundle("cz.muni.fi.pv168.agentmanager.app.Texts");
     private DataSource dataSource;
     private MissionManager missionManager;
@@ -34,12 +37,13 @@ public class AgentManagerMain extends javax.swing.JFrame {
     
     private static DataSource prepareDataSource() throws SQLException {
             EmbeddedDataSource ds = new EmbeddedDataSource();
-            ds.setDatabaseName("./database");
+            //ds.setDatabaseName("memory:database");
+            ds.setDatabaseName("./databaseeee");
             ds.setCreateDatabase("create");
             return ds;
     }
     
-    public void setUp() throws SQLException {
+    public final void setUp() throws SQLException {
 		dataSource = prepareDataSource();
 
 		try (Connection connection = dataSource.getConnection()) {
@@ -50,23 +54,55 @@ public class AgentManagerMain extends javax.swing.JFrame {
                     + "died DATE,"
                     + "\"level\" SMALLINT"
                     + ")").execute();
-			}
-
+			
+			connection.prepareStatement("CREATE TABLE mission ("
+                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                    + "code VARCHAR(255),"
+                    + "location VARCHAR(255),"
+                    + "\"start\" TIMESTAMP,"
+                    + "\"end\" TIMESTAMP,"
+                    + "objective VARCHAR(255),"
+                    + "outcome VARCHAR(255)"
+                    + ")").execute();
+			
+			connection.prepareStatement("CREATE TABLE involvement ("
+                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                    + "agent BIGINT,"
+                    + "mission BIGINT,"
+                    + "\"start\" TIMESTAMP,"
+                    + "\"end\" TIMESTAMP,"
+                    + "FOREIGN KEY(agent) REFERENCES agent,"
+                    + "FOREIGN KEY(mission) REFERENCES mission)").execute();
+			}catch(SQLException e){
+                            
+                        }
 		agentManager = new AgentManagerImpl(dataSource);
+                missionManager = new MissionManagerImpl(dataSource);
+                involvementManager = new InvolvementManagerImpl(dataSource, agentManager, missionManager);
 	}
     
     /**
      * Creates new form AgentManagerMain
      */
-    public AgentManagerMain() {
-        buttonRenderer = new ButtonRenderer();
+    public AgentManagerMain() throws SQLException {
         initComponents();
+        setUp();
+        
         
         MissionTableModel missionTableModel = (MissionTableModel) missionTable.getModel();
         Mission tempMission = getTestMission();
-        missionTableModel.addMission(tempMission);
-        missionTableModel.addMission(tempMission);
-        missionTableModel.addMission(tempMission);
+        
+        missionManager.createMission(tempMission);
+        missionManager.createMission(tempMission);
+        missionManager.createMission(tempMission);
+        
+        missionManager.findAllMissions().stream().forEach((m) -> {
+            missionTableModel.addMission(m);
+        });
+        
+//        missionTableModel.addMission(tempMission);
+//        missionTableModel.addMission(tempMission);
+//        missionTableModel.addMission(tempMission);
         
         AgentTableModel agentTableModel = (AgentTableModel) agentTable.getModel();
         Agent tempAgent = getTestAgent();
@@ -224,7 +260,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AgentManagerMain().setVisible(true);
+            try {
+                new AgentManagerMain().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AgentManagerMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
@@ -255,8 +295,8 @@ public class AgentManagerMain extends javax.swing.JFrame {
         
         temp.setCode("CODE");
         temp.setLocation("Location");
-        temp.setStart(LocalDateTime.MAX);
-        temp.setEnd(LocalDateTime.MIN);
+        temp.setStart(LocalDateTime.of(2000, 3, 1, 0, 0));
+        temp.setEnd(LocalDateTime.of(2001, 1, 1, 1, 1));
         temp.setObjective("Objective");
         temp.setOutcome(Outcome.FAILED);
         
