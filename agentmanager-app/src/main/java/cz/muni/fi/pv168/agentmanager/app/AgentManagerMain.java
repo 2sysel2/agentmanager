@@ -4,7 +4,6 @@ import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
-import java.awt.Dialog;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -87,10 +86,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createAgentButton.setText("Create Agent");
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
-        AgentTableModel agentTableModel = new AgentTableModel(texts);
-        agentTable.setModel(agentTableModel);
-        agentTable.getColumn("Edit").setCellRenderer(buttonRenderer);
-        agentTable.getColumn("Delete").setCellRenderer(buttonRenderer);
+        agentTable.setModel(new AgentTableModel(texts));
         jScrollPane1.setViewportView(agentTable);
 
         Agents.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -102,10 +98,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createInvolvementButton.setText("Create Involvement");
         Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
 
-        InvolvementTableModel involvementTableModel = new InvolvementTableModel(texts);
-        involvementTable.setModel(involvementTableModel);
-        involvementTable.getColumn("Edit").setCellRenderer(buttonRenderer);
-        involvementTable.getColumn("Delete").setCellRenderer(buttonRenderer);
+        involvementTable.setModel(new InvolvementTableModel(texts));
         jScrollPane2.setViewportView(involvementTable);
 
         Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -117,10 +110,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createMissionButton.setText("Create Mission");
         Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
 
-        MissionTableModel missionTableModel = new MissionTableModel(texts);
-        missionTable.setModel(missionTableModel);
-        missionTable.getColumn("Edit").setCellRenderer(buttonRenderer);
-        missionTable.getColumn("Delete").setCellRenderer(buttonRenderer);
+        missionTable.setModel(new MissionTableModel(texts));
         jScrollPane3.setViewportView(missionTable);
 
         Missions.add(jScrollPane3, java.awt.BorderLayout.CENTER);

@@ -1,19 +1,21 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
-import cz.muni.fi.pv168.gmiterkosys.Outcome;
-import javax.swing.DefaultComboBoxModel;
+import java.util.ResourceBundle;
 
 /**
  *
  * @author Jaromir Sys
  */
-public class MissionDialog extends javax.swing.JDialog {
+public class MissionDetailDialog extends javax.swing.JDialog {
 
+    private final ResourceBundle texts;
+    
     /**
      * Creates new form MissionDialog
      */
-    public MissionDialog(java.awt.Frame parent, boolean modal) {
+    public MissionDetailDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        texts = ResourceBundle.getBundle("cz.muni.fi.pv168.gmiterkosys.app.Texts");
         initComponents();
     }
 
@@ -31,6 +33,8 @@ public class MissionDialog extends javax.swing.JDialog {
         actionPanel = new javax.swing.JPanel();
         createMissionButton = new javax.swing.JButton();
         cancelMissionButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,6 +56,11 @@ public class MissionDialog extends javax.swing.JDialog {
         actionPanel.add(cancelMissionButton);
 
         missionPanel.add(actionPanel);
+
+        jTable1.setModel(new InvolvementTableModel(texts));
+        jScrollPane1.setViewportView(jTable1);
+
+        missionPanel.add(jScrollPane1);
 
         getContentPane().add(missionPanel, java.awt.BorderLayout.CENTER);
 
@@ -79,20 +88,23 @@ public class MissionDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MissionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MissionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MissionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MissionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MissionDialog dialog = new MissionDialog(new javax.swing.JFrame(), true);
+                MissionDetailDialog dialog = new MissionDetailDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -109,6 +121,8 @@ public class MissionDialog extends javax.swing.JDialog {
     private javax.swing.JPanel actionPanel;
     private javax.swing.JButton cancelMissionButton;
     private javax.swing.JButton createMissionButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel missionPanel;
     private cz.muni.fi.pv168.agentmanager.app.MissionPanel missionPanel1;
     // End of variables declaration//GEN-END:variables

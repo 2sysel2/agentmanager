@@ -5,14 +5,14 @@ import javax.swing.DefaultComboBoxModel;
 
 /**
  *
- * @author Dominik Gmiterko
+ * @author Jaromir Sys
  */
-public class AgentDialog extends javax.swing.JDialog {
+public class MissionCreateDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form AgentDialog
+     * Creates new form MissionDialog
      */
-    public AgentDialog(java.awt.Frame parent, boolean modal) {
+    public MissionCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -26,41 +26,41 @@ public class AgentDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        agentPanel = new javax.swing.JPanel();
-        agentPanel1 = new cz.muni.fi.pv168.agentmanager.app.AgentPanel();
+        missionPanel = new javax.swing.JPanel();
+        missionPanel1 = new cz.muni.fi.pv168.agentmanager.app.MissionPanel();
         actionPanel = new javax.swing.JPanel();
-        createAgentButton = new javax.swing.JButton();
-        cancelAgentButton = new javax.swing.JButton();
+        createMissionButton = new javax.swing.JButton();
+        cancelMissionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        agentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        agentPanel.setLayout(new javax.swing.BoxLayout(agentPanel, javax.swing.BoxLayout.Y_AXIS));
-        agentPanel.add(agentPanel1);
+        missionPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        missionPanel.setLayout(new javax.swing.BoxLayout(missionPanel, javax.swing.BoxLayout.Y_AXIS));
+        missionPanel.add(missionPanel1);
 
-        actionPanel.setLayout(new java.awt.GridLayout());
+        actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createAgentButton.setText("Create");
-        actionPanel.add(createAgentButton);
+        createMissionButton.setText("Create");
+        actionPanel.add(createMissionButton);
 
-        cancelAgentButton.setText("Cancel");
-        cancelAgentButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelMissionButton.setText("Cancel");
+        cancelMissionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelAgentButtonActionPerformed(evt);
+                cancelMissionButtonActionPerformed(evt);
             }
         });
-        actionPanel.add(cancelAgentButton);
+        actionPanel.add(cancelMissionButton);
 
-        agentPanel.add(actionPanel);
+        missionPanel.add(actionPanel);
 
-        getContentPane().add(agentPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(missionPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAgentButtonActionPerformed
+    private void cancelMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMissionButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cancelAgentButtonActionPerformed
+    }//GEN-LAST:event_cancelMissionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,13 +79,13 @@ public class AgentDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MissionCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -93,7 +93,7 @@ public class AgentDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AgentDialog dialog = new AgentDialog(new javax.swing.JFrame(), true);
+                MissionCreateDialog dialog = new MissionCreateDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -108,9 +108,9 @@ public class AgentDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
-    private javax.swing.JPanel agentPanel;
-    private cz.muni.fi.pv168.agentmanager.app.AgentPanel agentPanel1;
-    private javax.swing.JButton cancelAgentButton;
-    private javax.swing.JButton createAgentButton;
+    private javax.swing.JButton cancelMissionButton;
+    private javax.swing.JButton createMissionButton;
+    private javax.swing.JPanel missionPanel;
+    private cz.muni.fi.pv168.agentmanager.app.MissionPanel missionPanel1;
     // End of variables declaration//GEN-END:variables
 }
