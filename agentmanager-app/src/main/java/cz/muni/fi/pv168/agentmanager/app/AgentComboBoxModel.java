@@ -17,7 +17,10 @@ public class AgentComboBoxModel extends AbstractListModel implements ComboBoxMod
     private Agent selected;
     
     public AgentComboBoxModel(List<Agent> agents){
-        this.agents = agents;        
+        this.agents = agents;  
+        if(agents.size()!=0){
+            selected = agents.get(0);
+        }
     }
     
     @Override

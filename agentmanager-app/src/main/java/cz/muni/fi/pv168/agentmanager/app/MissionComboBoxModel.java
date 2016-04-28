@@ -16,7 +16,10 @@ public class MissionComboBoxModel extends AbstractListModel implements ComboBoxM
     private Mission selected;
     
     public MissionComboBoxModel(List<Mission> missions){
-        this.missions = missions;        
+        this.missions = missions;     
+        if(missions.size()!=0){
+            selected = missions.get(0);
+        }
     }
     
     @Override
