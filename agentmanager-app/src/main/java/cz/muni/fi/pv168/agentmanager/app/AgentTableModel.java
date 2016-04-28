@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
-//import javax.swing.table.TableModel;
 
 /**
  *
@@ -89,5 +89,6 @@ public class AgentTableModel extends AbstractTableModel{
     
     public void addAgent(Agent agent){
         agents.add(agent);
+        fireTableRowsInserted(agents.size(), agents.size());
     }
 }

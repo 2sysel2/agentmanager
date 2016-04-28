@@ -53,6 +53,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Agents = new javax.swing.JPanel();
@@ -70,7 +71,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenu();
+        aboutMenuItem = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,15 +142,16 @@ public class AgentManagerMain extends javax.swing.JFrame {
         });
         fileMenuItem.add(exitMenuItem);
 
-        jMenuBar1.add(fileMenuItem);
-
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
         aboutMenuItem.setText("About");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutMenuItemActionPerformed(evt);
             }
         });
-        jMenuBar1.add(aboutMenuItem);
+        fileMenuItem.add(aboutMenuItem);
+
+        jMenuBar1.add(fileMenuItem);
 
         setJMenuBar(jMenuBar1);
 
@@ -159,7 +163,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        JOptionPane.showMessageDialog(this, "");
+        JOptionPane.showMessageDialog(this, "Made by Sys, Gmiterko (2016)");
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
@@ -199,7 +203,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JPanel Agents;
     private javax.swing.JPanel Involvements;
     private javax.swing.JPanel Missions;
-    private javax.swing.JMenu aboutMenuItem;
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
     private javax.swing.JButton createInvolvementButton;
@@ -208,6 +212,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JTable involvementTable;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

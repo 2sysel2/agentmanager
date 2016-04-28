@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
-//import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,7 +16,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MissionTableModel extends AbstractTableModel{
 
-    List<Mission> missions = new ArrayList<>();
+    private List<Mission> missions = new ArrayList<>();
+    private ResourceBundle texts;
+
+    public MissionTableModel(ResourceBundle texts) {
+        this.texts = texts;
+    }
     
     @Override
     public int getRowCount() {
@@ -31,7 +36,7 @@ public class MissionTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int columnIndex) {
         switch(columnIndex){
-            case 0: return "Code";
+            case 0: return texts.getString("mission.code");
             case 1: return "Location";
             case 2: return "Start";
             case 3: return "End";
