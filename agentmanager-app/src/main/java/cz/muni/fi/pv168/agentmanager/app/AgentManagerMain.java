@@ -34,6 +34,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private MissionManager missionManager;
     private AgentManager agentManager;
     private InvolvementManager involvementManager;
+    private MissionTableModel missionTableModel;
     
     private static DataSource prepareDataSource() throws SQLException {
             EmbeddedDataSource ds = new EmbeddedDataSource();
@@ -47,35 +48,35 @@ public class AgentManagerMain extends javax.swing.JFrame {
 		dataSource = prepareDataSource();
 
 		try (Connection connection = dataSource.getConnection()) {
-			connection.prepareStatement("CREATE TABLE agent ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "\"name\" VARCHAR(255) NOT NULL,"
-                    + "born DATE,"
-                    + "died DATE,"
-                    + "\"level\" SMALLINT"
-                    + ")").execute();
+                    connection.prepareStatement("CREATE TABLE agent ("
+                        + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                        + "\"name\" VARCHAR(255) NOT NULL,"
+                        + "born DATE,"
+                        + "died DATE,"
+                        + "\"level\" SMALLINT"
+                        + ")").execute();
 			
-			connection.prepareStatement("CREATE TABLE mission ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "code VARCHAR(255),"
-                    + "location VARCHAR(255),"
-                    + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP,"
-                    + "objective VARCHAR(255),"
-                    + "outcome VARCHAR(255)"
-                    + ")").execute();
+                    connection.prepareStatement("CREATE TABLE mission ("
+                        + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                        + "code VARCHAR(255),"
+                        + "location VARCHAR(255),"
+                        + "\"start\" TIMESTAMP,"
+                        + "\"end\" TIMESTAMP,"
+                        + "objective VARCHAR(255),"
+                        + "outcome VARCHAR(255)"
+                        + ")").execute();
 			
-			connection.prepareStatement("CREATE TABLE involvement ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "agent BIGINT,"
-                    + "mission BIGINT,"
-                    + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP,"
-                    + "FOREIGN KEY(agent) REFERENCES agent,"
-                    + "FOREIGN KEY(mission) REFERENCES mission)").execute();
-			}catch(SQLException e){
+                    connection.prepareStatement("CREATE TABLE involvement ("
+                        + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                        + "agent BIGINT,"
+                        + "mission BIGINT,"
+                        + "\"start\" TIMESTAMP,"
+                        + "\"end\" TIMESTAMP,"
+                        + "FOREIGN KEY(agent) REFERENCES agent,"
+                        + "FOREIGN KEY(mission) REFERENCES mission)").execute();
+                }catch(SQLException e){
                             
-                        }
+                }
 		agentManager = new AgentManagerImpl(dataSource);
                 missionManager = new MissionManagerImpl(dataSource);
                 involvementManager = new InvolvementManagerImpl(dataSource, agentManager, missionManager);
@@ -89,7 +90,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         setUp();
         
         
-        MissionTableModel missionTableModel = (MissionTableModel) missionTable.getModel();
+        missionTableModel = (MissionTableModel) missionTable.getModel();
         Mission tempMission = getTestMission();
         
         missionManager.createMission(tempMission);
@@ -181,6 +182,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
         Missions.setLayout(new java.awt.BorderLayout());
 
         createMissionButton.setText(bundle.getString("action.create.mission")); // NOI18N
+        createMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createMissionButtonActionPerformed(evt);
+            }
+        });
         Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
 
         missionTable.setModel(new MissionTableModel(texts));
@@ -230,6 +236,15 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         JOptionPane.showMessageDialog(this, texts.getString("about.text"));
     }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void createMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionButtonActionPerformed
+        MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
+        missionCreateDialog.setMissionManager(missionManager);
+        java.awt.EventQueue.invokeLater(() -> {
+                missionCreateDialog.setVisible(true);
+        });
+        
+    }//GEN-LAST:event_createMissionButtonActionPerformed
 
     /**
      * @param args the command line arguments

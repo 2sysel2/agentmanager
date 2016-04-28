@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import javax.swing.DefaultComboBoxModel;
 
@@ -9,6 +10,16 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class AgentCreateDialog extends javax.swing.JDialog {
 
+    private AgentManager agentManager;
+
+    public AgentManager getAgentManager() {
+        return agentManager;
+    }
+
+    public void setAgentManager(AgentManager agentManager) {
+        this.agentManager = agentManager;
+    }
+    
     /**
      * Creates new form AgentDialog
      */

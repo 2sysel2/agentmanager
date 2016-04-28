@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Mission;
+import cz.muni.fi.pv168.gmiterkosys.MissionManager;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import javax.swing.DefaultComboBoxModel;
 
@@ -9,6 +11,17 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class MissionCreateDialog extends javax.swing.JDialog {
 
+    
+    private MissionManager missionManager;
+
+    public MissionManager getMissionManager() {
+        return missionManager;
+    }
+
+    public void setMissionManager(MissionManager missionManager) {
+        this.missionManager = missionManager;
+    }
+    
     /**
      * Creates new form MissionDialog
      */
@@ -41,6 +54,11 @@ public class MissionCreateDialog extends javax.swing.JDialog {
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         createMissionButton.setText("Create");
+        createMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createMissionButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(createMissionButton);
 
         cancelMissionButton.setText("Cancel");
@@ -59,8 +77,21 @@ public class MissionCreateDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMissionButtonActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_cancelMissionButtonActionPerformed
+
+    private void createMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionButtonActionPerformed
+        Mission mission = new Mission();
+        mission.setCode(missionPanel1.getCodeText());
+        mission.setLocation(missionPanel1.getLocationText());
+        mission.setStart(missionPanel1.getStartTime());
+        mission.setEnd(missionPanel1.getEndTime());
+        mission.setObjective(missionPanel1.getObjective());
+        mission.setOutcome(missionPanel1.getOutcome());
+        
+        missionManager.createMission(mission);
+        this.setVisible(false);
+    }//GEN-LAST:event_createMissionButtonActionPerformed
 
     /**
      * @param args the command line arguments

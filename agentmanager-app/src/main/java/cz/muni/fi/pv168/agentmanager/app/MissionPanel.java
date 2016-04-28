@@ -6,6 +6,12 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -20,6 +26,32 @@ public class MissionPanel extends javax.swing.JPanel {
     public MissionPanel() {
         initComponents();
         outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));      
+    }
+    
+    public String getCodeText(){
+        return codeTextField.getText();
+    }
+    
+    public String getLocationText(){
+        return locationTextField.getText();
+    }
+    
+    public LocalDateTime getStartTime(){
+        Date date = (Date)startSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public LocalDateTime getEndTime(){
+        Date date = (Date)endSpinner.getValue();
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public String getObjective(){
+        return objectiveTextArea.getText();
+    }
+    
+    public Outcome getOutcome(){
+        return (Outcome)outcomeComboBox.getSelectedItem();
     }
 
     /**
