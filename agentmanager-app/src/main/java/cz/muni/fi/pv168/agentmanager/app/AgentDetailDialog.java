@@ -31,7 +31,7 @@ public class AgentDetailDialog extends javax.swing.JDialog {
         agentPanel = new javax.swing.JPanel();
         agentPanel1 = new cz.muni.fi.pv168.agentmanager.app.AgentPanel();
         actionPanel = new javax.swing.JPanel();
-        createAgentButton = new javax.swing.JButton();
+        updateAgentButton = new javax.swing.JButton();
         removeAgentButton = new javax.swing.JButton();
         cancelAgentButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -46,8 +46,8 @@ public class AgentDetailDialog extends javax.swing.JDialog {
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
-        createAgentButton.setText(bundle.getString("action.create")); // NOI18N
-        actionPanel.add(createAgentButton);
+        updateAgentButton.setText(bundle.getString("action.update")); // NOI18N
+        actionPanel.add(updateAgentButton);
 
         removeAgentButton.setText(bundle.getString("action.remove")); // NOI18N
         actionPanel.add(removeAgentButton);
@@ -131,9 +131,9 @@ public class AgentDetailDialog extends javax.swing.JDialog {
     private javax.swing.JPanel agentPanel;
     private cz.muni.fi.pv168.agentmanager.app.AgentPanel agentPanel1;
     private javax.swing.JButton cancelAgentButton;
-    private javax.swing.JButton createAgentButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton removeAgentButton;
+    private javax.swing.JButton updateAgentButton;
     // End of variables declaration//GEN-END:variables
 }

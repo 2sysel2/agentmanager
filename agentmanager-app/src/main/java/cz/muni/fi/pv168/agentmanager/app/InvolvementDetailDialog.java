@@ -26,7 +26,8 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         involvementPanel = new javax.swing.JPanel();
         involvementPanel1 = new cz.muni.fi.pv168.agentmanager.app.InvolvementPanel();
         actionPanel = new javax.swing.JPanel();
-        createInvolvementButton = new javax.swing.JButton();
+        updateInvolvementButton = new javax.swing.JButton();
+        removeInvolvementButton = new javax.swing.JButton();
         cancelInvolvementButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -37,15 +38,19 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createInvolvementButton.setText("Create");
-        createInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        updateInvolvementButton.setText(bundle.getString("action.update")); // NOI18N
+        updateInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createInvolvementButtonActionPerformed(evt);
+                updateInvolvementButtonActionPerformed(evt);
             }
         });
-        actionPanel.add(createInvolvementButton);
+        actionPanel.add(updateInvolvementButton);
 
-        cancelInvolvementButton.setText("Cancel");
+        removeInvolvementButton.setText(bundle.getString("action.remove")); // NOI18N
+        actionPanel.add(removeInvolvementButton);
+
+        cancelInvolvementButton.setText(bundle.getString("action.cancel")); // NOI18N
         actionPanel.add(cancelInvolvementButton);
 
         involvementPanel.add(actionPanel);
@@ -55,9 +60,9 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
+    private void updateInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInvolvementButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_createInvolvementButtonActionPerformed
+    }//GEN-LAST:event_updateInvolvementButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,8 +112,9 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JButton cancelInvolvementButton;
-    private javax.swing.JButton createInvolvementButton;
     private javax.swing.JPanel involvementPanel;
     private cz.muni.fi.pv168.agentmanager.app.InvolvementPanel involvementPanel1;
+    private javax.swing.JButton removeInvolvementButton;
+    private javax.swing.JButton updateInvolvementButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,8 +28,6 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         actionPanel = new javax.swing.JPanel();
         createInvolvementButton = new javax.swing.JButton();
         cancelInvolvementButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,21 +49,6 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         actionPanel.add(cancelInvolvementButton);
 
         involvementPanel.add(actionPanel);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        involvementPanel.add(jScrollPane1);
 
         getContentPane().add(involvementPanel, java.awt.BorderLayout.CENTER);
 
@@ -125,7 +108,5 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     private javax.swing.JButton createInvolvementButton;
     private javax.swing.JPanel involvementPanel;
     private cz.muni.fi.pv168.agentmanager.app.InvolvementPanel involvementPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
