@@ -91,19 +91,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
         
         
         missionTableModel = (MissionTableModel) missionTable.getModel();
-        Mission tempMission = getTestMission();
-        
-        missionManager.createMission(tempMission);
-        missionManager.createMission(tempMission);
-        missionManager.createMission(tempMission);
-        
-        missionManager.findAllMissions().stream().forEach((m) -> {
-            missionTableModel.addMission(m);
+        missionManager.findAllMissions().stream().forEach((mission) -> {
+            missionTableModel.addMission(mission);
         });
-        
-//        missionTableModel.addMission(tempMission);
-//        missionTableModel.addMission(tempMission);
-//        missionTableModel.addMission(tempMission);
         
         AgentTableModel agentTableModel = (AgentTableModel) agentTable.getModel();
         agentManager.findAllAgents().stream().forEach((agent) -> {
@@ -111,6 +101,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
         });
         
         InvolvementTableModel involvementTableModel = (InvolvementTableModel) involvementTable.getModel();
+        
+        involvementManager.findAllInvolvements().stream().forEach((involvement) -> {
+            involvementTableModel.addInvolvement(involvement);
+        });
+        
         Involvement temp = getTestInvolvement();
         involvementTableModel.addInvolvement(temp);
         involvementTableModel.addInvolvement(temp);
@@ -174,6 +169,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
         Involvements.setLayout(new java.awt.BorderLayout());
 
         createInvolvementButton.setText(bundle.getString("action.create.involvement")); // NOI18N
+        createInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createInvolvementButtonActionPerformed(evt);
+            }
+        });
         Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
 
         involvementTable.setModel(new InvolvementTableModel(texts));
@@ -257,6 +257,16 @@ public class AgentManagerMain extends javax.swing.JFrame {
                 agentCreateDialog.setVisible(true);
         });
     }//GEN-LAST:event_createAgentButtonActionPerformed
+
+    private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
+        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
+//        involvementCreateDialog.setAgentManager(agentManager);
+//        involvementCreateDialog.setMissionManager(missionManager);
+//        involvementCreateDialog.setInvolvementManager(involvementManager);
+        java.awt.EventQueue.invokeLater(() -> {
+                involvementCreateDialog.setVisible(true);
+        });
+    }//GEN-LAST:event_createInvolvementButtonActionPerformed
 
     /**
      * @param args the command line arguments

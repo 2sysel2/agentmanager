@@ -1,17 +1,49 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.AgentManager;
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
+import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
+import cz.muni.fi.pv168.gmiterkosys.MissionManager;
+
 /**
  *
  * @author Jaromir Sys
  */
 public class InvolvementCreateDialog extends javax.swing.JDialog {
 
+    private AgentManager agentManager;
+    private MissionManager missionManager;
+    private InvolvementManager involvementManager;
+    
     /**
      * Creates new form InvolvementDialog
      */
+    public InvolvementCreateDialog(java.awt.Frame parent, boolean modal,AgentManager agentManager,MissionManager missionManager,InvolvementManager involvementManager) {
+        super(parent, modal);
+        initComponents();
+        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agentManager.findAllAgents());
+        MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel(missionManager.findAllMissions());
+        involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
+        involvementPanel1.setMissionComboBoxModel(missionComboBoxModel);
+    }
+    
     public InvolvementCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agentManager.findAllAgents());
+        involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
+    }
+
+    public void setAgentManager(AgentManager agentManager) {
+        this.agentManager = agentManager;
+    }
+
+    public void setMissionManager(MissionManager missionManager) {
+        this.missionManager = missionManager;
+    }
+
+    public void setInvolvementManager(InvolvementManager involvementManager) {
+        this.involvementManager = involvementManager;
     }
 
     /**
@@ -46,6 +78,11 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         actionPanel.add(createInvolvementButton);
 
         cancelInvolvementButton.setText("Cancel");
+        cancelInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelInvolvementButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(cancelInvolvementButton);
 
         involvementPanel.add(actionPanel);
@@ -56,8 +93,18 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
-        // TODO add your handling code here:
+        Involvement involvement = new Involvement();
+        involvement.setAgent(involvementPanel1.getInvolvementAgent());
+        involvement.setMission(involvementPanel1.getInvolvementMission());
+        involvement.setStart(involvementPanel1.getInvolvementStart());
+        involvement.setEnd(involvementPanel1.getInvolvementEnd());
+        involvementManager.createInvolvement(involvement);
+        this.setVisible(false);
     }//GEN-LAST:event_createInvolvementButtonActionPerformed
+
+    private void cancelInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInvolvementButtonActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelInvolvementButtonActionPerformed
 
     /**
      * @param args the command line arguments

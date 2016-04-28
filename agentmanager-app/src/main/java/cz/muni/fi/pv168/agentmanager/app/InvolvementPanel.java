@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.ComboBoxModel;
 
 /**
  *
@@ -41,6 +42,14 @@ public class InvolvementPanel extends javax.swing.JPanel {
     public LocalDateTime getInvolvementEnd(){
         Date date = (Date)endSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+    
+    public void setAgentComboBoxModel(ComboBoxModel cbm){
+        agentComboBox.setModel(cbm);
+    }
+    
+    public void setMissionComboBoxModel(ComboBoxModel cbm){
+        missionComboBox.setModel(cbm);
     }
 
     /**
