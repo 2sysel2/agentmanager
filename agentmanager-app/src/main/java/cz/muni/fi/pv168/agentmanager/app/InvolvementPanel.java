@@ -42,9 +42,10 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        agentPanel.setLayout(new java.awt.GridLayout());
+        agentPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        agentLabel.setText("Agent");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        agentLabel.setText(bundle.getString("involvement.agent")); // NOI18N
         agentPanel.add(agentLabel);
 
         agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -52,9 +53,9 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         add(agentPanel);
 
-        missionPanel.setLayout(new java.awt.GridLayout());
+        missionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        missionLabel.setText("Mission");
+        missionLabel.setText(bundle.getString("involvement.mission")); // NOI18N
         missionPanel.add(missionLabel);
 
         missionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -62,9 +63,9 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         add(missionPanel);
 
-        startPanel.setLayout(new java.awt.GridLayout());
+        startPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        startLabel.setText("Start");
+        startLabel.setText(bundle.getString("involvement.start")); // NOI18N
         startPanel.add(startLabel);
 
         startSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -72,9 +73,9 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         add(startPanel);
 
-        endPanel.setLayout(new java.awt.GridLayout());
+        endPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        endLabel.setText("End");
+        endLabel.setText(bundle.getString("involvement.end")); // NOI18N
         endPanel.add(endLabel);
 
         endSpinner.setModel(new javax.swing.SpinnerDateModel());
