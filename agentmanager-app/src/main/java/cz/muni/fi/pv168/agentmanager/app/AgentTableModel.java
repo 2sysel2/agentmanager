@@ -19,6 +19,10 @@ public class AgentTableModel extends AbstractTableModel{
 
     private List<Agent> agents = new ArrayList<>();
     private final ResourceBundle texts;
+
+    public AgentTableModel(ResourceBundle texts) {
+        this.texts = texts;
+    }
     
     @Override
     public int getRowCount() {

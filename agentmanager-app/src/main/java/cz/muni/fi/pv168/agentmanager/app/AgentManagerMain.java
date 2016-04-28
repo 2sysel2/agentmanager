@@ -87,7 +87,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createAgentButton.setText("Create Agent");
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
-        AgentTableModel agentTableModel = new AgentTableModel();
+        AgentTableModel agentTableModel = new AgentTableModel(texts);
         agentTable.setModel(agentTableModel);
         agentTable.getColumn("Edit").setCellRenderer(buttonRenderer);
         agentTable.getColumn("Delete").setCellRenderer(buttonRenderer);
@@ -102,7 +102,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createInvolvementButton.setText("Create Involvement");
         Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
 
-        InvolvementTableModel involvementTableModel = new InvolvementTableModel();
+        InvolvementTableModel involvementTableModel = new InvolvementTableModel(texts);
         involvementTable.setModel(involvementTableModel);
         involvementTable.getColumn("Edit").setCellRenderer(buttonRenderer);
         involvementTable.getColumn("Delete").setCellRenderer(buttonRenderer);
@@ -117,7 +117,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createMissionButton.setText("Create Mission");
         Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
 
-        MissionTableModel missionTableModel = new MissionTableModel();
+        MissionTableModel missionTableModel = new MissionTableModel(texts);
         missionTable.setModel(missionTableModel);
         missionTable.getColumn("Edit").setCellRenderer(buttonRenderer);
         missionTable.getColumn("Delete").setCellRenderer(buttonRenderer);

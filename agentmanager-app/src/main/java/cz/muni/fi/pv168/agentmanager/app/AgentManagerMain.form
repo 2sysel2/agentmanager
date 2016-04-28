@@ -134,7 +134,7 @@
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="agentTable.getColumn(&quot;Edit&quot;).setCellRenderer(buttonRenderer);&#xa;agentTable.getColumn(&quot;Delete&quot;).setCellRenderer(buttonRenderer);"/>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="AgentTableModel agentTableModel = new AgentTableModel();"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="AgentTableModel agentTableModel = new AgentTableModel(texts);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -182,7 +182,7 @@
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="involvementTable.getColumn(&quot;Edit&quot;).setCellRenderer(buttonRenderer);&#xa;involvementTable.getColumn(&quot;Delete&quot;).setCellRenderer(buttonRenderer);"/>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="InvolvementTableModel involvementTableModel = new InvolvementTableModel();"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="InvolvementTableModel involvementTableModel = new InvolvementTableModel(texts);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -236,7 +236,7 @@
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="missionTable.getColumn(&quot;Edit&quot;).setCellRenderer(buttonRenderer);&#xa;missionTable.getColumn(&quot;Delete&quot;).setCellRenderer(buttonRenderer);"/>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="MissionTableModel missionTableModel = new MissionTableModel();"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="MissionTableModel missionTableModel = new MissionTableModel(texts);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
