@@ -15,7 +15,6 @@ public class MissionDialog extends javax.swing.JDialog {
     public MissionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));      
     }
 
     /**
@@ -28,25 +27,7 @@ public class MissionDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         missionPanel = new javax.swing.JPanel();
-        codePanel = new javax.swing.JPanel();
-        codeLabel = new javax.swing.JLabel();
-        codeTextField = new javax.swing.JTextField();
-        locationPanel = new javax.swing.JPanel();
-        locationLabel = new javax.swing.JLabel();
-        locationTextField = new javax.swing.JTextField();
-        startPanel = new javax.swing.JPanel();
-        startLabel = new javax.swing.JLabel();
-        startSpinner = new javax.swing.JSpinner();
-        endPanel = new javax.swing.JPanel();
-        endLabel = new javax.swing.JLabel();
-        endSpinner = new javax.swing.JSpinner();
-        objectivePanel = new javax.swing.JPanel();
-        objectiveLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        objectiveTextArea = new javax.swing.JTextArea();
-        outcomePanel = new javax.swing.JPanel();
-        outcomeLabel = new javax.swing.JLabel();
-        outcomeComboBox = new javax.swing.JComboBox<String>();
+        missionPanel1 = new cz.muni.fi.pv168.agentmanager.app.MissionPanel();
         actionPanel = new javax.swing.JPanel();
         createMissionButton = new javax.swing.JButton();
         cancelMissionButton = new javax.swing.JButton();
@@ -55,68 +36,7 @@ public class MissionDialog extends javax.swing.JDialog {
 
         missionPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         missionPanel.setLayout(new javax.swing.BoxLayout(missionPanel, javax.swing.BoxLayout.Y_AXIS));
-
-        codePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        codeLabel.setText("Code");
-        codePanel.add(codeLabel);
-
-        codeTextField.setText("jTextField1");
-        codePanel.add(codeTextField);
-
-        missionPanel.add(codePanel);
-
-        locationPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        locationLabel.setText("Location");
-        locationPanel.add(locationLabel);
-
-        locationTextField.setText("jTextField2");
-        locationPanel.add(locationTextField);
-
-        missionPanel.add(locationPanel);
-
-        startPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        startLabel.setText("Start");
-        startPanel.add(startLabel);
-
-        startSpinner.setModel(new javax.swing.SpinnerDateModel());
-        startSpinner.setToolTipText("");
-        startPanel.add(startSpinner);
-
-        missionPanel.add(startPanel);
-
-        endPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        endLabel.setText("End");
-        endPanel.add(endLabel);
-
-        endSpinner.setModel(new javax.swing.SpinnerDateModel());
-        endPanel.add(endSpinner);
-
-        missionPanel.add(endPanel);
-
-        objectivePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        objectiveLabel.setText("Objective");
-        objectivePanel.add(objectiveLabel);
-
-        objectiveTextArea.setColumns(20);
-        objectiveTextArea.setRows(5);
-        jScrollPane1.setViewportView(objectiveTextArea);
-
-        objectivePanel.add(jScrollPane1);
-
-        missionPanel.add(objectivePanel);
-
-        outcomePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        outcomeLabel.setText("Outcome");
-        outcomePanel.add(outcomeLabel);
-        outcomePanel.add(outcomeComboBox);
-
-        missionPanel.add(outcomePanel);
+        missionPanel.add(missionPanel1);
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -188,26 +108,8 @@ public class MissionDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JButton cancelMissionButton;
-    private javax.swing.JLabel codeLabel;
-    private javax.swing.JPanel codePanel;
-    private javax.swing.JTextField codeTextField;
     private javax.swing.JButton createMissionButton;
-    private javax.swing.JLabel endLabel;
-    private javax.swing.JPanel endPanel;
-    private javax.swing.JSpinner endSpinner;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel locationLabel;
-    private javax.swing.JPanel locationPanel;
-    private javax.swing.JTextField locationTextField;
     private javax.swing.JPanel missionPanel;
-    private javax.swing.JLabel objectiveLabel;
-    private javax.swing.JPanel objectivePanel;
-    private javax.swing.JTextArea objectiveTextArea;
-    private javax.swing.JComboBox<String> outcomeComboBox;
-    private javax.swing.JLabel outcomeLabel;
-    private javax.swing.JPanel outcomePanel;
-    private javax.swing.JLabel startLabel;
-    private javax.swing.JPanel startPanel;
-    private javax.swing.JSpinner startSpinner;
+    private cz.muni.fi.pv168.agentmanager.app.MissionPanel missionPanel1;
     // End of variables declaration//GEN-END:variables
 }

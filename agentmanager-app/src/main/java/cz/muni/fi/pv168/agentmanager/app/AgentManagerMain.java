@@ -4,9 +4,12 @@ import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.awt.Dialog;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,6 +69,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
         createMissionButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         missionTable = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenuItem = new javax.swing.JMenu();
+        exitMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,8 +130,39 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
+        fileMenuItem.setText("File");
+
+        exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, 0));
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenuItem.add(exitMenuItem);
+
+        jMenuBar1.add(fileMenuItem);
+
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(aboutMenuItem);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        JOptionPane.showMessageDialog(this, "");
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,11 +201,15 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JPanel Agents;
     private javax.swing.JPanel Involvements;
     private javax.swing.JPanel Missions;
+    private javax.swing.JMenu aboutMenuItem;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
     private javax.swing.JButton createInvolvementButton;
     private javax.swing.JButton createMissionButton;
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenu fileMenuItem;
     private javax.swing.JTable involvementTable;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
