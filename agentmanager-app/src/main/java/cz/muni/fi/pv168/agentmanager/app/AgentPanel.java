@@ -42,9 +42,10 @@ public class AgentPanel extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        codePanel.setLayout(new java.awt.GridLayout());
+        codePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        nameLabel.setText("Name");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        nameLabel.setText(bundle.getString("agent.name")); // NOI18N
         codePanel.add(nameLabel);
 
         nameTextField.setText("jTextField1");
@@ -52,9 +53,9 @@ public class AgentPanel extends javax.swing.JPanel {
 
         add(codePanel);
 
-        startPanel.setLayout(new java.awt.GridLayout());
+        startPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        bornLabel.setText("Born");
+        bornLabel.setText(bundle.getString("agent.born")); // NOI18N
         startPanel.add(bornLabel);
 
         bornSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -63,9 +64,9 @@ public class AgentPanel extends javax.swing.JPanel {
 
         add(startPanel);
 
-        endPanel.setLayout(new java.awt.GridLayout());
+        endPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        diedLabel.setText("Died");
+        diedLabel.setText(bundle.getString("agent.died")); // NOI18N
         endPanel.add(diedLabel);
 
         diedSpinner.setModel(new javax.swing.SpinnerDateModel());
@@ -73,9 +74,9 @@ public class AgentPanel extends javax.swing.JPanel {
 
         add(endPanel);
 
-        outcomePanel.setLayout(new java.awt.GridLayout());
+        outcomePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        levelLabel.setText("Level");
+        levelLabel.setText(bundle.getString("agent.level")); // NOI18N
         outcomePanel.add(levelLabel);
 
         levelSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
