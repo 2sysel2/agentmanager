@@ -83,7 +83,8 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         Agents.setLayout(new java.awt.BorderLayout());
 
-        createAgentButton.setText("Create Agent");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        createAgentButton.setText(bundle.getString("action.create.agent")); // NOI18N
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
         agentTable.setModel(new AgentTableModel(texts));
@@ -91,11 +92,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         Agents.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Agents", Agents);
+        jTabbedPane1.addTab(bundle.getString("tab.agents"), Agents); // NOI18N
 
         Involvements.setLayout(new java.awt.BorderLayout());
 
-        createInvolvementButton.setText("Create Involvement");
+        createInvolvementButton.setText(bundle.getString("action.create.involvement")); // NOI18N
         Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
 
         involvementTable.setModel(new InvolvementTableModel(texts));
@@ -103,11 +104,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Involvements", Involvements);
+        jTabbedPane1.addTab(bundle.getString("tab.involvements"), Involvements); // NOI18N
 
         Missions.setLayout(new java.awt.BorderLayout());
 
-        createMissionButton.setText("Create Mission");
+        createMissionButton.setText(bundle.getString("action.create.mission")); // NOI18N
         Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
 
         missionTable.setModel(new MissionTableModel(texts));
@@ -115,7 +116,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         Missions.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Missions", Missions);
+        jTabbedPane1.addTab(bundle.getString("tab.missions"), Missions); // NOI18N
 
         jPanel2.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
         jTabbedPane1.getAccessibleContext().setAccessibleName("");
@@ -123,10 +124,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        fileMenuItem.setText("File");
+        fileMenuItem.setText(bundle.getString("menu.file")); // NOI18N
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, 0));
-        exitMenuItem.setText("Exit");
+        exitMenuItem.setText(bundle.getString("menu.file.exit")); // NOI18N
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitMenuItemActionPerformed(evt);
@@ -135,7 +136,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         fileMenuItem.add(exitMenuItem);
 
         aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
-        aboutMenuItem.setText("About");
+        aboutMenuItem.setText(bundle.getString("menu.file.about")); // NOI18N
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutMenuItemActionPerformed(evt);
