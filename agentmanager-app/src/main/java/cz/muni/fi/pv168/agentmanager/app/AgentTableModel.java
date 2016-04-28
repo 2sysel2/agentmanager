@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.TableModel;
@@ -17,7 +18,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AgentTableModel extends AbstractTableModel{
 
-    List<Agent> agents = new ArrayList<>();
+    private List<Agent> agents = new ArrayList<>();
+    private final ResourceBundle texts;
     
     @Override
     public int getRowCount() {
