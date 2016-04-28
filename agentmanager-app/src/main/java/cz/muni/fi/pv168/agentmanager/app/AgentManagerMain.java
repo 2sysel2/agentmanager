@@ -8,6 +8,7 @@ import java.awt.Dialog;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 public class AgentManagerMain extends javax.swing.JFrame {
 
     private ButtonRenderer buttonRenderer;
+    private ResourceBundle texts = ResourceBundle.getBundle("cz.muni.fi.pv168.agentmanager.app.Texts");
     
     /**
      * Creates new form AgentManagerMain

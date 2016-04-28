@@ -17,7 +17,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AgentTableModel extends AbstractTableModel{
 
-    List<Agent> agents = new ArrayList<>();
+    private List<Agent> agents = new ArrayList<>();
+    private final ResourceBundle texts;
     
     @Override
     public int getRowCount() {
