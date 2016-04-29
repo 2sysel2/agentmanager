@@ -18,6 +18,10 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Dominik Gmiterko
@@ -211,7 +215,7 @@ public class AgentManagerTest {
     }
 
     @Test
-    public void testDeleteAgent() throws Exception {
+    public void testRemoveAgent() throws Exception {
 
         LocalDate bornDate = LocalDate.of(2000, 1, 1);
         Agent agent1 = newAgent("Linda Fox", bornDate, 6);
@@ -220,7 +224,7 @@ public class AgentManagerTest {
         agentManager.createAgent(agent1);
         agentManager.createAgent(agent2);
 
-        agentManager.deleteAgent(agent1);
+        agentManager.removeAgent(agent1);
 
         Agent actual1 = agentManager.getAgentById(agent1.getId());
         Agent actual2 = agentManager.getAgentById(agent2.getId());
@@ -234,7 +238,7 @@ public class AgentManagerTest {
     public void testDeleteAgentInvalid() throws Exception {
 
         try {
-            agentManager.deleteAgent(null);
+            agentManager.removeAgent(null);
             fail("Agent can't be null. Agent isn't validated.");
         } catch (IllegalArgumentException e) {
             // OK
@@ -242,7 +246,7 @@ public class AgentManagerTest {
         LocalDate bornDate = LocalDate.of(2000, 1, 1);
         Agent agent = newAgent("Linda Fox", bornDate, 1);
         try {
-            agentManager.deleteAgent(agent);
+            agentManager.removeAgent(agent);
             fail("Deleting agent without id. Agent isn't validated.");
         } catch (IllegalArgumentException e) {
             // OK

@@ -47,6 +47,6 @@ public interface AgentManager {
 	 * @param agent
 	 *            Agent to delete
 	 */
-	void deleteAgent(Agent agent);
+	void removeAgent(Agent agent);
 
 }

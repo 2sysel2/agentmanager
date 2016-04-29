@@ -147,7 +147,7 @@ public class AgentManagerImpl implements AgentManager {
 		}
 	}
 
-	public void deleteAgent(Agent agent) {
+	public void removeAgent(Agent agent) {
 
 		if (agent == null) {
 			throw new IllegalArgumentException("Agent can't be null.");

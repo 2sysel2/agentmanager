@@ -6,7 +6,7 @@ public interface InvolvementManager {
 
 	void createInvolvement(Involvement involvement);
 
-	void deleteInvolvement(Involvement involvement);
+	void removeInvolvement(Involvement involvement);
 
 	List<Involvement> findAllInvolvements();
 

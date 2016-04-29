@@ -6,7 +6,7 @@ public interface MissionManager {
 
 	void createMission(Mission mission);
 
-	void deleteMission(Mission mission);
+	void removeMission(Mission mission);
 
 	List<Mission> findAllMissions();
 

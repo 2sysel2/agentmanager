@@ -19,6 +19,10 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -211,9 +215,9 @@ public class InvolvementManagerTest {
 	}
         
     @Test
-    public void testDeleteInvolvement() {
+    public void testRemoveInvolvement() {
         involvementManager.createInvolvement(involvement);
-        involvementManager.deleteInvolvement(involvement);
+        involvementManager.removeInvolvement(involvement);
         assertThat("null should be returned after deleteInvolvement",involvementManager.getInvolvementById(involvement.getId()), nullValue());
     }
 

@@ -86,12 +86,12 @@ public class MissionManagerTest {
 	 * Test of deleteMission method, of class MissionManager.
 	 */
 	@Test
-	public void testDeleteMission() {
+	public void testRemoveMission() {
 		Mission mission = newMission(0, "testMission", "testistan", LocalDateTime.of(2000, 3, 1, 0, 0),
 				LocalDateTime.of(2001, 1, 1, 1, 1), "failMission", Outcome.FAILED);
 		try {
 			missionManager.createMission(mission);
-			missionManager.deleteMission(mission);
+			missionManager.removeMission(mission);
 			assertThat("returned value is not null after mission deletion",
 					missionManager.getMissionById(mission.getId()), nullValue());
 		} catch (ServiceFailureException ex) {
@@ -101,7 +101,7 @@ public class MissionManagerTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteMissionNull() {
-		missionManager.deleteMission(null);
+		missionManager.removeMission(null);
 	}
 
 	/**

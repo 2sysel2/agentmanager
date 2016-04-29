@@ -70,7 +70,7 @@ public class MissionManagerImpl implements MissionManager {
     }
 
     @Override
-    public void deleteMission(Mission mission) {
+    public void removeMission(Mission mission) {
          try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(

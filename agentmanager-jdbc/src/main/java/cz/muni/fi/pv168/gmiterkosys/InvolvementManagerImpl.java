@@ -77,7 +77,7 @@ public class InvolvementManagerImpl implements InvolvementManager {
     }
 
     @Override
-    public void deleteInvolvement(Involvement involvement) {
+    public void removeInvolvement(Involvement involvement) {
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement st = connection.prepareStatement(
