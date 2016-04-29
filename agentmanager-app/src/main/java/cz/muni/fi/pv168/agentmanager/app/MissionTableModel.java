@@ -90,4 +90,14 @@ public class MissionTableModel extends AbstractTableModel{
         missions.add(mission);
         fireTableRowsInserted(missions.size() - 1, missions.size() - 1);
     }
+
+    public Mission getMission(int selectedRow) {
+        return missions.get(selectedRow);
+    }
+    
+    public void removeMission(int selectedRow){
+        missions.remove(selectedRow);
+        fireTableRowsInserted(missions.size() - 1, missions.size() - 1);
+        
+    }
 }

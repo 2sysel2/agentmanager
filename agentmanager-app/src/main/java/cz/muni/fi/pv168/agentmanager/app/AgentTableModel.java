@@ -80,12 +80,12 @@ public class AgentTableModel extends AbstractTableModel{
         fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
     }
     
-    public Agent getAgent(int rowIndex){
-        return agents.get(rowIndex);
+    public Agent getAgent(int selectedRow){
+        return agents.get(selectedRow);
     }
     
-    public void removeAgent(int rowIndex){
-        agents.remove(rowIndex);
+    public void removeAgent(int selectedRow){
+        agents.remove(selectedRow);
         fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
     }
 }

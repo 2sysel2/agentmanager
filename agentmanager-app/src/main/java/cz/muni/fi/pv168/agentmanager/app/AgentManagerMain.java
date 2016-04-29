@@ -9,6 +9,7 @@ import cz.muni.fi.pv168.gmiterkosys.InvolvementManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
 import cz.muni.fi.pv168.gmiterkosys.MissionManagerImpl;
+import cz.muni.fi.pv168.gmiterkosys.ServiceFailureException;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -89,8 +90,17 @@ public class AgentManagerMain extends javax.swing.JFrame {
     public AgentManagerMain(){
         initComponents();
         setUp();
+        
         agentTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            deleteAgentButton.setEnabled(true);
+            removeAgentButton.setEnabled(true);
+        });
+        
+        missionTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            removeMissionButton.setEnabled(true);
+        });
+        
+        involvementTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            removeInvolvementButton.setEnabled(true);
         });
         
         missionTableModel = (MissionTableModel) missionTable.getModel();
@@ -148,17 +158,21 @@ public class AgentManagerMain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Agents = new javax.swing.JPanel();
-        actionPanel = new javax.swing.JPanel();
+        agentActionPanel = new javax.swing.JPanel();
         createAgentButton = new javax.swing.JButton();
-        deleteAgentButton = new javax.swing.JButton();
+        removeAgentButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         agentTable = new javax.swing.JTable();
         Involvements = new javax.swing.JPanel();
-        createInvolvementButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         involvementTable = new javax.swing.JTable();
+        involvementActionPanel = new javax.swing.JPanel();
+        createInvolvementButton = new javax.swing.JButton();
+        removeInvolvementButton = new javax.swing.JButton();
         Missions = new javax.swing.JPanel();
+        missionActionPanel = new javax.swing.JPanel();
         createMissionButton = new javax.swing.JButton();
+        removeMissionButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         missionTable = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -184,18 +198,18 @@ public class AgentManagerMain extends javax.swing.JFrame {
                 createAgentButtonActionPerformed(evt);
             }
         });
-        actionPanel.add(createAgentButton);
+        agentActionPanel.add(createAgentButton);
 
-        deleteAgentButton.setText(bundle.getString("action.remove")); // NOI18N
-        deleteAgentButton.setEnabled(false);
-        deleteAgentButton.addActionListener(new java.awt.event.ActionListener() {
+        removeAgentButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeAgentButton.setEnabled(false);
+        removeAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteAgentButtonActionPerformed(evt);
+                removeAgentButtonActionPerformed(evt);
             }
         });
-        actionPanel.add(deleteAgentButton);
+        agentActionPanel.add(removeAgentButton);
 
-        Agents.add(actionPanel, java.awt.BorderLayout.PAGE_START);
+        Agents.add(agentActionPanel, java.awt.BorderLayout.PAGE_START);
 
         agentTable.setModel(new AgentTableModel(texts));
         agentTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -207,18 +221,29 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         Involvements.setLayout(new java.awt.BorderLayout());
 
+        involvementTable.setModel(new InvolvementTableModel(texts));
+        jScrollPane2.setViewportView(involvementTable);
+
+        Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
         createInvolvementButton.setText(bundle.getString("action.create.involvement")); // NOI18N
         createInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createInvolvementButtonActionPerformed(evt);
             }
         });
-        Involvements.add(createInvolvementButton, java.awt.BorderLayout.PAGE_START);
+        involvementActionPanel.add(createInvolvementButton);
 
-        involvementTable.setModel(new InvolvementTableModel(texts));
-        jScrollPane2.setViewportView(involvementTable);
+        removeInvolvementButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeInvolvementButton.setEnabled(false);
+        removeInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeInvolvementButtonActionPerformed(evt);
+            }
+        });
+        involvementActionPanel.add(removeInvolvementButton);
 
-        Involvements.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        Involvements.add(involvementActionPanel, java.awt.BorderLayout.PAGE_START);
 
         jTabbedPane1.addTab(bundle.getString("tab.involvements"), Involvements); // NOI18N
 
@@ -230,7 +255,18 @@ public class AgentManagerMain extends javax.swing.JFrame {
                 createMissionButtonActionPerformed(evt);
             }
         });
-        Missions.add(createMissionButton, java.awt.BorderLayout.PAGE_START);
+        missionActionPanel.add(createMissionButton);
+
+        removeMissionButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeMissionButton.setEnabled(false);
+        removeMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeMissionButtonActionPerformed(evt);
+            }
+        });
+        missionActionPanel.add(removeMissionButton);
+
+        Missions.add(missionActionPanel, java.awt.BorderLayout.PAGE_START);
 
         missionTable.setModel(new MissionTableModel(texts));
         jScrollPane3.setViewportView(missionTable);
@@ -332,11 +368,35 @@ public class AgentManagerMain extends javax.swing.JFrame {
         showCreateMissionDialog();
     }//GEN-LAST:event_createMissionMenuItemActionPerformed
 
-    private void deleteAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAgentButtonActionPerformed
-        agentManager.deleteAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
-        agentTableModel.removeAgent(agentTable.getSelectedRow());
-        deleteAgentButton.setEnabled(false);
-    }//GEN-LAST:event_deleteAgentButtonActionPerformed
+    private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
+        try{
+            agentManager.deleteAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
+            agentTableModel.removeAgent(agentTable.getSelectedRow());
+            removeAgentButton.setEnabled(false);
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "You can't remove agent who is assigned to an involvement");
+        }
+    }//GEN-LAST:event_removeAgentButtonActionPerformed
+
+    private void removeMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMissionButtonActionPerformed
+        try{
+            missionManager.deleteMission(missionTableModel.getMission(missionTable.getSelectedRow()));
+            missionTableModel.removeMission(missionTable.getSelectedRow());
+            removeMissionButton.setEnabled(false);
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "You can't remove mission which has assigned agents in an involvement");
+        }
+    }//GEN-LAST:event_removeMissionButtonActionPerformed
+
+    private void removeInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeInvolvementButtonActionPerformed
+        try{
+            involvementManager.deleteInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
+            involvementTableModel.removeInvolvement(involvementTable.getSelectedRow());
+            removeInvolvementButton.setEnabled(false);
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "Ops");
+        }
+    }//GEN-LAST:event_removeInvolvementButtonActionPerformed
 
     private void showCreateAgentDialog() {
         AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
@@ -402,7 +462,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JPanel Involvements;
     private javax.swing.JPanel Missions;
     private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JPanel actionPanel;
+    private javax.swing.JPanel agentActionPanel;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
     private javax.swing.JMenuItem createAgentMenuItem;
@@ -410,10 +470,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem createInvolvementMenuItem;
     private javax.swing.JButton createMissionButton;
     private javax.swing.JMenuItem createMissionMenuItem;
-    private javax.swing.JButton deleteAgentButton;
     private javax.swing.JMenu editMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
+    private javax.swing.JPanel involvementActionPanel;
     private javax.swing.JTable involvementTable;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
@@ -421,6 +481,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel missionActionPanel;
     private javax.swing.JTable missionTable;
+    private javax.swing.JButton removeAgentButton;
+    private javax.swing.JButton removeInvolvementButton;
+    private javax.swing.JButton removeMissionButton;
     // End of variables declaration//GEN-END:variables
 }

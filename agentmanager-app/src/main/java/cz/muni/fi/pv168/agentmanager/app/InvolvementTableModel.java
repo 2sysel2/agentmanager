@@ -84,4 +84,13 @@ public class InvolvementTableModel extends AbstractTableModel {
         involvements.add(involvement);
         fireTableRowsInserted(involvements.size() - 1, involvements.size() - 1);
     }
+
+    public Involvement getInvolvement(int selectedRow) {
+        return involvements.get(selectedRow);
+    }
+    
+    public void removeInvolvement(int selectedRow){
+        involvements.remove(selectedRow);
+        fireTableRowsInserted(involvements.size() - 1, involvements.size() - 1);
+    }
 }
