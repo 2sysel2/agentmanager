@@ -37,14 +37,14 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private AgentTableModel agentTableModel;
     private InvolvementTableModel involvementTableModel;
     
-    private static DataSource prepareDataSource() throws SQLException {
-            EmbeddedDataSource ds = new EmbeddedDataSource();
-            ds.setDatabaseName("./databaseeee");
-            ds.setCreateDatabase("create");
-            return ds;
+    private static DataSource prepareDataSource(){
+        EmbeddedDataSource ds = new EmbeddedDataSource();
+        ds.setDatabaseName("./databaseeee");
+        ds.setCreateDatabase("create");
+        return ds;
     }
     
-    public final void setUp() throws SQLException {
+    public final void setUp(){
 		dataSource = prepareDataSource();
 
 		try (Connection connection = dataSource.getConnection()) {
@@ -75,7 +75,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
                         + "FOREIGN KEY(agent) REFERENCES agent,"
                         + "FOREIGN KEY(mission) REFERENCES mission)").execute();
                 }catch(SQLException e){
-                            
+                    if(!e.getSQLState().equals("X0Y32")){
+                        JOptionPane.showMessageDialog(this, "Database error: "+e.getMessage());
+                        System.exit(0);
+                    }
                 }
 		agentManager = new AgentManagerImpl(dataSource);
                 missionManager = new MissionManagerImpl(dataSource);
@@ -85,7 +88,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     /**
      * Creates new form AgentManagerMain
      */
-    public AgentManagerMain() throws SQLException {
+    public AgentManagerMain(){
         initComponents();
         setUp();
         
@@ -381,11 +384,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new AgentManagerMain().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(AgentManagerMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            new AgentManagerMain().setVisible(true);            
         });
     }
 
