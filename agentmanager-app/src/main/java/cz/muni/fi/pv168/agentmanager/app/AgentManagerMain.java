@@ -370,7 +370,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
         try{
-            agentManager.deleteAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
+            agentManager.removeAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
             agentTableModel.removeAgent(agentTable.getSelectedRow());
             removeAgentButton.setEnabled(false);
         }catch(ServiceFailureException e){
@@ -380,7 +380,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private void removeMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMissionButtonActionPerformed
         try{
-            missionManager.deleteMission(missionTableModel.getMission(missionTable.getSelectedRow()));
+            missionManager.removeMission(missionTableModel.getMission(missionTable.getSelectedRow()));
             missionTableModel.removeMission(missionTable.getSelectedRow());
             removeMissionButton.setEnabled(false);
         }catch(ServiceFailureException e){
@@ -390,7 +390,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private void removeInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeInvolvementButtonActionPerformed
         try{
-            involvementManager.deleteInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
+            involvementManager.removeInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
             involvementTableModel.removeInvolvement(involvementTable.getSelectedRow());
             removeInvolvementButton.setEnabled(false);
         }catch(ServiceFailureException e){
