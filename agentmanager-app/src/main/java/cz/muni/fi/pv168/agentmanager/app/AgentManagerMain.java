@@ -92,7 +92,6 @@ public class AgentManagerMain extends javax.swing.JFrame {
         initComponents();
         setUp();
         
-        
         missionTableModel = (MissionTableModel) missionTable.getModel();
         missionManager.findAllMissions().stream().forEach((mission) -> {
             missionTableModel.addMission(mission);
@@ -301,60 +300,55 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void createMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionButtonActionPerformed
-        MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
-        missionCreateDialog.setVisible(true);
-        Mission result = missionCreateDialog.getResult();
-        if(result != null){
-            addMission(result);
-        } 
+        showCreateMissionDialog(); 
     }//GEN-LAST:event_createMissionButtonActionPerformed
 
     private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
-        AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
-        agentCreateDialog.setVisible(true);
-        Agent result = agentCreateDialog.getResult();
-        if(result != null){
-            addAgent(result);
-        }
-        
+        showCreateAgentDialog();   
     }//GEN-LAST:event_createAgentButtonActionPerformed
 
     private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
-        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
-        involvementCreateDialog.setVisible(true);
-        Involvement result = involvementCreateDialog.getResult();
-        if(result != null){
-            addInvolvement(result);
-        }
+        showCreateInvolvementDialog();
     }//GEN-LAST:event_createInvolvementButtonActionPerformed
 
     private void createAgentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentMenuItemActionPerformed
+        showCreateAgentDialog();
+    }//GEN-LAST:event_createAgentMenuItemActionPerformed
+
+    private void createInvolvementMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementMenuItemActionPerformed
+        showCreateInvolvementDialog();
+    }//GEN-LAST:event_createInvolvementMenuItemActionPerformed
+
+    private void createMissionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionMenuItemActionPerformed
+        showCreateMissionDialog();
+    }//GEN-LAST:event_createMissionMenuItemActionPerformed
+
+    private void showCreateAgentDialog() {
         AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
         agentCreateDialog.setVisible(true);
         Agent result = agentCreateDialog.getResult();
         if(result != null){
             addAgent(result);
         }
-    }//GEN-LAST:event_createAgentMenuItemActionPerformed
+    }
 
-    private void createInvolvementMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementMenuItemActionPerformed
+    private void showCreateInvolvementDialog() {
         InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
         involvementCreateDialog.setVisible(true);
         Involvement result = involvementCreateDialog.getResult();
         if(result != null){
             addInvolvement(result);
         }
-    }//GEN-LAST:event_createInvolvementMenuItemActionPerformed
+    }
 
-    private void createMissionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionMenuItemActionPerformed
+    private void showCreateMissionDialog() {
         MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
         missionCreateDialog.setVisible(true);
         Mission result = missionCreateDialog.getResult();
         if(result != null){
             addMission(result);
         }
-    }//GEN-LAST:event_createMissionMenuItemActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
