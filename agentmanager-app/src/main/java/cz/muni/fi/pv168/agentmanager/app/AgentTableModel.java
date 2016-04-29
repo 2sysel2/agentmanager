@@ -79,4 +79,13 @@ public class AgentTableModel extends AbstractTableModel{
         agents.add(agent);
         fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
     }
+    
+    public Agent getAgent(int rowIndex){
+        return agents.get(rowIndex);
+    }
+    
+    public void removeAgent(int rowIndex){
+        agents.remove(rowIndex);
+        fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
+    }
 }

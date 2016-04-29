@@ -9,17 +9,15 @@ import cz.muni.fi.pv168.gmiterkosys.InvolvementManagerImpl;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
 import cz.muni.fi.pv168.gmiterkosys.MissionManagerImpl;
-import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 /**
@@ -91,6 +89,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
     public AgentManagerMain(){
         initComponents();
         setUp();
+        agentTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            deleteAgentButton.setEnabled(true);
+        });
         
         missionTableModel = (MissionTableModel) missionTable.getModel();
         missionManager.findAllMissions().stream().forEach((mission) -> {
@@ -147,7 +148,9 @@ public class AgentManagerMain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Agents = new javax.swing.JPanel();
+        actionPanel = new javax.swing.JPanel();
         createAgentButton = new javax.swing.JButton();
+        deleteAgentButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         agentTable = new javax.swing.JTable();
         Involvements = new javax.swing.JPanel();
@@ -181,7 +184,18 @@ public class AgentManagerMain extends javax.swing.JFrame {
                 createAgentButtonActionPerformed(evt);
             }
         });
-        Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
+        actionPanel.add(createAgentButton);
+
+        deleteAgentButton.setText(bundle.getString("action.remove")); // NOI18N
+        deleteAgentButton.setEnabled(false);
+        deleteAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAgentButtonActionPerformed(evt);
+            }
+        });
+        actionPanel.add(deleteAgentButton);
+
+        Agents.add(actionPanel, java.awt.BorderLayout.PAGE_START);
 
         agentTable.setModel(new AgentTableModel(texts));
         agentTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -318,6 +332,12 @@ public class AgentManagerMain extends javax.swing.JFrame {
         showCreateMissionDialog();
     }//GEN-LAST:event_createMissionMenuItemActionPerformed
 
+    private void deleteAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAgentButtonActionPerformed
+        agentManager.deleteAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
+        agentTableModel.removeAgent(agentTable.getSelectedRow());
+        deleteAgentButton.setEnabled(false);
+    }//GEN-LAST:event_deleteAgentButtonActionPerformed
+
     private void showCreateAgentDialog() {
         AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
         agentCreateDialog.setVisible(true);
@@ -382,6 +402,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JPanel Involvements;
     private javax.swing.JPanel Missions;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JPanel actionPanel;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
     private javax.swing.JMenuItem createAgentMenuItem;
@@ -389,6 +410,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem createInvolvementMenuItem;
     private javax.swing.JButton createMissionButton;
     private javax.swing.JMenuItem createMissionMenuItem;
+    private javax.swing.JButton deleteAgentButton;
     private javax.swing.JMenu editMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
