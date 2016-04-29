@@ -13,10 +13,12 @@ import cz.muni.fi.pv168.gmiterkosys.MissionManager;
  */
 public class InvolvementCreateDialog extends javax.swing.JDialog {
 
-    private AgentManager agentManager;
-    private MissionManager missionManager;
     private InvolvementManager involvementManager;
-    
+    private Involvement result;
+
+    public Involvement getResult() {
+        return result;
+    }
     /**
      * Creates new form InvolvementDialog
      * @param parent
@@ -34,18 +36,10 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         involvementPanel1.setMissionComboBoxModel(missionComboBoxModel);
     }
     
-    public InvolvementCreateDialog(java.awt.Frame parent, boolean modal) {
+    /*public InvolvementCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-    }
-
-    public void setAgentManager(AgentManager agentManager) {
-        this.agentManager = agentManager;
-    }
-
-    public void setMissionManager(MissionManager missionManager) {
-        this.missionManager = missionManager;
-    }
+    }*/
 
     public void setInvolvementManager(InvolvementManager involvementManager) {
         this.involvementManager = involvementManager;
@@ -103,8 +97,9 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         involvement.setMission(involvementPanel1.getInvolvementMission());
         involvement.setStart(involvementPanel1.getInvolvementStart());
         involvement.setEnd(involvementPanel1.getInvolvementEnd());
-        System.out.println(involvementManager);
-        involvementManager.createInvolvement(involvement);
+        //System.out.println(involvementManager);
+        //involvementManager.createInvolvement(involvement);
+        result = involvement;
         
         this.setVisible(false);
     }//GEN-LAST:event_createInvolvementButtonActionPerformed
@@ -113,48 +108,48 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_cancelInvolvementButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InvolvementCreateDialog dialog = new InvolvementCreateDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(InvolvementCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                InvolvementCreateDialog dialog = new InvolvementCreateDialog(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;

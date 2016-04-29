@@ -1,9 +1,6 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Mission;
-import cz.muni.fi.pv168.gmiterkosys.MissionManager;
-import cz.muni.fi.pv168.gmiterkosys.Outcome;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -11,19 +8,16 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class MissionCreateDialog extends javax.swing.JDialog {
 
-    
-    private MissionManager missionManager;
+    private Mission result;
 
-    public MissionManager getMissionManager() {
-        return missionManager;
-    }
-
-    public void setMissionManager(MissionManager missionManager) {
-        this.missionManager = missionManager;
+    public Mission getResult() {
+        return result;
     }
     
     /**
      * Creates new form MissionDialog
+     * @param parent
+     * @param modal
      */
     public MissionCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -88,8 +82,7 @@ public class MissionCreateDialog extends javax.swing.JDialog {
         mission.setEnd(missionPanel1.getMissionEnd());
         mission.setObjective(missionPanel1.getMissionObjective());
         mission.setOutcome(missionPanel1.getMissionOutcome());
-        
-        missionManager.createMission(mission);
+        result = mission;
         this.setVisible(false);
     }//GEN-LAST:event_createMissionButtonActionPerformed
 
@@ -122,18 +115,15 @@ public class MissionCreateDialog extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MissionCreateDialog dialog = new MissionCreateDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            MissionCreateDialog dialog = new MissionCreateDialog(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 

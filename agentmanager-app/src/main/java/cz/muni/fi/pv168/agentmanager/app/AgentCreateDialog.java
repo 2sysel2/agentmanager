@@ -1,24 +1,17 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
-import cz.muni.fi.pv168.gmiterkosys.AgentManager;
-import cz.muni.fi.pv168.gmiterkosys.Outcome;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author Dominik Gmiterko
  */
 public class AgentCreateDialog extends javax.swing.JDialog {
+    
+    private Agent result;
 
-    private AgentManager agentManager;
-
-    public AgentManager getAgentManager() {
-        return agentManager;
-    }
-
-    public void setAgentManager(AgentManager agentManager) {
-        this.agentManager = agentManager;
+    public Agent getResult() {
+        return result;
     }
     
     /**
@@ -76,7 +69,7 @@ public class AgentCreateDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAgentButtonActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_cancelAgentButtonActionPerformed
 
     private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
@@ -85,7 +78,7 @@ public class AgentCreateDialog extends javax.swing.JDialog {
         agent.setBorn(agentPanel1.getAgentBorn().toLocalDate());
         agent.setDied(agentPanel1.getAgentDied().toLocalDate());
         agent.setLevel(agentPanel1.getAgentLevel());
-        agentManager.createAgent(agent);
+        result = agent;
         this.setVisible(false);
     }//GEN-LAST:event_createAgentButtonActionPerformed
 

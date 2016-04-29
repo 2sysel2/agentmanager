@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.spec.IvParameterSpec;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import org.apache.derby.jdbc.EmbeddedDataSource;
@@ -29,16 +28,17 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
  */
 public class AgentManagerMain extends javax.swing.JFrame {
 
-    private ResourceBundle texts = ResourceBundle.getBundle("cz.muni.fi.pv168.agentmanager.app.Texts");
+    private final ResourceBundle texts = ResourceBundle.getBundle("cz.muni.fi.pv168.agentmanager.app.Texts");
     private DataSource dataSource;
     private MissionManager missionManager;
     private AgentManager agentManager;
     private InvolvementManager involvementManager;
     private MissionTableModel missionTableModel;
+    private AgentTableModel agentTableModel;
+    private InvolvementTableModel involvementTableModel;
     
     private static DataSource prepareDataSource() throws SQLException {
             EmbeddedDataSource ds = new EmbeddedDataSource();
-            //ds.setDatabaseName("memory:database");
             ds.setDatabaseName("./databaseeee");
             ds.setCreateDatabase("create");
             return ds;
@@ -95,13 +95,12 @@ public class AgentManagerMain extends javax.swing.JFrame {
             missionTableModel.addMission(mission);
         });
         
-        AgentTableModel agentTableModel = (AgentTableModel) agentTable.getModel();
+        agentTableModel = (AgentTableModel) agentTable.getModel();
         agentManager.findAllAgents().stream().forEach((agent) -> {
             agentTableModel.addAgent(agent);
         });
         
-        InvolvementTableModel involvementTableModel = (InvolvementTableModel) involvementTable.getModel();
-        
+        involvementTableModel = (InvolvementTableModel) involvementTable.getModel();
         involvementManager.findAllInvolvements().stream().forEach((involvement) -> {
             involvementTableModel.addInvolvement(involvement);
         });
@@ -110,6 +109,21 @@ public class AgentManagerMain extends javax.swing.JFrame {
         involvementTableModel.addInvolvement(temp);
         involvementTableModel.addInvolvement(temp);
         involvementTableModel.addInvolvement(temp);
+    }
+    
+    private void addInvolvement(Involvement i){
+        involvementManager.createInvolvement(i);
+        involvementTableModel.addInvolvement(i);
+    }
+    
+    private void addMission(Mission m){
+        missionManager.createMission(m);
+        missionTableModel.addMission(m);
+    }
+    
+    private void addAgent(Agent a){
+        agentManager.createAgent(a);
+        agentTableModel.addAgent(a);
     }
         
     /**
@@ -121,7 +135,6 @@ public class AgentManagerMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Agents = new javax.swing.JPanel();
@@ -140,8 +153,10 @@ public class AgentManagerMain extends javax.swing.JFrame {
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
-
-        jMenuItem1.setText("jMenuItem1");
+        editMenuItem = new javax.swing.JMenu();
+        createAgentMenuItem = new javax.swing.JMenuItem();
+        createInvolvementMenuItem = new javax.swing.JMenuItem();
+        createMissionMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,6 +175,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         Agents.add(createAgentButton, java.awt.BorderLayout.PAGE_START);
 
         agentTable.setModel(new AgentTableModel(texts));
+        agentTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(agentTable);
 
         Agents.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -228,6 +244,34 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
         jMenuBar1.add(fileMenuItem);
 
+        editMenuItem.setText(bundle.getString("menu.edit")); // NOI18N
+
+        createAgentMenuItem.setText(bundle.getString("action.create.agent")); // NOI18N
+        createAgentMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createAgentMenuItemActionPerformed(evt);
+            }
+        });
+        editMenuItem.add(createAgentMenuItem);
+
+        createInvolvementMenuItem.setText(bundle.getString("action.create.involvement")); // NOI18N
+        createInvolvementMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createInvolvementMenuItemActionPerformed(evt);
+            }
+        });
+        editMenuItem.add(createInvolvementMenuItem);
+
+        createMissionMenuItem.setText(bundle.getString("action.create.mission")); // NOI18N
+        createMissionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createMissionMenuItemActionPerformed(evt);
+            }
+        });
+        editMenuItem.add(createMissionMenuItem);
+
+        jMenuBar1.add(editMenuItem);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -243,30 +287,58 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     private void createMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionButtonActionPerformed
         MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
-        missionCreateDialog.setMissionManager(missionManager);
-        java.awt.EventQueue.invokeLater(() -> {
-                missionCreateDialog.setVisible(true);
-        });
-        
+        missionCreateDialog.setVisible(true);
+        Mission result = missionCreateDialog.getResult();
+        if(result != null){
+            addMission(result);
+        } 
     }//GEN-LAST:event_createMissionButtonActionPerformed
 
     private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
         AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
-        agentCreateDialog.setAgentManager(agentManager);
-        java.awt.EventQueue.invokeLater(() -> {
-                agentCreateDialog.setVisible(true);
-        });
+        agentCreateDialog.setVisible(true);
+        Agent result = agentCreateDialog.getResult();
+        if(result != null){
+            addAgent(result);
+        }
+        
     }//GEN-LAST:event_createAgentButtonActionPerformed
 
     private void createInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementButtonActionPerformed
         InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
-        involvementCreateDialog.setAgentManager(agentManager);
-        involvementCreateDialog.setMissionManager(missionManager);
-        involvementCreateDialog.setInvolvementManager(involvementManager);
-        java.awt.EventQueue.invokeLater(() -> {
-                involvementCreateDialog.setVisible(true);
-        });
+        involvementCreateDialog.setVisible(true);
+        Involvement result = involvementCreateDialog.getResult();
+        if(result != null){
+            addInvolvement(result);
+        }
     }//GEN-LAST:event_createInvolvementButtonActionPerformed
+
+    private void createAgentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentMenuItemActionPerformed
+        AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
+        agentCreateDialog.setVisible(true);
+        Agent result = agentCreateDialog.getResult();
+        if(result != null){
+            addAgent(result);
+        }
+    }//GEN-LAST:event_createAgentMenuItemActionPerformed
+
+    private void createInvolvementMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createInvolvementMenuItemActionPerformed
+        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
+        involvementCreateDialog.setVisible(true);
+        Involvement result = involvementCreateDialog.getResult();
+        if(result != null){
+            addInvolvement(result);
+        }
+    }//GEN-LAST:event_createInvolvementMenuItemActionPerformed
+
+    private void createMissionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMissionMenuItemActionPerformed
+        MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
+        missionCreateDialog.setVisible(true);
+        Mission result = missionCreateDialog.getResult();
+        if(result != null){
+            addMission(result);
+        }
+    }//GEN-LAST:event_createMissionMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,13 +384,16 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JTable agentTable;
     private javax.swing.JButton createAgentButton;
+    private javax.swing.JMenuItem createAgentMenuItem;
     private javax.swing.JButton createInvolvementButton;
+    private javax.swing.JMenuItem createInvolvementMenuItem;
     private javax.swing.JButton createMissionButton;
+    private javax.swing.JMenuItem createMissionMenuItem;
+    private javax.swing.JMenu editMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JTable involvementTable;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

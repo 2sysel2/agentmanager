@@ -30,7 +30,7 @@ public class AgentComboBoxModel extends AbstractListModel implements ComboBoxMod
 
     @Override
     public Object getSelectedItem() {
-        return selected;
+        return (Agent)selected;
     }
 
     @Override
