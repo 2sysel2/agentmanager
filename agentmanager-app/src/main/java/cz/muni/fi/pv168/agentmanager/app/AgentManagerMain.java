@@ -106,11 +106,6 @@ public class AgentManagerMain extends javax.swing.JFrame {
         involvementManager.findAllInvolvements().stream().forEach((involvement) -> {
             involvementTableModel.addInvolvement(involvement);
         });
-        
-        Involvement temp = getTestInvolvement();
-        involvementTableModel.addInvolvement(temp);
-        involvementTableModel.addInvolvement(temp);
-        involvementTableModel.addInvolvement(temp);
     }
     
     private void addInvolvement(Involvement i){
@@ -406,39 +401,4 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable missionTable;
     // End of variables declaration//GEN-END:variables
-
-    private Mission getTestMission() {
-        Mission temp = new Mission();
-        
-        temp.setCode("CODE");
-        temp.setLocation("Location");
-        temp.setStart(LocalDateTime.of(2000, 3, 1, 0, 0));
-        temp.setEnd(LocalDateTime.of(2001, 1, 1, 1, 1));
-        temp.setObjective("Objective");
-        temp.setOutcome(Outcome.FAILED);
-        
-        return temp;
-    }
-    
-    private Agent getTestAgent() {
-        Agent temp = new Agent();
-        
-        temp.setName("Linda Fox");
-        temp.setBorn(LocalDate.MIN);
-        temp.setDied(LocalDate.MAX);
-        temp.setLevel(6);
-        
-        return temp;
-    }
-    
-    private Involvement getTestInvolvement() {
-        Involvement temp = new Involvement();
-        
-        temp.setMission(getTestMission());
-        temp.setAgent(getTestAgent());
-        temp.setStart(LocalDateTime.MIN);
-        temp.setEnd(LocalDateTime.MAX);
-        
-        return temp;
-    }
 }
