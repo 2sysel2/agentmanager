@@ -154,7 +154,7 @@ public class AgentsServlet extends HttpServlet {
             Long id = Long.valueOf(request.getParameter("id"));
             Agent agent = getAgentManager().getAgentById(id);
             if (agent != null) {
-                getAgentManager().deleteAgent(agent);
+                getAgentManager().removeAgent(agent);
                 response.sendRedirect(request.getContextPath() + URL_MAPPING);
                 return;
             } else {
