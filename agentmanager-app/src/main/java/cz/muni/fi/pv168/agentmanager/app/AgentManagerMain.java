@@ -112,18 +112,30 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }
     
     private void addInvolvement(Involvement i){
-        involvementManager.createInvolvement(i);
-        involvementTableModel.addInvolvement(i);
+        try{
+            involvementManager.createInvolvement(i);
+            involvementTableModel.addInvolvement(i);
+        }catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }
     
     private void addMission(Mission m){
-        missionManager.createMission(m);
-        missionTableModel.addMission(m);
+        try{
+            missionManager.createMission(m);
+            missionTableModel.addMission(m);
+        }catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }
     
     private void addAgent(Agent a){
-        agentManager.createAgent(a);
-        agentTableModel.addAgent(a);
+        try{
+            agentManager.createAgent(a);
+            agentTableModel.addAgent(a);
+        }catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }
         
     /**
