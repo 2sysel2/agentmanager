@@ -68,7 +68,7 @@ public class AgentServerlet extends HttpServlet {
                 return;
             case "/delete":
                 id = Long.valueOf(request.getParameter("id"));
-                getAgentManager().deleteAgent(getAgentManager().getAgentById(id));
+                getAgentManager().removeAgent(getAgentManager().getAgentById(id));
                 response.sendRedirect(request.getContextPath()+URL_MAPPING);
                 return;
             case "/update":
