@@ -112,10 +112,7 @@ public class AgentDetailDialog extends javax.swing.JDialog {
         this.result = ResultEnum.UPDATE;
         this.agent.setName(agentPanel1.getAgentName());
         this.agent.setBorn(agentPanel1.getAgentBorn());
-        System.out.println("updating died");
         this.agent.setDied(agentPanel1.getAgentDied());
-        
-        System.out.println("died updated");
         this.agent.setLevel(agentPanel1.getAgentLevel());
         this.setVisible(false);
     }//GEN-LAST:event_updateAgentButtonActionPerformed
