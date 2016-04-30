@@ -132,7 +132,11 @@ public class AgentManagerImpl implements AgentManager {
 
 			st.setString(1, agent.getName());
 			st.setDate(2, Date.valueOf(agent.getBorn()));
-			st.setDate(3, Date.valueOf(agent.getDied()));
+                        if(agent.getDied()!= null){
+                            st.setDate(3, Date.valueOf(agent.getDied()));
+                        }else{
+                            st.setDate(3, null);
+                        }			
 			st.setInt(4, agent.getLevel());
 			st.setLong(5, agent.getId());
 
