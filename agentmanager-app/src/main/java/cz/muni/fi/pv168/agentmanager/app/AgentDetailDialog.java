@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -7,6 +10,27 @@ import java.util.ResourceBundle;
  * @author Dominik Gmiterko
  */
 public class AgentDetailDialog extends javax.swing.JDialog {
+    
+    private Agent agent;
+    private List<Involvement> involvements;
+    private ResultEnum result;
+
+    public ResultEnum getResult() {
+        return result;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+        this.agentPanel1.setAgent(agent);
+    }
+
+    public void setInvolvements(List<Involvement> involvements) {
+        this.involvements = involvements;
+        for(Involvement i:involvements){
+            ((InvolvementTableModel)this.involvementsTable.getModel()).addInvolvement(i);
+        }
+        
+    }
     
     /**
      * Creates new form AgentDialog
@@ -32,7 +56,7 @@ public class AgentDetailDialog extends javax.swing.JDialog {
         removeAgentButton = new javax.swing.JButton();
         cancelAgentButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        involvementsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,9 +68,19 @@ public class AgentDetailDialog extends javax.swing.JDialog {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
         updateAgentButton.setText(bundle.getString("action.update")); // NOI18N
+        updateAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateAgentButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(updateAgentButton);
 
         removeAgentButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeAgentButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(removeAgentButton);
 
         cancelAgentButton.setText(bundle.getString("action.cancel")); // NOI18N
@@ -59,8 +93,8 @@ public class AgentDetailDialog extends javax.swing.JDialog {
 
         agentPanel.add(actionPanel);
 
-        jTable1.setModel(new InvolvementTableModel(bundle));
-        jScrollPane1.setViewportView(jTable1);
+        involvementsTable.setModel(new InvolvementTableModel(bundle));
+        jScrollPane1.setViewportView(involvementsTable);
 
         agentPanel.add(jScrollPane1);
 
@@ -70,8 +104,26 @@ public class AgentDetailDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAgentButtonActionPerformed
-        // TODO add your handling code here:
+        this.result = ResultEnum.CANCEL;
+        this.setVisible(false);
     }//GEN-LAST:event_cancelAgentButtonActionPerformed
+
+    private void updateAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateAgentButtonActionPerformed
+        this.result = ResultEnum.UPDATE;
+        this.agent.setName(agentPanel1.getAgentName());
+        this.agent.setBorn(agentPanel1.getAgentBorn());
+        System.out.println("updating died");
+        this.agent.setDied(agentPanel1.getAgentDied());
+        
+        System.out.println("died updated");
+        this.agent.setLevel(agentPanel1.getAgentLevel());
+        this.setVisible(false);
+    }//GEN-LAST:event_updateAgentButtonActionPerformed
+
+    private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
+        this.result = ResultEnum.REMOVE;
+        this.setVisible(false);
+    }//GEN-LAST:event_removeAgentButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,8 +180,8 @@ public class AgentDetailDialog extends javax.swing.JDialog {
     private javax.swing.JPanel agentPanel;
     private cz.muni.fi.pv168.agentmanager.app.AgentPanel agentPanel1;
     private javax.swing.JButton cancelAgentButton;
+    private javax.swing.JTable involvementsTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton removeAgentButton;
     private javax.swing.JButton updateAgentButton;
     // End of variables declaration//GEN-END:variables

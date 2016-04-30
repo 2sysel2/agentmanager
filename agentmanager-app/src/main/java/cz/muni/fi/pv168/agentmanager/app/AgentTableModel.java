@@ -88,4 +88,8 @@ public class AgentTableModel extends AbstractTableModel{
         agents.remove(selectedRow);
         fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
     }
+    
+    public void updateAgent(){
+        fireTableDataChanged();
+    }
 }

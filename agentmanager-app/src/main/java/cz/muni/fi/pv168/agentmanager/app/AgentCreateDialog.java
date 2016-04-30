@@ -75,8 +75,8 @@ public class AgentCreateDialog extends javax.swing.JDialog {
     private void createAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAgentButtonActionPerformed
         Agent agent = new Agent();
         agent.setName(agentPanel1.getAgentName());
-        agent.setBorn(agentPanel1.getAgentBorn().toLocalDate());
-        agent.setDied(agentPanel1.getAgentDied().toLocalDate());
+        agent.setBorn(agentPanel1.getAgentBorn());
+        agent.setDied(agentPanel1.getAgentDied());
         agent.setLevel(agentPanel1.getAgentLevel());
         result = agent;
         this.setVisible(false);
