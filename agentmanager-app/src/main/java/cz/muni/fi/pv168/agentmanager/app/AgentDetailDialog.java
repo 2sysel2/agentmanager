@@ -13,7 +13,7 @@ public class AgentDetailDialog extends javax.swing.JDialog {
     
     private Agent agent;
     private List<Involvement> involvements;
-    private ResultEnum result;
+    private ResultEnum result = ResultEnum.CANCEL;
 
     public ResultEnum getResult() {
         return result;

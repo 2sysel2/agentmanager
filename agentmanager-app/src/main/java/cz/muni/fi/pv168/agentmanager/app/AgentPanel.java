@@ -6,10 +6,13 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Locale;
+import javax.swing.JSpinner.DateEditor;
 
 /**
  *
@@ -21,7 +24,9 @@ public class AgentPanel extends javax.swing.JPanel {
         this.nameTextField.setText(agent.getName());
         this.levelSpinner.setValue(agent.getLevel());
         this.bornSpinner.setValue(Date.from(agent.getBorn().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        this.diedSpinner.setValue(Date.from(agent.getDied().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if(agent.getDied()!= null){
+            this.diedSpinner.setValue(Date.from(agent.getDied().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
     }
     
     /**
@@ -29,6 +34,10 @@ public class AgentPanel extends javax.swing.JPanel {
      */
     public AgentPanel() {
         initComponents();
+        /*System.out.println(((DateEditor)this.diedSpinner.getEditor()).getFormat().toPattern());
+        DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
+        ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");*/
+        
     }
     
     public String getAgentName(){
@@ -95,6 +104,7 @@ public class AgentPanel extends javax.swing.JPanel {
 
         bornSpinner.setModel(new javax.swing.SpinnerDateModel());
         bornSpinner.setToolTipText("");
+        //((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd");
         bornPanel.add(bornSpinner);
 
         add(bornPanel);
@@ -111,6 +121,7 @@ public class AgentPanel extends javax.swing.JPanel {
 
         diedSpinner.setModel(new javax.swing.SpinnerDateModel());
         diedSpinner.setEnabled(false);
+        //((DateEditor)diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd");
         diedPanel.add(diedSpinner);
 
         add(diedPanel);
@@ -127,7 +138,12 @@ public class AgentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diedCheckboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_diedCheckboxItemStateChanged
-        diedSpinner.setEnabled(true);
+        if(diedCheckbox.isSelected()){
+            diedSpinner.setEnabled(true);
+        }else{
+            diedSpinner.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_diedCheckboxItemStateChanged
 
 

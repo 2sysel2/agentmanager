@@ -60,6 +60,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern(&quot;yyyy-MM-dd&quot;);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -87,6 +90,9 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//((DateEditor)diedSpinner.getEditor()).getFormat().applyPattern(&quot;yyyy-MM-dd&quot;);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
