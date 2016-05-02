@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
+import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -11,6 +14,25 @@ public class MissionDetailDialog extends javax.swing.JDialog {
     /**
      * Creates new form MissionDialog
      */
+    
+    private ResultEnum result = ResultEnum.CANCEL;
+    private Mission mission;
+
+    public ResultEnum getResult() {
+        return result;
+    }
+    
+    public void setMission(Mission mission) {
+        this.mission = mission;
+        missionPanel1.setMission(mission);
+    }
+    
+    public void setInvolvements(List<Involvement> involvements){
+        for(Involvement i:involvements){
+            ((InvolvementTableModel)this.involvementsTable.getModel()).addInvolvement(i);
+        }
+    }
+    
     public MissionDetailDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -28,10 +50,11 @@ public class MissionDetailDialog extends javax.swing.JDialog {
         missionPanel = new javax.swing.JPanel();
         missionPanel1 = new cz.muni.fi.pv168.agentmanager.app.MissionPanel();
         actionPanel = new javax.swing.JPanel();
-        createMissionButton = new javax.swing.JButton();
+        updateMissionButton = new javax.swing.JButton();
+        removeMissionButton = new javax.swing.JButton();
         cancelMissionButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        involvementsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -42,8 +65,21 @@ public class MissionDetailDialog extends javax.swing.JDialog {
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
-        createMissionButton.setText(bundle.getString("action.create")); // NOI18N
-        actionPanel.add(createMissionButton);
+        updateMissionButton.setText(bundle.getString("action.update")); // NOI18N
+        updateMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateMissionButtonActionPerformed(evt);
+            }
+        });
+        actionPanel.add(updateMissionButton);
+
+        removeMissionButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeMissionButtonActionPerformed(evt);
+            }
+        });
+        actionPanel.add(removeMissionButton);
 
         cancelMissionButton.setText(bundle.getString("action.cancel")); // NOI18N
         cancelMissionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -55,8 +91,8 @@ public class MissionDetailDialog extends javax.swing.JDialog {
 
         missionPanel.add(actionPanel);
 
-        jTable1.setModel(new InvolvementTableModel(bundle));
-        jScrollPane1.setViewportView(jTable1);
+        involvementsTable.setModel(new InvolvementTableModel(bundle));
+        jScrollPane1.setViewportView(involvementsTable);
 
         missionPanel.add(jScrollPane1);
 
@@ -66,62 +102,33 @@ public class MissionDetailDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMissionButtonActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_cancelMissionButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MissionDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void updateMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateMissionButtonActionPerformed
+        this.mission.setCode(missionPanel1.getMissionCode());
+        this.mission.setLocation(missionPanel1.getMissionLocation());
+        this.mission.setStart(missionPanel1.getMissionStart());
+        this.mission.setEnd(missionPanel1.getMissionEnd());
+        this.mission.setObjective(missionPanel1.getMissionObjective());
+        this.mission.setOutcome(missionPanel1.getMissionOutcome());
+        this.result = ResultEnum.UPDATE;
+        this.setVisible(false);
+    }//GEN-LAST:event_updateMissionButtonActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MissionDetailDialog dialog = new MissionDetailDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-                
-            }
-        });
-    }
+    private void removeMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMissionButtonActionPerformed
+        this.result = ResultEnum.REMOVE;
+        this.setVisible(false);
+    }//GEN-LAST:event_removeMissionButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JButton cancelMissionButton;
-    private javax.swing.JButton createMissionButton;
+    private javax.swing.JTable involvementsTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel missionPanel;
     private cz.muni.fi.pv168.agentmanager.app.MissionPanel missionPanel1;
+    private javax.swing.JButton removeMissionButton;
+    private javax.swing.JButton updateMissionButton;
     // End of variables declaration//GEN-END:variables
 }

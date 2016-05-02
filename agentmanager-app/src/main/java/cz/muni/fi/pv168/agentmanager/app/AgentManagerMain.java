@@ -99,6 +99,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         
         missionTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             removeMissionButton.setEnabled(true);
+            detailsMissionButton.setEnabled(true);
         });
         
         involvementTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
@@ -153,8 +154,19 @@ public class AgentManagerMain extends javax.swing.JFrame {
         try{
             agentManager.updateAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
             agentTableModel.updateAgent();
+            disableAgentActionButtons();
         }catch(ServiceFailureException e){
             JOptionPane.showMessageDialog(this, "Ops something went wrong");
+        }
+    }
+    
+    private void removeAgent() throws HeadlessException {
+        try{
+            agentManager.removeAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
+            agentTableModel.removeAgent(agentTable.getSelectedRow());
+            disableAgentActionButtons();
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "You can't remove agent who is assigned to an involvement");
         }
     }
     
@@ -162,8 +174,19 @@ public class AgentManagerMain extends javax.swing.JFrame {
         try{
             missionManager.updateMission(missionTableModel.getMission(missionTable.getSelectedRow()));
             missionTableModel.updateMission();
+            disableMissionActionButtons();
         }catch(ServiceFailureException e){
             JOptionPane.showMessageDialog(this, "Ops something went wrong");
+        }
+    }
+    
+    private void removeMission(){
+        try{
+            missionManager.removeMission(missionTableModel.getMission(missionTable.getSelectedRow()));
+            missionTableModel.removeMission(missionTable.getSelectedRow());
+            disableMissionActionButtons();
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "Ops");
         }
     }
     
@@ -171,8 +194,64 @@ public class AgentManagerMain extends javax.swing.JFrame {
         try{
             involvementManager.updateInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
             involvementTableModel.updateInvolvement();
+            disableInvolvementActionButtons();
         }catch(ServiceFailureException e){
             JOptionPane.showMessageDialog(this, "Ops something went wrong");
+        }
+    }
+    
+    private void removeInvolvement() {
+        try{
+            involvementManager.removeInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
+            involvementTableModel.removeInvolvement(involvementTable.getSelectedRow());
+            disableInvolvementActionButtons();
+        }catch(ServiceFailureException e){
+            JOptionPane.showMessageDialog(this, "Ops");
+        }
+    }
+    
+    private void disableAgentActionButtons() {
+        detailsAgentButton.setEnabled(false);
+        removeAgentButton.setEnabled(false);
+        agentTable.clearSelection();
+    }
+    
+    private void disableMissionActionButtons() {
+        detailsMissionButton.setEnabled(false);
+        removeMissionButton.setEnabled(false);
+        missionTable.clearSelection();
+    }
+    
+    private void disableInvolvementActionButtons(){
+        detailsInvolvementButton.setEnabled(false);
+        removeInvolvementButton.setEnabled(false);
+        involvementTable.clearSelection();
+    }
+    
+    private void showCreateAgentDialog() {
+        AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
+        agentCreateDialog.setVisible(true);
+        Agent result = agentCreateDialog.getResult();
+        if(result != null){
+            addAgent(result);
+        }
+    }
+
+    private void showCreateInvolvementDialog() {
+        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager.findAllAgents(),missionManager.findAllMissions());
+        involvementCreateDialog.setVisible(true);
+        Involvement result = involvementCreateDialog.getResult();
+        if(result != null){
+            addInvolvement(result);
+        }
+    }
+
+    private void showCreateMissionDialog() {
+        MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
+        missionCreateDialog.setVisible(true);
+        Mission result = missionCreateDialog.getResult();
+        if(result != null){
+            addMission(result);
         }
     }
         
@@ -204,6 +283,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         Missions = new javax.swing.JPanel();
         missionActionPanel = new javax.swing.JPanel();
         createMissionButton = new javax.swing.JButton();
+        detailsMissionButton = new javax.swing.JButton();
         removeMissionButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         missionTable = new javax.swing.JTable();
@@ -306,6 +386,15 @@ public class AgentManagerMain extends javax.swing.JFrame {
             }
         });
         missionActionPanel.add(createMissionButton);
+
+        detailsMissionButton.setText(bundle.getString("action.details")); // NOI18N
+        detailsMissionButton.setEnabled(false);
+        detailsMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detailsMissionButtonActionPerformed(evt);
+            }
+        });
+        missionActionPanel.add(detailsMissionButton);
 
         removeMissionButton.setText(bundle.getString("action.remove")); // NOI18N
         removeMissionButton.setEnabled(false);
@@ -422,45 +511,19 @@ public class AgentManagerMain extends javax.swing.JFrame {
         removeAgent();
     }//GEN-LAST:event_removeAgentButtonActionPerformed
 
-    private void removeAgent() throws HeadlessException {
-        try{
-            agentManager.removeAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
-            agentTableModel.removeAgent(agentTable.getSelectedRow());
-            removeAgentButton.setEnabled(false);
-            detailsAgentButton.setEnabled(false);
-        }catch(ServiceFailureException e){
-            JOptionPane.showMessageDialog(this, "You can't remove agent who is assigned to an involvement");
-        }
-    }
-    private void removeInvolvement() {
-        try{
-            involvementManager.removeInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
-            involvementTableModel.removeInvolvement(involvementTable.getSelectedRow());
-            removeInvolvementButton.setEnabled(false);
-            detailsInvolvementButton.setEnabled(false);
-        }catch(ServiceFailureException e){
-            
-        }
-    }
-
     private void removeMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMissionButtonActionPerformed
         try{
             missionManager.removeMission(missionTableModel.getMission(missionTable.getSelectedRow()));
             missionTableModel.removeMission(missionTable.getSelectedRow());
-            removeMissionButton.setEnabled(false);
+            
         }catch(ServiceFailureException e){
             JOptionPane.showMessageDialog(this, "You can't remove mission which has assigned agents in an involvement");
         }
     }//GEN-LAST:event_removeMissionButtonActionPerformed
 
     private void removeInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeInvolvementButtonActionPerformed
-        try{
-            involvementManager.removeInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
-            involvementTableModel.removeInvolvement(involvementTable.getSelectedRow());
-            removeInvolvementButton.setEnabled(false);
-        }catch(ServiceFailureException e){
-            JOptionPane.showMessageDialog(this, "Ops");
-        }
+        removeInvolvement();
+        
     }//GEN-LAST:event_removeInvolvementButtonActionPerformed
 
     private void detailsAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsAgentButtonActionPerformed
@@ -468,10 +531,11 @@ public class AgentManagerMain extends javax.swing.JFrame {
         agentDetailDialog.setAgent(agentTableModel.getAgent(agentTable.getSelectedRow()));
         agentDetailDialog.setInvolvements(involvementManager.findInvolvementByAgent(agentTableModel.getAgent(agentTable.getSelectedRow()).getId()));
         agentDetailDialog.setVisible(true);
+        
         switch(agentDetailDialog.getResult()){
             case CANCEL:break;
-            case REMOVE: this.removeAgent();
-            case UPDATE: this.updateAgent();
+            case REMOVE: this.removeAgent();break;
+            case UPDATE: this.updateAgent();break;
         }
     }//GEN-LAST:event_detailsAgentButtonActionPerformed
 
@@ -481,37 +545,24 @@ public class AgentManagerMain extends javax.swing.JFrame {
         involvementDetailDialog.setVisible(true);
         switch(involvementDetailDialog.getResult()){
             case CANCEL:break;
-            case REMOVE: this.removeInvolvement();
-            case UPDATE: this.updateInvolvement();
+            case REMOVE: this.removeInvolvement();break;
+            case UPDATE: this.updateInvolvement();break;
         }
     }//GEN-LAST:event_detailsInvolvementButtonActionPerformed
 
-    private void showCreateAgentDialog() {
-        AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this, true);
-        agentCreateDialog.setVisible(true);
-        Agent result = agentCreateDialog.getResult();
-        if(result != null){
-            addAgent(result);
+    private void detailsMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsMissionButtonActionPerformed
+        MissionDetailDialog missionDetailDialog = new MissionDetailDialog(this, true);
+        missionDetailDialog.setMission(missionTableModel.getMission(missionTable.getSelectedRow()));
+        missionDetailDialog.setInvolvements(involvementManager.findInvolvementByMission(missionTableModel.getMission(missionTable.getSelectedRow()).getId()));
+        missionDetailDialog.setVisible(true);
+        switch(missionDetailDialog.getResult()){
+            case CANCEL:break;
+            case REMOVE: this.removeMission();break;
+            case UPDATE: this.updateMission();break;
         }
-    }
+    }//GEN-LAST:event_detailsMissionButtonActionPerformed
 
-    private void showCreateInvolvementDialog() {
-        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager.findAllAgents(),missionManager.findAllMissions());
-        involvementCreateDialog.setVisible(true);
-        Involvement result = involvementCreateDialog.getResult();
-        if(result != null){
-            addInvolvement(result);
-        }
-    }
 
-    private void showCreateMissionDialog() {
-        MissionCreateDialog missionCreateDialog = new MissionCreateDialog(this, true);
-        missionCreateDialog.setVisible(true);
-        Mission result = missionCreateDialog.getResult();
-        if(result != null){
-            addMission(result);
-        }
-    }
     /**
      * @param args the command line arguments
      */
@@ -560,6 +611,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem createMissionMenuItem;
     private javax.swing.JButton detailsAgentButton;
     private javax.swing.JButton detailsInvolvementButton;
+    private javax.swing.JButton detailsMissionButton;
     private javax.swing.JMenu editMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
@@ -577,4 +629,6 @@ public class AgentManagerMain extends javax.swing.JFrame {
     private javax.swing.JButton removeInvolvementButton;
     private javax.swing.JButton removeMissionButton;
     // End of variables declaration//GEN-END:variables
+
+    
 }

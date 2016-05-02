@@ -6,13 +6,10 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
-import javax.swing.JSpinner.DateEditor;
 
 /**
  *
@@ -25,6 +22,7 @@ public class AgentPanel extends javax.swing.JPanel {
         this.levelSpinner.setValue(agent.getLevel());
         this.bornSpinner.setValue(Date.from(agent.getBorn().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if(agent.getDied()!= null){
+            this.diedCheckbox.setSelected(true);
             this.diedSpinner.setValue(Date.from(agent.getDied().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         }
     }

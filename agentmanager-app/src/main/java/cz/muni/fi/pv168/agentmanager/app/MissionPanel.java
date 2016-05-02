@@ -5,13 +5,11 @@
  */
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -20,6 +18,15 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class MissionPanel extends javax.swing.JPanel {
 
+    public void setMission(Mission mission){
+        this.codeTextField.setText(mission.getCode());
+        this.locationTextField.setText(mission.getLocation());
+        this.startSpinner.setValue(Date.from(mission.getStart().atZone(ZoneId.systemDefault()).toInstant()));
+        this.endSpinner.setValue(Date.from(mission.getEnd().atZone(ZoneId.systemDefault()).toInstant()));
+        this.objectiveTextArea.setText(mission.getObjective());
+        this.outcomeComboBox.setSelectedItem(mission.getOutcome());
+    }
+    
     /**
      * Creates new form MissionPanel
      */
