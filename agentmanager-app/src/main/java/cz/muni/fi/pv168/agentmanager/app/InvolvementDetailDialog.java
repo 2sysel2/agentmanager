@@ -70,9 +70,19 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         actionPanel.add(updateInvolvementButton);
 
         removeInvolvementButton.setText(bundle.getString("action.remove")); // NOI18N
+        removeInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeInvolvementButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(removeInvolvementButton);
 
         cancelInvolvementButton.setText(bundle.getString("action.cancel")); // NOI18N
+        cancelInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelInvolvementButtonActionPerformed(evt);
+            }
+        });
         actionPanel.add(cancelInvolvementButton);
 
         involvementPanel.add(actionPanel);
@@ -83,8 +93,23 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInvolvementButtonActionPerformed
-        // TODO add your handling code here:
+        involvement.setAgent(involvementPanel1.getInvolvementAgent());
+        involvement.setMission(involvementPanel1.getInvolvementMission());
+        involvement.setStart(involvementPanel1.getInvolvementStart());
+        involvement.setEnd(involvementPanel1.getInvolvementEnd());
+        result = ResultEnum.UPDATE;
+        this.setVisible(false);
     }//GEN-LAST:event_updateInvolvementButtonActionPerformed
+
+    private void removeInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeInvolvementButtonActionPerformed
+        result = ResultEnum.REMOVE;
+        this.setVisible(false);
+    }//GEN-LAST:event_removeInvolvementButtonActionPerformed
+
+    private void cancelInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInvolvementButtonActionPerformed
+        result = ResultEnum.CANCEL;
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelInvolvementButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
