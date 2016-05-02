@@ -18,8 +18,6 @@ import java.util.ResourceBundle;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 /**
@@ -93,18 +91,24 @@ public class AgentManagerMain extends javax.swing.JFrame {
         setUp();
         
         agentTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            removeAgentButton.setEnabled(true);
-            detailsAgentButton.setEnabled(true);
+            if(agentTable.getSelectedRow() != -1){
+                removeAgentButton.setEnabled(true);
+                detailsAgentButton.setEnabled(true);
+            }
         });
         
         missionTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            removeMissionButton.setEnabled(true);
-            detailsMissionButton.setEnabled(true);
+            if(missionTable.getSelectedRow() != -1){
+                removeMissionButton.setEnabled(true);
+                detailsMissionButton.setEnabled(true);
+            }
         });
         
         involvementTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            removeInvolvementButton.setEnabled(true);
-            detailsInvolvementButton.setEnabled(true);
+            if(involvementTable.getSelectedRow() != -1){
+                removeInvolvementButton.setEnabled(true);
+                detailsInvolvementButton.setEnabled(true);
+            }
         });
         
         missionTableModel = (MissionTableModel) missionTable.getModel();
@@ -211,21 +215,21 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }
     
     private void disableAgentActionButtons() {
+        agentTable.clearSelection();
         detailsAgentButton.setEnabled(false);
         removeAgentButton.setEnabled(false);
-        agentTable.clearSelection();
     }
     
     private void disableMissionActionButtons() {
+        missionTable.clearSelection();
         detailsMissionButton.setEnabled(false);
         removeMissionButton.setEnabled(false);
-        missionTable.clearSelection();
     }
     
     private void disableInvolvementActionButtons(){
+        involvementTable.clearSelection();
         detailsInvolvementButton.setEnabled(false);
         removeInvolvementButton.setEnabled(false);
-        involvementTable.clearSelection();
     }
     
     private void showCreateAgentDialog() {
