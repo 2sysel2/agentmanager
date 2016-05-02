@@ -1,11 +1,9 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
-import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
-import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
-import cz.muni.fi.pv168.gmiterkosys.MissionManager;
+import java.util.List;
 
 /**
  *
@@ -13,7 +11,6 @@ import cz.muni.fi.pv168.gmiterkosys.MissionManager;
  */
 public class InvolvementCreateDialog extends javax.swing.JDialog {
 
-    private InvolvementManager involvementManager;
     private Involvement result;
 
     public Involvement getResult() {
@@ -23,15 +20,14 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
      * Creates new form InvolvementDialog
      * @param parent
      * @param modal
-     * @param agentManager
-     * @param missionManager
-     * @param involvementManager
+     * @param agents
+     * @param missions
      */
-    public InvolvementCreateDialog(java.awt.Frame parent, boolean modal,AgentManager agentManager,MissionManager missionManager,InvolvementManager involvementManager) {
+    public InvolvementCreateDialog(java.awt.Frame parent, boolean modal,List<Agent> agents,List<Mission> missions) {
         super(parent, modal);
         initComponents();
-        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agentManager.findAllAgents());
-        MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel(missionManager.findAllMissions());
+        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agents);
+        MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel(missions);
         involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
         involvementPanel1.setMissionComboBoxModel(missionComboBoxModel);
     }
@@ -40,10 +36,6 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }*/
-
-    public void setInvolvementManager(InvolvementManager involvementManager) {
-        this.involvementManager = involvementManager;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,8 +89,6 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         involvement.setMission(involvementPanel1.getInvolvementMission());
         involvement.setStart(involvementPanel1.getInvolvementStart());
         involvement.setEnd(involvementPanel1.getInvolvementEnd());
-        //System.out.println(involvementManager);
-        //involvementManager.createInvolvement(involvement);
         result = involvement;
         
         this.setVisible(false);

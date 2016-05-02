@@ -476,7 +476,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_detailsAgentButtonActionPerformed
 
     private void detailsInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsInvolvementButtonActionPerformed
-        InvolvementDetailDialog involvementDetailDialog = new InvolvementDetailDialog(this,true);
+        InvolvementDetailDialog involvementDetailDialog = new InvolvementDetailDialog(this,true,agentManager.findAllAgents(),missionManager.findAllMissions());
         involvementDetailDialog.setInvolvement(involvementTableModel.getInvolvement(involvementTable.getSelectedRow()));
         involvementDetailDialog.setVisible(true);
         switch(involvementDetailDialog.getResult()){
@@ -496,7 +496,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
     }
 
     private void showCreateInvolvementDialog() {
-        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager,missionManager,involvementManager);
+        InvolvementCreateDialog involvementCreateDialog = new InvolvementCreateDialog(this,true,agentManager.findAllAgents(),missionManager.findAllMissions());
         involvementCreateDialog.setVisible(true);
         Involvement result = involvementCreateDialog.getResult();
         if(result != null){

@@ -1,6 +1,9 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
+import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.util.List;
 
 /**
  *
@@ -24,9 +27,13 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         involvementPanel1.setInvolvement(involvement);
     }
     
-    public InvolvementDetailDialog(java.awt.Frame parent, boolean modal) {
+    public InvolvementDetailDialog(java.awt.Frame parent, boolean modal,List<Agent> agents,List<Mission> missions) {
         super(parent, modal);
         initComponents();
+        AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel(agents);
+        MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel(missions);
+        involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
+        involvementPanel1.setMissionComboBoxModel(missionComboBoxModel);
     }
 
     /**
@@ -78,51 +85,6 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
     private void updateInvolvementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInvolvementButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateInvolvementButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InvolvementDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InvolvementDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InvolvementDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InvolvementDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InvolvementDetailDialog dialog = new InvolvementDetailDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;

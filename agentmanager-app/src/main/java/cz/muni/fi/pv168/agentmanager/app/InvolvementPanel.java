@@ -54,7 +54,10 @@ public class InvolvementPanel extends javax.swing.JPanel {
     }
     
     public void setInvolvement(Involvement involvement) {
-        throw new UnsupportedOperationException("not implemented yet");
+        missionComboBox.setSelectedItem(involvement.getMission());
+        agentComboBox.setSelectedItem(involvement.getAgent());
+        startSpinner.setValue(Date.from(involvement.getStart().atZone(ZoneId.systemDefault()).toInstant()));
+        endSpinner.setValue(Date.from(involvement.getEnd().atZone(ZoneId.systemDefault()).toInstant()));
     }
 
     /**
