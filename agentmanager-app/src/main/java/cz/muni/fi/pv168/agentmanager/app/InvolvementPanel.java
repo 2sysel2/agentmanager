@@ -9,7 +9,6 @@ import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.ComboBoxModel;

@@ -3,7 +3,6 @@ package cz.muni.fi.pv168.agentmanager.app;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  *

@@ -4,7 +4,6 @@ import cz.muni.fi.pv168.gmiterkosys.Agent;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import javax.swing.event.ListDataListener;
 
 /**
  *
