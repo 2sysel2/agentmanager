@@ -100,4 +100,8 @@ public class MissionTableModel extends AbstractTableModel{
         fireTableRowsInserted(missions.size() - 1, missions.size() - 1);
         
     }
+
+    public void updateMission() {
+        fireTableDataChanged();
+    }
 }

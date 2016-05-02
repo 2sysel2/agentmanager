@@ -6,6 +6,7 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -50,6 +51,10 @@ public class InvolvementPanel extends javax.swing.JPanel {
     
     public void setMissionComboBoxModel(ComboBoxModel cbm){
         missionComboBox.setModel(cbm);
+    }
+    
+    public void setInvolvement(Involvement involvement) {
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     /**

@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
+import cz.muni.fi.pv168.gmiterkosys.Involvement;
+
 /**
  *
  * @author Jaromir Sys
@@ -9,6 +11,19 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
     /**
      * Creates new form InvolvementDialog
      */
+    
+    private ResultEnum result = ResultEnum.CANCEL;
+    private Involvement involvement;
+
+    public ResultEnum getResult() {
+        return result;
+    }
+    
+    public void setInvolvement(Involvement involvement) {
+        this.involvement = involvement;
+        involvementPanel1.setInvolvement(involvement);
+    }
+    
     public InvolvementDetailDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
