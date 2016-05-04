@@ -2,10 +2,13 @@ package cz.muni.fi.pv168.agentmanager.app.gui.mission;
 
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
+import java.awt.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -27,7 +30,14 @@ public class MissionPanel extends javax.swing.JPanel {
      */
     public MissionPanel() {
         initComponents();
-        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));      
+        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
+        outcomeComboBox.setRenderer(new ListCellRenderer<String>() {
+
+            @Override
+            public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) {
+                
+            }
+        });
     }
     
     public String getMissionCode(){

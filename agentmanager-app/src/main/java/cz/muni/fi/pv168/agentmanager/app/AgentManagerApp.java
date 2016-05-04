@@ -1,6 +1,9 @@
 package cz.muni.fi.pv168.agentmanager.app;
 
 import cz.muni.fi.pv168.agentmanager.app.gui.AgentManagerMain;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -20,7 +23,7 @@ public class AgentManagerApp {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         DataSource dataSource = prepareDataSource();
 
         /* Set the Nimbus look and feel */
@@ -39,7 +42,7 @@ public class AgentManagerApp {
             log.error("Cannot set look and feel", e);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new AgentManagerMain(dataSource).setVisible(true);
@@ -59,37 +62,25 @@ public class AgentManagerApp {
     private static void setUpDatabase(DataSource dataSource) {
 
         try (Connection connection = dataSource.getConnection()) {
-            connection.prepareStatement("CREATE TABLE agent ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "\"name\" VARCHAR(255) NOT NULL,"
-                    + "born DATE,"
-                    + "died DATE,"
-                    + "\"level\" SMALLINT"
-                    + ")").execute();
 
-            connection.prepareStatement("CREATE TABLE mission ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "code VARCHAR(255),"
-                    + "location VARCHAR(255),"
-                    + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP,"
-                    + "objective VARCHAR(255),"
-                    + "outcome VARCHAR(255)"
-                    + ")").execute();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(AgentManagerApp.class.getClassLoader().getResourceAsStream("agentManager.sql")));
 
-            connection.prepareStatement("CREATE TABLE involvement ("
-                    + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
-                    + "agent BIGINT,"
-                    + "mission BIGINT,"
-                    + "\"start\" TIMESTAMP,"
-                    + "\"end\" TIMESTAMP,"
-                    + "FOREIGN KEY(agent) REFERENCES agent,"
-                    + "FOREIGN KEY(mission) REFERENCES mission)").execute();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for(String query : line.split(";")) {
+                    if(!query.isEmpty()) {
+                        connection.prepareStatement(query).execute();
+                    }
+                }
+            }
         } catch (SQLException e) {
             if (!e.getSQLState().equals("X0Y32")) {
                 log.error("Problem with initializing database.", e);
                 System.exit(1);
             }
+        } catch (IOException e) {
+            log.error("Problem with initializing database.", e);
+            System.exit(1);
         }
     }
 }
