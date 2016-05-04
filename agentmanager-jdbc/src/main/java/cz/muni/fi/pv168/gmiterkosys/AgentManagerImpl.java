@@ -10,18 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Dominik Gmiterko
  */
 public class AgentManagerImpl implements AgentManager {
 
+    private final Logger log = LoggerFactory.getLogger(AgentManagerImpl.class);
+    
 	private final DataSource dataSource;
 
 	public AgentManagerImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
+    @Override
 	public void createAgent(Agent agent) {
 
 		validate(agent);
@@ -56,11 +61,14 @@ public class AgentManagerImpl implements AgentManager {
 			ResultSet keys = st.getGeneratedKeys();
 			agent.setId(KeyGrabber.getKey(keys, agent));
 
+            log.info("Agent created. {}", agent);
+            
 		} catch (SQLException e) {
 			throw new ServiceFailureException("SQL Error when creating " + agent, e);
 		}
 	}
 
+    @Override
 	public Agent getAgentById(Long id) {
 		try (Connection connection = dataSource.getConnection();
 				PreparedStatement st = connection
@@ -86,6 +94,7 @@ public class AgentManagerImpl implements AgentManager {
 		}
 	}
 
+    @Override
 	public List<Agent> findAllAgents() {
 		try (Connection connection = dataSource.getConnection();
 				PreparedStatement st = connection
@@ -118,6 +127,7 @@ public class AgentManagerImpl implements AgentManager {
 		return agent;
 	}
 
+    @Override
 	public void updateAgent(Agent agent) {
 
 		validate(agent);
@@ -146,11 +156,15 @@ public class AgentManagerImpl implements AgentManager {
 			} else if (count != 1) {
 				throw new ServiceFailureException("Updated invalid count of rows! " + count);
 			}
+            
+            log.info("Agent updated. {}", agent);
+            
 		} catch (SQLException e) {
 			throw new ServiceFailureException("Error when updating agent " + agent, e);
 		}
 	}
 
+    @Override
 	public void removeAgent(Agent agent) {
 
 		if (agent == null) {
@@ -172,6 +186,8 @@ public class AgentManagerImpl implements AgentManager {
 			} else if (count != 1) {
 				throw new ServiceFailureException("Deleted invalid count of rows! " + count);
 			}
+            
+            log.info("Agent removed. {}", agent);
 
 		} catch (SQLException e) {
 			throw new ServiceFailureException("Error when updating agent " + agent, e);

@@ -4,10 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class MissionManagerImpl implements MissionManager {
-    //
+    
+    private final Logger log = LoggerFactory.getLogger(InvolvementManagerImpl.class);
+    
     private final DataSource dataSource;
     
     public MissionManagerImpl(DataSource src) {
@@ -38,6 +42,8 @@ public class MissionManagerImpl implements MissionManager {
 
             ResultSet keyRS = st.getGeneratedKeys();
             mission.setId(KeyGrabber.getKey(keyRS, mission));
+            
+            log.info("Mission created. {}", mission);
                     
         } catch (SQLException ex) {
             throw new ServiceFailureException("failed to insert new mission",ex);
@@ -91,6 +97,8 @@ public class MissionManagerImpl implements MissionManager {
              if(count != 1){
                  throw new ServiceFailureException("delete mission should delete only 1 mission ");
              }
+             
+             log.info("Mission removed. {}", mission);
              
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to delete mission",ex);
@@ -196,6 +204,8 @@ public class MissionManagerImpl implements MissionManager {
             if(rows != 1){
                 throw new ServiceFailureException("update should change only 1 row");
             }
+            
+            log.info("Mission updated. {}", mission);
             
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to update mission",ex);

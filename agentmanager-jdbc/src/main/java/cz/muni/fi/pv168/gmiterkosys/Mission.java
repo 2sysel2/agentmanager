@@ -206,9 +206,8 @@ public class Mission {
      */
     @Override
     public String toString() {
-        return code;
-        //return "Mission [id=" + id + ", code=" + code + ", location=" + location + ", start=" + start + ", end=" + end
-        //        + ", objective=" + objective + ", outcome=" + outcome + "]";
+        return "Mission [id=" + id + ", code=" + code + ", location=" + location + ", start=" + start + ", end=" + end
+                + ", objective=" + objective + ", outcome=" + outcome + "]";
     }
 
 }

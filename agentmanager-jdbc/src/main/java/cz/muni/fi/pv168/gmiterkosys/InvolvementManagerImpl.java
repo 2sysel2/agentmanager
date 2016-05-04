@@ -10,14 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class InvolvementManagerImpl implements InvolvementManager {
 
+    private final Logger log = LoggerFactory.getLogger(InvolvementManagerImpl.class);
+    
     private DataSource dataSource;
     
     private AgentManager agentManager;
     private MissionManager missionManager;
+    private Logger LoggerFacotry;
     
     public InvolvementManagerImpl(DataSource ds, AgentManager agentManager, MissionManager missionManager) {
         dataSource = ds;
@@ -53,6 +58,8 @@ public class InvolvementManagerImpl implements InvolvementManager {
 
             ResultSet keyRS = st.getGeneratedKeys();
             involvement.setId(KeyGrabber.getKey(keyRS, involvement));
+            
+            log.info("Involvement created. {}", involvement);
         }
            catch (SQLException ex) {
             throw new ServiceFailureException("failed to insert new involvement",ex);
@@ -98,6 +105,8 @@ public class InvolvementManagerImpl implements InvolvementManager {
              if(count != 1){
                  throw new ServiceFailureException("delete involvement should delete only 1 mission ");
              }
+             
+             log.info("Involvement removed. {}", involvement);
              
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to delete involvement with id : "+involvement.getId(),ex);
@@ -220,6 +229,8 @@ public class InvolvementManagerImpl implements InvolvementManager {
             if(rows != 1){
                 throw new ServiceFailureException("update should change only 1 row");
             }
+            
+            log.info("Involvement updated. {}", involvement);
             
          } catch (SQLException ex) {
             throw new ServiceFailureException("failed to update involvement",ex);
