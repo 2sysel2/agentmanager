@@ -31,13 +31,6 @@ public class MissionPanel extends javax.swing.JPanel {
     public MissionPanel() {
         initComponents();
         outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
-        outcomeComboBox.setRenderer(new ListCellRenderer<String>() {
-
-            @Override
-            public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) {
-                
-            }
-        });
     }
     
     public String getMissionCode(){
