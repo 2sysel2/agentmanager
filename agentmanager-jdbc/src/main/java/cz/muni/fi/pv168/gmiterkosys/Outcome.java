@@ -7,5 +7,5 @@ package cz.muni.fi.pv168.gmiterkosys;
  */
 public enum Outcome
 {
-	IN_PROGRES, SUCCESSFUL, FAILED;
+	IN_PROGRESS, SUCCESSFUL, FAILED;
 }
