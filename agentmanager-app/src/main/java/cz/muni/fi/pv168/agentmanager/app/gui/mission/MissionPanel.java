@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
  *
@@ -30,7 +32,6 @@ public class MissionPanel extends javax.swing.JPanel {
      */
     public MissionPanel() {
         initComponents();
-        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
     }
     
     public String getMissionCode(){
@@ -149,6 +150,17 @@ public class MissionPanel extends javax.swing.JPanel {
 
         outcomeLabel.setText(bundle.getString("mission.outcome")); // NOI18N
         outcomePanel.add(outcomeLabel);
+
+        outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));
+        outcomeComboBox.setRenderer(new BasicComboBoxRenderer(){
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); //To change body of generated methods, choose Tools | Templates.
+                setText( bundle.getString("outcome."+((Outcome) value).name().toLowerCase()) );
+                return this;
+            }
+
+        });
         outcomePanel.add(outcomeComboBox);
 
         add(outcomePanel);

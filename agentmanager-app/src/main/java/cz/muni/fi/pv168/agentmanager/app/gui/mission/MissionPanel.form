@@ -154,6 +154,7 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="outcomeComboBox">
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="outcomeComboBox.setModel(new DefaultComboBoxModel(Outcome.values()));&#xa;outcomeComboBox.setRenderer(new BasicComboBoxRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); //To change body of generated methods, choose Tools | Templates.&#xa;        setText( bundle.getString(&quot;outcome.&quot;+((Outcome) value).name().toLowerCase()) );&#xa;        return this;&#xa;    }&#xa;&#xa;});"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>

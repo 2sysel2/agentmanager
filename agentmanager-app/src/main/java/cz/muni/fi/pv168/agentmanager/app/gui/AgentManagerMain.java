@@ -318,6 +318,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
         Missions.add(missionActionPanel, java.awt.BorderLayout.PAGE_START);
 
         missionTable.setModel(new MissionTableModel(texts));
+        missionTable.getColumn(missionTable.getColumnName(5)).setCellRenderer(new MissionOutcomeCellRenderer(bundle));
         jScrollPane3.setViewportView(missionTable);
 
         Missions.add(jScrollPane3, java.awt.BorderLayout.CENTER);
