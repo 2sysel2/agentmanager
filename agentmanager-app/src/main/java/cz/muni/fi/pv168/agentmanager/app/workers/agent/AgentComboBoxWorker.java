@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.agentmanager.app.workers.agent;
 
 import cz.muni.fi.pv168.agentmanager.app.gui.agent.AgentComboBoxModel;
-import cz.muni.fi.pv168.agentmanager.app.workers.mission.MissionTableModelWorker;
 import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import java.util.List;

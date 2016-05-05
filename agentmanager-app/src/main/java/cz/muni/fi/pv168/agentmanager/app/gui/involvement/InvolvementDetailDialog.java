@@ -8,6 +8,8 @@ import cz.muni.fi.pv168.agentmanager.app.workers.mission.MissionComboBoxWorker;
 import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 /**
  *
@@ -28,12 +30,40 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel();
         MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel();
         
-        involvementPanel1.setAgentComboBoxModel(agentComboBoxModel);
-        involvementPanel1.setMissionComboBoxModel(missionComboBoxModel);
+        involvementPanel1.getAgentComboBox().setModel(agentComboBoxModel);
+        involvementPanel1.getMissionComboBox().setModel(missionComboBoxModel);
         
         //load data
         new AgentComboBoxWorker(agentManager, agentComboBoxModel).execute();
         new MissionComboBoxWorker(missionManager, missionComboBoxModel).execute();
+        
+        involvementPanel1.getAgentComboBox().getModel().addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                involvementPanel1.getAgentComboBox().setSelectedItem(involvement.getAgent());
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) { }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) { }
+        });
+        
+        involvementPanel1.getMissionComboBox().getModel().addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                involvementPanel1.getMissionComboBox().setSelectedItem(involvement.getMission());
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) { }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) { }
+        });
     }
 
     /**
