@@ -105,6 +105,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     public void removeMission(Mission mission) {
         new MissionRemoveWorker(mission, missionManager, missionTableModel, this).execute();
+        disableMissionActionButtons();
     }
 
     public void createAgent(Agent agent) {
@@ -117,6 +118,7 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     public void removeAgent(Agent agent) {
         new AgentRemoveWorker(agent, agentManager, agentTableModel, this).execute();
+        disableAgentActionButtons();
     }
 
     public void createInvolvement(Involvement involvement) {
@@ -129,27 +131,27 @@ public class AgentManagerMain extends javax.swing.JFrame {
 
     public void removeInvolvement(Involvement involvement) {
         new InvolvementRemoveWorker(involvement, involvementManager, involvementTableModel, this).execute();
+        disableInvolvementActionButtons();
     }
 
-    /* TODO
-     private void disableAgentActionButtons() {
-     agentTable.clearSelection();
-     detailsAgentButton.setEnabled(false);
-     removeAgentButton.setEnabled(false);
-     }
+    private void disableAgentActionButtons() {
+        agentTable.clearSelection();
+        detailsAgentButton.setEnabled(false);
+        removeAgentButton.setEnabled(false);
+    }
 
-     private void disableMissionActionButtons() {
-     missionTable.clearSelection();
-     detailsMissionButton.setEnabled(false);
-     removeMissionButton.setEnabled(false);
-     }
+    private void disableMissionActionButtons() {
+        missionTable.clearSelection();
+        detailsMissionButton.setEnabled(false);
+        removeMissionButton.setEnabled(false);
+    }
 
-     private void disableInvolvementActionButtons() {
-     involvementTable.clearSelection();
-     detailsInvolvementButton.setEnabled(false);
-     removeInvolvementButton.setEnabled(false);
-     }
-     */
+    private void disableInvolvementActionButtons() {
+        involvementTable.clearSelection();
+        detailsInvolvementButton.setEnabled(false);
+        removeInvolvementButton.setEnabled(false);
+    }
+
     private void showCreateAgentDialog() {
         AgentCreateDialog agentCreateDialog = new AgentCreateDialog(this);
         agentCreateDialog.setVisible(true);
