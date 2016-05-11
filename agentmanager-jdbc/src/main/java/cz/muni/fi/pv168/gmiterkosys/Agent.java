@@ -164,7 +164,8 @@ public class Agent {
      */
     @Override
     public String toString() {
-        return "Agent [id=" + id + ", name=" + name + ", born=" + born + ", died=" + died + ", level=" + level + "]";
+        //return "Agent [id=" + id + ", name=" + name + ", born=" + born + ", died=" + died + ", level=" + level + "]";
+        return name;
     }
 
 }

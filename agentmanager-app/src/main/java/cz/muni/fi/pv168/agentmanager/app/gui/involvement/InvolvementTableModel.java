@@ -2,8 +2,11 @@ package cz.muni.fi.pv168.agentmanager.app.gui.involvement;
 
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.table.AbstractTableModel;
 
@@ -54,9 +57,9 @@ public class InvolvementTableModel extends AbstractTableModel {
             case 1:
                 return String.class;
             case 2:
-                return LocalDateTime.class;
+                return String.class;
             case 3:
-                return LocalDateTime.class;
+                return String.class;
             default:
                 throw new IllegalArgumentException("invalid index");
         }
@@ -78,15 +81,18 @@ public class InvolvementTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Involvement involvement = involvements.get(rowIndex);
+        
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.getDefault());
+        
         switch (columnIndex) {
             case 0:
                 return involvement.getMission().getCode();
             case 1:
                 return involvement.getAgent().getName();
             case 2:
-                return involvement.getStart();
+                return involvement.getStart() != null ? dateFormatter.format(involvement.getStart()) : "";
             case 3:
-                return involvement.getEnd();
+                return involvement.getEnd() != null ? dateFormatter.format(involvement.getEnd()) : "";
             default:
                 throw new IllegalArgumentException("invalid index");
         }

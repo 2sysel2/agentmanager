@@ -3,8 +3,11 @@ package cz.muni.fi.pv168.agentmanager.app.gui.mission;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
 import cz.muni.fi.pv168.gmiterkosys.Outcome;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.table.AbstractTableModel;
 
@@ -59,9 +62,9 @@ public class MissionTableModel extends AbstractTableModel {
             case 1:
                 return String.class;
             case 2:
-                return LocalDate.class;
+                return String.class;
             case 3:
-                return LocalDate.class;
+                return String.class;
             case 4:
                 return String.class;
             case 5:
@@ -89,15 +92,18 @@ public class MissionTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Mission mission = missions.get(rowIndex);
+        
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault());
+        
         switch (columnIndex) {
             case 0:
                 return mission.getCode();
             case 1:
                 return mission.getLocation();
             case 2:
-                return mission.getStart();
+                return mission.getStart() != null ? dateFormatter.format(mission.getStart()) : "";
             case 3:
-                return mission.getEnd();
+                return mission.getEnd() != null ? dateFormatter.format(mission.getEnd()) : "";
             case 4:
                 return mission.getObjective();
             case 5:

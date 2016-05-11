@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
 import javax.sql.DataSource;
+import org.apache.derby.jdbc.ClientDataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,39 +27,62 @@ public class AgentManagerApp {
      */
     public static void main(String args[]) {
 
-        DataSource dataSource = prepareDataSource();
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException e) {
-            log.error("Cannot set look and feel", e);
-        }
-        //</editor-fold>
+            DataSource dataSource = prepareDataSource();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new AgentManagerMain(dataSource).setVisible(true);
-        });
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException e) {
+                log.error("Cannot set look and feel", e);
+            }
+            //</editor-fold>
+
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(() -> {
+                new AgentManagerMain(dataSource).setVisible(true);
+            });
+        } catch (IOException e) {
+            log.error("Unable to load properties", e);
+            System.exit(1);
+        }
     }
 
-    private static DataSource prepareDataSource() {
-        EmbeddedDataSource dataSource = new EmbeddedDataSource();
-        dataSource.setDatabaseName("./database");
-        dataSource.setCreateDatabase("create");
+    private static DataSource prepareDataSource() throws IOException {
 
-        setUpDatabase(dataSource);
+        Properties properties = new Properties();
 
-        return dataSource;
+        properties.load(AgentManagerApp.class.getResourceAsStream("jdbc.properties"));
+
+        if (Boolean.valueOf(properties.getProperty("embeded", "true"))) {
+
+            EmbeddedDataSource dataSource = new EmbeddedDataSource();
+            dataSource.setDatabaseName("./database");
+            dataSource.setCreateDatabase("create");
+            setUpDatabase(dataSource);
+            return dataSource;
+        } else {
+
+            ClientDataSource dataSource = new ClientDataSource();
+            dataSource.setServerName(properties.getProperty("host"));
+            dataSource.setPortNumber(Integer.valueOf(properties.getProperty("port")));
+            dataSource.setDatabaseName(properties.getProperty("database"));
+            dataSource.setUser(properties.getProperty("user"));
+            dataSource.setPassword(properties.getProperty("password"));
+
+            setUpDatabase(dataSource);
+            return dataSource;
+        }
+
     }
 
     private static void setUpDatabase(DataSource dataSource) {

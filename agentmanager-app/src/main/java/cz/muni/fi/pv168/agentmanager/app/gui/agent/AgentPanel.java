@@ -32,11 +32,10 @@ public class AgentPanel extends javax.swing.JPanel {
      */
     public AgentPanel() {
         initComponents();
-        //TODO
-        /*System.out.println(((DateEditor)this.diedSpinner.getEditor()).getFormat().toPattern());
-         DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
-         ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");*/
 
+//         DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
+//         System.err.println(dfs.g);
+//         ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");
     }
 
     public String getAgentName() {

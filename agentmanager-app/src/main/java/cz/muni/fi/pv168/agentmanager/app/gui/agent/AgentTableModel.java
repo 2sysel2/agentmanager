@@ -2,8 +2,11 @@ package cz.muni.fi.pv168.agentmanager.app.gui.agent;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.table.AbstractTableModel;
 
@@ -52,9 +55,9 @@ public class AgentTableModel extends AbstractTableModel {
             case 0:
                 return String.class;
             case 1:
-                return LocalDate.class;
+                return String.class;
             case 2:
-                return LocalDate.class;
+                return String.class;
             case 3:
                 return Integer.class;
             default:
@@ -78,13 +81,16 @@ public class AgentTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Agent agent = agents.get(rowIndex);
+        
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault());
+        
         switch (columnIndex) {
             case 0:
                 return agent.getName();
             case 1:
-                return agent.getBorn();
+                return agent.getBorn() != null ? dateFormatter.format(agent.getBorn()) : "";
             case 2:
-                return agent.getDied();
+                return agent.getDied() != null ? dateFormatter.format(agent.getDied()) : "";
             case 3:
                 return agent.getLevel();
             default:
