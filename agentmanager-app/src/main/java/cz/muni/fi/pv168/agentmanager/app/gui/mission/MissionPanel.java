@@ -8,6 +8,10 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
@@ -15,7 +19,9 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  * @author xgmiterk
  */
 public class MissionPanel extends javax.swing.JPanel {
-
+    
+    public Boolean panelValid;
+    
     public void setMission(Mission mission) {
         this.codeTextField.setText(mission.getCode());
         this.locationTextField.setText(mission.getLocation());
@@ -30,32 +36,70 @@ public class MissionPanel extends javax.swing.JPanel {
      */
     public MissionPanel() {
         initComponents();
+        initChangesListeners();
     }
-
+    
     public String getMissionCode() {
         return codeTextField.getText();
     }
-
+    
     public String getMissionLocation() {
         return locationTextField.getText();
     }
-
+    
     public LocalDateTime getMissionStart() {
         Date date = (Date) startSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
-
+    
     public LocalDateTime getMissionEnd() {
         Date date = (Date) endSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
-
+    
     public String getMissionObjective() {
         return objectiveTextArea.getText();
     }
-
+    
     public Outcome getMissionOutcome() {
         return (Outcome) outcomeComboBox.getSelectedItem();
+    }
+    
+    public void checkPanelValidity() {
+        Boolean old = this.panelValid;
+        this.panelValid = codeTextField.getText() != null && !codeTextField.getText().isEmpty() &&
+                locationTextField.getText() != null && !locationTextField.getText().isEmpty() &&
+                objectiveTextArea.getText() != null && !objectiveTextArea.getText().isEmpty() &&
+                getMissionStart().isBefore(getMissionEnd());
+        firePropertyChange("panelValid", old, this.panelValid);
+    }
+    
+    public void initChangesListeners() {
+        DocumentListener documentListener = new DocumentListener() {
+            
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+            
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+            
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+        };
+        codeTextField.getDocument().addDocumentListener(documentListener);
+        locationTextField.getDocument().addDocumentListener(documentListener);
+        objectiveTextArea.getDocument().addDocumentListener(documentListener);
+        ChangeListener changeListener = (ChangeEvent e) -> {
+            checkPanelValidity();
+        };
+        startSpinner.addChangeListener(changeListener);
+        endSpinner.addChangeListener(changeListener);
     }
 
     /**

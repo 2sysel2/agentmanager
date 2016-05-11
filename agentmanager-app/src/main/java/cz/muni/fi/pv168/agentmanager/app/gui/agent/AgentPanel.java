@@ -10,12 +10,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
  * @author Jaromir Sys
  */
 public class AgentPanel extends javax.swing.JPanel {
+
+    public Boolean panelValid;
 
     public void setAgent(Agent agent) {
         this.nameTextField.setText(agent.getName());
@@ -32,10 +38,7 @@ public class AgentPanel extends javax.swing.JPanel {
      */
     public AgentPanel() {
         initComponents();
-
-//         DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
-//         System.err.println(dfs.g);
-//         ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");
+        initChangesListeners();
     }
 
     public String getAgentName() {
@@ -58,6 +61,38 @@ public class AgentPanel extends javax.swing.JPanel {
 
     public int getAgentLevel() {
         return (int) levelSpinner.getValue();
+    }
+
+    public void checkPanelValidity() {
+        Boolean old = this.panelValid;
+        this.panelValid = getAgentName() != null && !getAgentName().isEmpty() &&
+                (!diedCheckbox.isSelected() || (getAgentBorn().isBefore(getAgentDied())));
+        firePropertyChange("panelValid", old, this.panelValid);
+    }
+
+    public void initChangesListeners() {
+        nameTextField.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkPanelValidity();
+            }
+        });
+        ChangeListener changeListener = (ChangeEvent e) -> {
+            checkPanelValidity();
+        };
+        diedSpinner.addChangeListener(changeListener);
+        bornSpinner.addChangeListener(changeListener);
     }
 
     /**

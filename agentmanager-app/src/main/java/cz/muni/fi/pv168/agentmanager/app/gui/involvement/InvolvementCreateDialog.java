@@ -8,6 +8,7 @@ import cz.muni.fi.pv168.agentmanager.app.workers.mission.MissionComboBoxWorker;
 import cz.muni.fi.pv168.gmiterkosys.AgentManager;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.MissionManager;
+import java.beans.PropertyChangeEvent;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -27,6 +28,10 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     public InvolvementCreateDialog(java.awt.Frame parent, AgentManager agentManager, MissionManager missionManager) {
         super(parent, false);
         initComponents();
+        involvementPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
+            createInvolvementButton.setEnabled((Boolean) evt.getNewValue());
+        });
+        involvementPanel1.checkPanelValidity();
 
         AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel();
         MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel();

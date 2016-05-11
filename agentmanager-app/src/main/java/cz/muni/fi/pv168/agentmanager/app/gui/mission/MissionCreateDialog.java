@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.agentmanager.app.gui.mission;
 
 import cz.muni.fi.pv168.agentmanager.app.gui.AgentManagerMain;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.beans.PropertyChangeEvent;
 
 /**
  *
@@ -17,6 +18,10 @@ public class MissionCreateDialog extends javax.swing.JDialog {
     public MissionCreateDialog(java.awt.Frame parent) {
         super(parent, false);
         initComponents();
+        missionPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
+            createMissionButton.setEnabled((Boolean) evt.getNewValue());
+        });
+        missionPanel1.checkPanelValidity();
     }
 
     /**

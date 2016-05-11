@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.agentmanager.app.gui.agent;
 
 import cz.muni.fi.pv168.agentmanager.app.gui.AgentManagerMain;
 import cz.muni.fi.pv168.gmiterkosys.Agent;
+import java.beans.PropertyChangeEvent;
 
 /**
  *
@@ -17,6 +18,10 @@ public class AgentCreateDialog extends javax.swing.JDialog {
     public AgentCreateDialog(java.awt.Frame parent) {
         super(parent, false);
         initComponents();
+        agentPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
+            createAgentButton.setEnabled((Boolean) evt.getNewValue());
+        });
+        agentPanel1.checkPanelValidity();
     }
 
     /**

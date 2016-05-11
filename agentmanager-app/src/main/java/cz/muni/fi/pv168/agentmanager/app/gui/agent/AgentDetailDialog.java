@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.agentmanager.app.gui.involvement.InvolvementTableModel;
 import cz.muni.fi.pv168.agentmanager.app.workers.involvement.InvolvementByAgentTableModelWorker;
 import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
+import java.beans.PropertyChangeEvent;
 
 /**
  *
@@ -25,7 +26,11 @@ public class AgentDetailDialog extends javax.swing.JDialog {
         super(parent, false);
         initComponents();
         setAgent(agent);
-
+        
+        agentPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
+            updateAgentButton.setEnabled((Boolean) evt.getNewValue());
+        });
+        
         //load data
         new InvolvementByAgentTableModelWorker(agent, involvementManager, ((InvolvementTableModel) involvementsTable.getModel())).execute();
     }

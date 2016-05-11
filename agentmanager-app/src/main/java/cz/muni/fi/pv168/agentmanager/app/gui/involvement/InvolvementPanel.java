@@ -8,10 +8,14 @@ package cz.muni.fi.pv168.agentmanager.app.gui.involvement;
 import cz.muni.fi.pv168.gmiterkosys.Agent;
 import cz.muni.fi.pv168.gmiterkosys.Involvement;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -19,6 +23,8 @@ import javax.swing.JComboBox;
  */
 public class InvolvementPanel extends javax.swing.JPanel {
 
+    public Boolean panelValid;
+    
     private Involvement involvement;
 
     /**
@@ -26,6 +32,7 @@ public class InvolvementPanel extends javax.swing.JPanel {
      */
     public InvolvementPanel() {
         initComponents();
+        initChangesListeners();
     }
 
     public Agent getInvolvementAgent() {
@@ -63,6 +70,26 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         startSpinner.setValue(Date.from(involvement.getStart().atZone(ZoneId.systemDefault()).toInstant()));
         endSpinner.setValue(Date.from(involvement.getEnd().atZone(ZoneId.systemDefault()).toInstant()));
+    }
+    
+    public void checkPanelValidity() {
+        Boolean old = this.panelValid;
+        this.panelValid = agentComboBox.getSelectedItem() != null && missionComboBox.getSelectedItem() != null &&
+                getInvolvementStart().isBefore(getInvolvementEnd());
+        firePropertyChange("panelValid", old, this.panelValid);
+    }
+    
+    public void initChangesListeners() {
+        ItemListener itemListener = (ItemEvent e) -> {
+            checkPanelValidity();
+        };
+        agentComboBox.addItemListener(itemListener);
+        missionComboBox.addItemListener(itemListener);
+        ChangeListener changeListener = (ChangeEvent e) -> {
+            checkPanelValidity();
+        };
+        startSpinner.addChangeListener(changeListener);
+        endSpinner.addChangeListener(changeListener);
     }
 
     /**

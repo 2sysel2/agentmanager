@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.agentmanager.app.gui.involvement.InvolvementTableModel;
 import cz.muni.fi.pv168.agentmanager.app.workers.involvement.InvolvementByMissionTableModelWorker;
 import cz.muni.fi.pv168.gmiterkosys.InvolvementManager;
 import cz.muni.fi.pv168.gmiterkosys.Mission;
+import java.beans.PropertyChangeEvent;
 
 /**
  *
@@ -17,6 +18,10 @@ public class MissionDetailDialog extends javax.swing.JDialog {
     public MissionDetailDialog(java.awt.Frame parent, Mission mission, InvolvementManager involvementManager) {
         super(parent, false);
         initComponents();
+        missionPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
+            updateMissionButton.setEnabled((Boolean) evt.getNewValue());
+        });
+        
         setMission(mission);
 
         //load data
