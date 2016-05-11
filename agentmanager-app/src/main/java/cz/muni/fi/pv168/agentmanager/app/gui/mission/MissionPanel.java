@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
@@ -18,7 +16,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  */
 public class MissionPanel extends javax.swing.JPanel {
 
-    public void setMission(Mission mission){
+    public void setMission(Mission mission) {
         this.codeTextField.setText(mission.getCode());
         this.locationTextField.setText(mission.getLocation());
         this.startSpinner.setValue(Date.from(mission.getStart().atZone(ZoneId.systemDefault()).toInstant()));
@@ -26,38 +24,38 @@ public class MissionPanel extends javax.swing.JPanel {
         this.objectiveTextArea.setText(mission.getObjective());
         this.outcomeComboBox.setSelectedItem(mission.getOutcome());
     }
-    
+
     /**
      * Creates new form MissionPanel
      */
     public MissionPanel() {
         initComponents();
     }
-    
-    public String getMissionCode(){
+
+    public String getMissionCode() {
         return codeTextField.getText();
     }
-    
-    public String getMissionLocation(){
+
+    public String getMissionLocation() {
         return locationTextField.getText();
     }
-    
-    public LocalDateTime getMissionStart(){
-        Date date = (Date)startSpinner.getValue();
+
+    public LocalDateTime getMissionStart() {
+        Date date = (Date) startSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
-    
-    public LocalDateTime getMissionEnd(){
-        Date date = (Date)endSpinner.getValue();
+
+    public LocalDateTime getMissionEnd() {
+        Date date = (Date) endSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
-    
-    public String getMissionObjective(){
+
+    public String getMissionObjective() {
         return objectiveTextArea.getText();
     }
-    
-    public Outcome getMissionOutcome(){
-        return (Outcome)outcomeComboBox.getSelectedItem();
+
+    public Outcome getMissionOutcome() {
+        return (Outcome) outcomeComboBox.getSelectedItem();
     }
 
     /**
@@ -96,8 +94,6 @@ public class MissionPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
         codeLabel.setText(bundle.getString("mission.code")); // NOI18N
         codePanel.add(codeLabel);
-
-        codeTextField.setText("jTextField1");
         codePanel.add(codeTextField);
 
         add(codePanel);
@@ -106,8 +102,6 @@ public class MissionPanel extends javax.swing.JPanel {
 
         locationLabel.setText(bundle.getString("mission.location")); // NOI18N
         locationPanel.add(locationLabel);
-
-        locationTextField.setText("jTextField2");
         locationPanel.add(locationTextField);
 
         add(locationPanel);
@@ -165,7 +159,6 @@ public class MissionPanel extends javax.swing.JPanel {
 
         add(outcomePanel);
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codeLabel;

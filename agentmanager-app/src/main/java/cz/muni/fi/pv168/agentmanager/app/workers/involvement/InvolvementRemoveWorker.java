@@ -16,21 +16,21 @@ import org.slf4j.LoggerFactory;
  * @author Ienze
  */
 public class InvolvementRemoveWorker extends SwingWorker<Boolean, Void> {
-    
+
     private Logger log = LoggerFactory.getLogger(InvolvementRemoveWorker.class);
-    
+
     private Involvement involvement;
     private InvolvementManager involvementManager;
     private InvolvementTableModel involvementTableModel;
     private AgentManagerMain mainWindow;
-    
+
     public InvolvementRemoveWorker(Involvement involvement, InvolvementManager involvementManager, InvolvementTableModel involvementTableModel, AgentManagerMain mainWindow) {
         this.involvement = involvement;
         this.involvementManager = involvementManager;
         this.involvementTableModel = involvementTableModel;
         this.mainWindow = mainWindow;
     }
-    
+
     @Override
     protected Boolean doInBackground() throws Exception {
         try {
@@ -41,7 +41,7 @@ public class InvolvementRemoveWorker extends SwingWorker<Boolean, Void> {
         }
         return false;
     }
-    
+
     @Override
     protected void done() {
         try {
@@ -54,5 +54,5 @@ public class InvolvementRemoveWorker extends SwingWorker<Boolean, Void> {
             log.error("Error", e);
         }
     }
-    
+
 }

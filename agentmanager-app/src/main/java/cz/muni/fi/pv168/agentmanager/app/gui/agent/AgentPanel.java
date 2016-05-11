@@ -21,12 +21,12 @@ public class AgentPanel extends javax.swing.JPanel {
         this.nameTextField.setText(agent.getName());
         this.levelSpinner.setValue(agent.getLevel());
         this.bornSpinner.setValue(Date.from(agent.getBorn().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        if(agent.getDied()!= null){
+        if (agent.getDied() != null) {
             this.diedCheckbox.setSelected(true);
             this.diedSpinner.setValue(Date.from(agent.getDied().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         }
     }
-    
+
     /**
      * Creates new form AgentPanel
      */
@@ -34,31 +34,31 @@ public class AgentPanel extends javax.swing.JPanel {
         initComponents();
         //TODO
         /*System.out.println(((DateEditor)this.diedSpinner.getEditor()).getFormat().toPattern());
-        DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
-        ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");*/
-        
+         DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.forLanguageTag("cs_CZ"));
+         ((DateEditor)this.diedSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd HH:mm:ss");*/
+
     }
-    
-    public String getAgentName(){
+
+    public String getAgentName() {
         return nameTextField.getText();
     }
-    
-    public LocalDate getAgentBorn(){
-        Date date = (Date)bornSpinner.getValue();
+
+    public LocalDate getAgentBorn() {
+        Date date = (Date) bornSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
     }
-    
-    public LocalDate getAgentDied(){
-        if(diedCheckbox.isSelected()){
-            Date date = (Date)diedSpinner.getValue();
+
+    public LocalDate getAgentDied() {
+        if (diedCheckbox.isSelected()) {
+            Date date = (Date) diedSpinner.getValue();
             return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
-        }else{
+        } else {
             return null;
-        }   
+        }
     }
-    
-    public int getAgentLevel(){
-        return (int)levelSpinner.getValue();
+
+    public int getAgentLevel() {
+        return (int) levelSpinner.getValue();
     }
 
     /**
@@ -90,8 +90,6 @@ public class AgentPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
         nameLabel.setText(bundle.getString("agent.name")); // NOI18N
         namePanel.add(nameLabel);
-
-        nameTextField.setText("jTextField1");
         namePanel.add(nameTextField);
 
         add(namePanel);
@@ -137,14 +135,13 @@ public class AgentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diedCheckboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_diedCheckboxItemStateChanged
-        if(diedCheckbox.isSelected()){
+        if (diedCheckbox.isSelected()) {
             diedSpinner.setEnabled(true);
-        }else{
+        } else {
             diedSpinner.setEnabled(false);
         }
-        
-    }//GEN-LAST:event_diedCheckboxItemStateChanged
 
+    }//GEN-LAST:event_diedCheckboxItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bornLabel;

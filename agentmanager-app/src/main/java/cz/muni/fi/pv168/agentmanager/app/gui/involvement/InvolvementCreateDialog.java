@@ -27,7 +27,7 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
     public InvolvementCreateDialog(java.awt.Frame parent, AgentManager agentManager, MissionManager missionManager) {
         super(parent, false);
         initComponents();
-        
+
         AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel();
         MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel();
 
@@ -37,7 +37,7 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         //load data
         new AgentComboBoxWorker(agentManager, agentComboBoxModel).execute();
         new MissionComboBoxWorker(missionManager, missionComboBoxModel).execute();
-        
+
         involvementPanel1.getAgentComboBox().getModel().addListDataListener(new ListDataListener() {
 
             @Override
@@ -46,12 +46,14 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
             }
 
             @Override
-            public void intervalRemoved(ListDataEvent e) { }
+            public void intervalRemoved(ListDataEvent e) {
+            }
 
             @Override
-            public void contentsChanged(ListDataEvent e) { }
+            public void contentsChanged(ListDataEvent e) {
+            }
         });
-        
+
         involvementPanel1.getMissionComboBox().getModel().addListDataListener(new ListDataListener() {
 
             @Override
@@ -60,10 +62,12 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
             }
 
             @Override
-            public void intervalRemoved(ListDataEvent e) { }
+            public void intervalRemoved(ListDataEvent e) {
+            }
 
             @Override
-            public void contentsChanged(ListDataEvent e) { }
+            public void contentsChanged(ListDataEvent e) {
+            }
         });
     }
 

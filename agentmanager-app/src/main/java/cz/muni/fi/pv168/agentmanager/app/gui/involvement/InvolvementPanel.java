@@ -11,10 +11,7 @@ import cz.muni.fi.pv168.gmiterkosys.Mission;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 
 /**
  *
@@ -23,29 +20,29 @@ import javax.swing.event.ListDataListener;
 public class InvolvementPanel extends javax.swing.JPanel {
 
     private Involvement involvement;
-    
+
     /**
      * Creates new form InvolvementPanel
      */
     public InvolvementPanel() {
         initComponents();
     }
-    
-    public Agent getInvolvementAgent(){
-        return (Agent)agentComboBox.getSelectedItem();
+
+    public Agent getInvolvementAgent() {
+        return (Agent) agentComboBox.getSelectedItem();
     }
-    
-    public Mission getInvolvementMission(){
-        return (Mission)missionComboBox.getSelectedItem();
+
+    public Mission getInvolvementMission() {
+        return (Mission) missionComboBox.getSelectedItem();
     }
-    
-    public LocalDateTime getInvolvementStart(){
-        Date date = (Date)startSpinner.getValue();
+
+    public LocalDateTime getInvolvementStart() {
+        Date date = (Date) startSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
-    
-    public LocalDateTime getInvolvementEnd(){
-        Date date = (Date)endSpinner.getValue();
+
+    public LocalDateTime getInvolvementEnd() {
+        Date date = (Date) endSpinner.getValue();
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
@@ -56,14 +53,14 @@ public class InvolvementPanel extends javax.swing.JPanel {
     public JComboBox<String> getMissionComboBox() {
         return missionComboBox;
     }
-    
+
     public void setInvolvement(Involvement involvement) {
         this.involvement = involvement;
-        
+
         //try to set
         missionComboBox.setSelectedItem(involvement.getMission());
         agentComboBox.setSelectedItem(involvement.getAgent());
-        
+
         startSpinner.setValue(Date.from(involvement.getStart().atZone(ZoneId.systemDefault()).toInstant()));
         endSpinner.setValue(Date.from(involvement.getEnd().atZone(ZoneId.systemDefault()).toInstant()));
     }
@@ -133,7 +130,6 @@ public class InvolvementPanel extends javax.swing.JPanel {
 
         add(endPanel);
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> agentComboBox;

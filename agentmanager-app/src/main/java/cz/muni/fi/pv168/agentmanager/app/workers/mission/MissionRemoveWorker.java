@@ -15,21 +15,21 @@ import org.slf4j.LoggerFactory;
  * @author Ienze
  */
 public class MissionRemoveWorker extends SwingWorker<Boolean, Void> {
-    
+
     private Logger log = LoggerFactory.getLogger(MissionRemoveWorker.class);
-    
+
     private Mission mission;
     private MissionManager missionManager;
     private MissionTableModel missionTableModel;
     private AgentManagerMain mainWindow;
-    
+
     public MissionRemoveWorker(Mission mission, MissionManager missionManager, MissionTableModel missionTableModel, AgentManagerMain mainWindow) {
         this.mission = mission;
         this.missionManager = missionManager;
         this.missionTableModel = missionTableModel;
         this.mainWindow = mainWindow;
     }
-    
+
     @Override
     protected Boolean doInBackground() throws Exception {
         try {
@@ -40,7 +40,7 @@ public class MissionRemoveWorker extends SwingWorker<Boolean, Void> {
         }
         return false;
     }
-    
+
     @Override
     protected void done() {
         try {
@@ -53,5 +53,5 @@ public class MissionRemoveWorker extends SwingWorker<Boolean, Void> {
             log.error("Error", e);
         }
     }
-    
+
 }

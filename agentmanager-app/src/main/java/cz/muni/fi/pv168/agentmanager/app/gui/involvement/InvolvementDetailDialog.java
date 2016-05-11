@@ -26,17 +26,17 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         super(parent, false);
         initComponents();
         setInvolvement(involvement);
-        
+
         AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel();
         MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel();
-        
+
         involvementPanel1.getAgentComboBox().setModel(agentComboBoxModel);
         involvementPanel1.getMissionComboBox().setModel(missionComboBoxModel);
-        
+
         //load data
         new AgentComboBoxWorker(agentManager, agentComboBoxModel).execute();
         new MissionComboBoxWorker(missionManager, missionComboBoxModel).execute();
-        
+
         involvementPanel1.getAgentComboBox().getModel().addListDataListener(new ListDataListener() {
 
             @Override
@@ -45,12 +45,14 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
             }
 
             @Override
-            public void intervalRemoved(ListDataEvent e) { }
+            public void intervalRemoved(ListDataEvent e) {
+            }
 
             @Override
-            public void contentsChanged(ListDataEvent e) { }
+            public void contentsChanged(ListDataEvent e) {
+            }
         });
-        
+
         involvementPanel1.getMissionComboBox().getModel().addListDataListener(new ListDataListener() {
 
             @Override
@@ -59,10 +61,12 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
             }
 
             @Override
-            public void intervalRemoved(ListDataEvent e) { }
+            public void intervalRemoved(ListDataEvent e) {
+            }
 
             @Override
-            public void contentsChanged(ListDataEvent e) { }
+            public void contentsChanged(ListDataEvent e) {
+            }
         });
     }
 
@@ -127,7 +131,7 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         involvement.setMission(involvementPanel1.getInvolvementMission());
         involvement.setStart(involvementPanel1.getInvolvementStart());
         involvement.setEnd(involvementPanel1.getInvolvementEnd());
-        
+
         getMainWindow().updateInvolvement(involvement);
         close();
     }//GEN-LAST:event_updateInvolvementButtonActionPerformed
@@ -154,7 +158,7 @@ public class InvolvementDetailDialog extends javax.swing.JDialog {
         this.involvement = involvement;
         involvementPanel1.setInvolvement(involvement);
     }
-    
+
     private AgentManagerMain getMainWindow() {
         return (AgentManagerMain) getParent();
     }

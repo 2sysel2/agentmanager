@@ -23,7 +23,7 @@ public class AgentManagerApp {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         DataSource dataSource = prepareDataSource();
 
         /* Set the Nimbus look and feel */
@@ -69,7 +69,7 @@ public class AgentManagerApp {
                     + "died DATE,"
                     + "\"level\" SMALLINT"
                     + ")").execute();
- 
+
             connection.prepareStatement("CREATE TABLE mission ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
                     + "code VARCHAR(255),"
@@ -80,7 +80,7 @@ public class AgentManagerApp {
                     + "outcome VARCHAR(255)"
                     + ")").execute();
 
-                connection.prepareStatement("CREATE TABLE involvement ("
+            connection.prepareStatement("CREATE TABLE involvement ("
                     + "id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
                     + "agent BIGINT,"
                     + "mission BIGINT,"

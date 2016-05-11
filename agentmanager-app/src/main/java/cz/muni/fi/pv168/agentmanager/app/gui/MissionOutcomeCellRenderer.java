@@ -8,23 +8,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Dominik Gmiterko
  */
-public class MissionOutcomeCellRenderer extends DefaultTableCellRenderer{
+public class MissionOutcomeCellRenderer extends DefaultTableCellRenderer {
 
     private ResourceBundle texty;
 
     public MissionOutcomeCellRenderer(ResourceBundle texty) {
         this.texty = texty;
     }
-    
+
     @Override
     protected void setValue(Object value) {
-        if(value == null) {
+        if (value == null) {
             setText("");
             return;
         }
-        setText( texty.getString("outcome."+((Outcome) value).name().toLowerCase()) );
+        setText(texty.getString("outcome." + ((Outcome) value).name().toLowerCase()));
     }
-
-    
 
 }

@@ -33,10 +33,14 @@ public class InvolvementTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
-            case 0: return texts.getString("involvement.mission");
-            case 1: return texts.getString("involvement.agent");
-            case 2: return texts.getString("involvement.start");
-            case 3: return texts.getString("involvement.end");
+            case 0:
+                return texts.getString("involvement.mission");
+            case 1:
+                return texts.getString("involvement.agent");
+            case 2:
+                return texts.getString("involvement.start");
+            case 3:
+                return texts.getString("involvement.end");
             default:
                 throw new IllegalArgumentException("invalid index");
         }
@@ -45,10 +49,14 @@ public class InvolvementTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
-            case 0: return String.class;
-            case 1: return String.class;
-            case 2: return LocalDateTime.class;
-            case 3: return LocalDateTime.class;
+            case 0:
+                return String.class;
+            case 1:
+                return String.class;
+            case 2:
+                return LocalDateTime.class;
+            case 3:
+                return LocalDateTime.class;
             default:
                 throw new IllegalArgumentException("invalid index");
         }
@@ -71,10 +79,14 @@ public class InvolvementTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Involvement involvement = involvements.get(rowIndex);
         switch (columnIndex) {
-            case 0: return involvement.getMission().getCode();
-            case 1: return involvement.getAgent().getName();
-            case 2: return involvement.getStart();
-            case 3: return involvement.getEnd();
+            case 0:
+                return involvement.getMission().getCode();
+            case 1:
+                return involvement.getAgent().getName();
+            case 2:
+                return involvement.getStart();
+            case 3:
+                return involvement.getEnd();
             default:
                 throw new IllegalArgumentException("invalid index");
         }
@@ -88,8 +100,8 @@ public class InvolvementTableModel extends AbstractTableModel {
     public Involvement getInvolvement(int selectedRow) {
         return involvements.get(selectedRow);
     }
-    
-    public void removeInvolvement(Involvement involvement){
+
+    public void removeInvolvement(Involvement involvement) {
         int row = involvements.indexOf(involvement);
         involvements.remove(row);
         fireTableRowsDeleted(row, row);
@@ -99,7 +111,7 @@ public class InvolvementTableModel extends AbstractTableModel {
         int row = involvements.indexOf(involvement);
         fireTableRowsUpdated(row, row);
     }
-    
+
     public void clear() {
         involvements.clear();
     }
