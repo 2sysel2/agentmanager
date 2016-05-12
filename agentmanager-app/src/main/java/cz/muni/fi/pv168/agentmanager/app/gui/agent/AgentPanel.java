@@ -6,10 +6,12 @@
 package cz.muni.fi.pv168.agentmanager.app.gui.agent;
 
 import cz.muni.fi.pv168.gmiterkosys.Agent;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -134,8 +136,10 @@ public class AgentPanel extends javax.swing.JPanel {
         bornPanel.add(bornLabel);
 
         bornSpinner.setModel(new javax.swing.SpinnerDateModel());
-        bornSpinner.setToolTipText("");
         //((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd");
+        //((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern(new SimpleDateFormat().toLocalizedPattern());
+        System.out.println(new SimpleDateFormat().toLocalizedPattern());
+        bornSpinner.setToolTipText("");
         bornPanel.add(bornSpinner);
 
         add(bornPanel);
