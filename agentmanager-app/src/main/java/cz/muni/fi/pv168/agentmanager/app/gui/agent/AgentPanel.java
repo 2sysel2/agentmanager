@@ -136,9 +136,6 @@ public class AgentPanel extends javax.swing.JPanel {
         bornPanel.add(bornLabel);
 
         bornSpinner.setModel(new javax.swing.SpinnerDateModel());
-        //((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern("yyyy-MM-dd");
-        //((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern(new SimpleDateFormat().toLocalizedPattern());
-        System.out.println(new SimpleDateFormat().toLocalizedPattern());
         bornSpinner.setToolTipText("");
         bornPanel.add(bornSpinner);
 

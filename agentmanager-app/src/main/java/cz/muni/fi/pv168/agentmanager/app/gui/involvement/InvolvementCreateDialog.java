@@ -99,7 +99,8 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createInvolvementButton.setText("Create");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        createInvolvementButton.setText(bundle.getString("action.create")); // NOI18N
         createInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createInvolvementButtonActionPerformed(evt);
@@ -107,7 +108,7 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         });
         actionPanel.add(createInvolvementButton);
 
-        cancelInvolvementButton.setText("Cancel");
+        cancelInvolvementButton.setText(bundle.getString("action.cancel")); // NOI18N
         cancelInvolvementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelInvolvementButtonActionPerformed(evt);

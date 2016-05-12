@@ -47,7 +47,8 @@ public class AgentCreateDialog extends javax.swing.JDialog {
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createAgentButton.setText("Create");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        createAgentButton.setText(bundle.getString("action.create")); // NOI18N
         createAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createAgentButtonActionPerformed(evt);
@@ -55,7 +56,7 @@ public class AgentCreateDialog extends javax.swing.JDialog {
         });
         actionPanel.add(createAgentButton);
 
-        cancelAgentButton.setText("Cancel");
+        cancelAgentButton.setText(bundle.getString("action.cancel")); // NOI18N
         cancelAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelAgentButtonActionPerformed(evt);

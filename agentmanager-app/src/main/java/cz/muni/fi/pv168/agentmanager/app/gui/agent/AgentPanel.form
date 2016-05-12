@@ -52,7 +52,7 @@
         </Component>
         <Component class="javax.swing.JSpinner" name="bornSpinner">
           <Properties>
-            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor" postCode="//((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern(&quot;yyyy-MM-dd&quot;);&#xa;//((DateEditor)bornSpinner.getEditor()).getFormat().applyPattern(new SimpleDateFormat().toLocalizedPattern());&#xa;System.out.println(new SimpleDateFormat().toLocalizedPattern());">
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="now" stepSize="5" type="date"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
