@@ -47,7 +47,8 @@ public class MissionCreateDialog extends javax.swing.JDialog {
 
         actionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        createMissionButton.setText("Create");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/muni/fi/pv168/agentmanager/app/Texts"); // NOI18N
+        createMissionButton.setText(bundle.getString("action.create")); // NOI18N
         createMissionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createMissionButtonActionPerformed(evt);
@@ -55,7 +56,7 @@ public class MissionCreateDialog extends javax.swing.JDialog {
         });
         actionPanel.add(createMissionButton);
 
-        cancelMissionButton.setText("Cancel");
+        cancelMissionButton.setText(bundle.getString("action.cancel")); // NOI18N
         cancelMissionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelMissionButtonActionPerformed(evt);
