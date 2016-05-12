@@ -31,13 +31,14 @@ public class InvolvementCreateDialog extends javax.swing.JDialog {
         involvementPanel1.addPropertyChangeListener("panelValid", (PropertyChangeEvent evt) -> {
             createInvolvementButton.setEnabled((Boolean) evt.getNewValue());
         });
-        involvementPanel1.checkPanelValidity();
-
+        
         AgentComboBoxModel agentComboBoxModel = new AgentComboBoxModel();
         MissionComboBoxModel missionComboBoxModel = new MissionComboBoxModel();
 
         involvementPanel1.getAgentComboBox().setModel(agentComboBoxModel);
         involvementPanel1.getMissionComboBox().setModel(missionComboBoxModel);
+        
+        involvementPanel1.checkPanelValidity();
 
         //load data
         new AgentComboBoxWorker(agentManager, agentComboBoxModel).execute();
